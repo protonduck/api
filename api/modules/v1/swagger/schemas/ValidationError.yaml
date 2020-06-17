@@ -1,0 +1,13 @@
+ValidationError:
+  properties:
+    field:
+      description: Filed name
+      type: string
+      example: 'field_name'
+    message:
+      description: Error message
+      type: string
+      example: 'field_name is required'
+  type: object
+  xml:
+    name: ValidationError

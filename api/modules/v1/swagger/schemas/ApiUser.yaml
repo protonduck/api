@@ -1,0 +1,45 @@
+ApiUser:
+  properties:
+    id:
+      description: ID
+      type: integer
+      example: 1
+    login:
+      description: Login
+      type: string
+      example: user
+    first_name:
+      description: First name
+      type: string
+      example: John
+    last_name:
+      description: Last name
+      type: string
+      example: Dow
+    middle_name:
+      description: Middle name
+      type: string
+      example: Esquire
+    phone:
+      description: Phone
+      type: string
+      example: +5 555 555 55 55
+    country:
+      description: Country
+      type: string
+      example: Russia
+    language:
+      description: Language
+      type: string
+      example: ru
+    group_id:
+      description: Group id
+      type: string
+      example: 123
+    external_id:
+      description: External user id
+      type: string
+      example: 'vk-user-123'
+  type: object
+  xml:
+    name: ApiUser

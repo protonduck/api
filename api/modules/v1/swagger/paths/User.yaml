@@ -1,0 +1,203 @@
+/user/login:
+  post:
+    tags:
+      - User
+    summary: Get api_key
+    requestBody:
+      description: Params/values
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              login:
+                description: Login
+                type: string
+                example: user
+              password:
+                description: Password
+                type: string
+                example: pass
+    responses:
+      '200':
+        description: Successful operation
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                api_key:
+                  description: API-key
+                  type: string
+                  example: WeqmmCX2W1KRURlQI8LEi2dA8OaKadzc
+      '422':
+        description: Data Validation Failed
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/ValidationError'
+/user/signup:
+  post:
+    tags:
+      - User
+    summary: Register new user
+    requestBody:
+      description: Params/values
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - login
+              - password
+              - first_name
+              - phone
+              - country
+              - language
+            properties:
+              login:
+                required: true
+                description: Login
+                type: string
+                example: user
+              password:
+                required: true
+                description: Password
+                type: string
+                example: pass
+              first_name:
+                description: First name
+                type: string
+                example: John
+              last_name:
+                description: Last name
+                type: string
+                example: Dow
+              middle_name:
+                description: Middle name
+                type: string
+                example: Esquire
+              phone:
+                description: Phone
+                required: true
+                type: string
+                example: '+5 555 555 55 55'
+              email:
+                description: Email
+                required: true
+                type: string
+                example: example@mail.com
+              country:
+                description: Country
+                type: string
+                example: Russia
+              language:
+                description: Language
+                type: string
+                example: ru
+    responses:
+      '200':
+        description: Successful operation
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiUser'
+      '422':
+        description: Data Validation Failed
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/ValidationError'
+/user/{id}:
+  get:
+    tags:
+      - User
+    summary: View user profile
+    security:
+      - bearerAuth: []
+    parameters:
+      - name: id
+        in: path
+        description: User id
+        required: true
+        schema:
+          type: integer
+    responses:
+      '200':
+        description: User profile
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiUser'
+      '404':
+        description: Not found
+  put:
+    tags:
+      - User
+    summary: Update user profile
+    security:
+      - bearerAuth: []         # use the same name as above
+    parameters:
+      - name: id
+        in: path
+        description: User id
+        required: true
+        schema:
+          type: integer
+    requestBody:
+      description: Params/values
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - login
+              - first_name
+              - phone
+              - country
+              - language
+            properties:
+              first_name:
+                description: First name
+                type: string
+                example: John
+              last_name:
+                description: Last name
+                type: string
+                example: Dow
+              middle_name:
+                description: Middle name
+                type: string
+                example: Esquire
+              phone:
+                description: Phone
+                required: true
+                type: string
+                example: '+5 555 555 55 55'
+              country:
+                description: Country
+                type: string
+                example: Russia
+              language:
+                description: Language
+                type: string
+                example: ru
+    responses:
+      '204':
+        description: Profile updated
+      '400':
+        description: Body is empty
+      '404':
+        description: Not found
+      '422':
+        description: Data Validation Failed
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/ValidationError'

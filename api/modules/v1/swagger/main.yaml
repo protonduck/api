@@ -1,0 +1,14 @@
+openapi: 3.0.0
+info:
+  title: REST API
+  version: "1.0"
+servers:
+- url: generated
+  description: REST API host
+paths:
+components:
+  schemas:
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer

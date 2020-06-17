@@ -1,0 +1,7 @@
+Language:
+  description: Language code
+  type: string
+  example: en
+  enum:
+    - en
+    - ru
