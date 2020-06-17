@@ -1,0 +1,40 @@
+version: '3.7'
+
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - ./:/var/www
+      - db_data:/var/lib/mysql
+      - ./docker/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - "3386:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: bookmarks
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+  nginx:
+    depends_on:
+      - php
+    image: nginx:latest
+    ports:
+      - "8025:80"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./docker/nginx/logs:/var/log/nginx/
+  php:
+    build:
+      context: docker/php
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    volumes:
+      - ./:/var/www
+    environment:
+      COMPOSER_ALLOW_SUPERUSER: 1
+      XDEBUG_CONFIG: remote_host=192.168.1.6
+      PHP_IDE_CONFIG: "serverName=bookmarks.local"
+volumes:
+  db_data:
