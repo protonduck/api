@@ -35,6 +35,8 @@ use common\enums\UserStatus;
  */
 class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
+    const SCENARIO_ADMIN = 'admin';
+
     /**
      * {@inheritdoc}
      */
@@ -48,8 +50,11 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public function scenarios()
     {
+        $default = ['name', 'language'];
+
         return [
-            parent::SCENARIO_DEFAULT => ['name', 'email'],
+            static::SCENARIO_DEFAULT => $default,
+            static::SCENARIO_ADMIN => array_merge($default, ['email', 'premium_until', 'status', 'role']),
         ];
     }
 
@@ -190,6 +195,16 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
+    }
+
+    /**
+     * Boards relation
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBoards()
+    {
+        return $this->hasMany(Board::class, ['user_id' => 'id'])->inverseOf('user');
     }
 
     /**
