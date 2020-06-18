@@ -1,49 +1,55 @@
 <?php
+
 namespace common\models;
 
+use common\enums\Language;
 use Yii;
-use yii\base\NotSupportedException;
-use yii\behaviors\TimestampBehavior;
-use yii\db\ActiveRecord;
+use yii\helpers\Html;
 use yii\web\IdentityInterface;
+use common\components\behaviors\TimestampBehavior;
+use common\enums\UserRole;
+use common\enums\UserStatus;
 
 /**
- * User model
+ * This is the model class for table "users".
  *
- * @property integer $id
- * @property string $username
- * @property string $password_hash
- * @property string $password_reset_token
- * @property string $verification_token
+ * @property int $id
+ * @property string $name
  * @property string $email
- * @property string $auth_key
+ * @property string|null $new_email
+ * @property string $password_hash
+ * @property string|null $premium_until
+ * @property string $language
  * @property integer $status
- * @property integer $created_at
- * @property integer $updated_at
- * @property string $password write-only password
+ * @property string $role
+ * @property string $auth_key
+ * @property string $api_key
+ * @property string $created_at
+ * @property string $updated_at
+ *
+ * getters
+ * @property-read string $fName     HTML-encoded name
+ *
+ * setters
+ * @property-write string $password write-only password
  */
-class User extends ActiveRecord implements IdentityInterface
+class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
-    const STATUS_DELETED = 0;
-    const STATUS_INACTIVE = 9;
-    const STATUS_ACTIVE = 10;
-
-
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return '{{%user}}';
+        return '{{%users}}';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function behaviors()
+    public function scenarios()
     {
         return [
-            TimestampBehavior::className(),
+            parent::SCENARIO_DEFAULT => ['name', 'email'],
         ];
     }
 
@@ -53,8 +59,24 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_INACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
+            // required
+            [['name', 'email'], 'required'],
+            // string max
+            [['name', 'email', 'new_email'], 'string', 'max' => 255],
+            // string length
+            [['auth_key', 'api_key'], 'string', 'length' => 32],
+            // email
+            [['email', 'new_email'], 'email'],
+            // uniqeue
+            [['email'], 'unique'],
+            [['auth_key'], 'unique'],
+            [['api_key'], 'unique'],
+            // range
+            [['status'], 'in', 'range' => UserStatus::getKeys()],
+            [['role'], 'in', 'range' => UserRole::getKeys()],
+            [['language_id'], 'in', 'range' => Language::getKeys()],
+            // default
+            [['language'], 'default', 'value' => Language::getDefault()],
         ];
     }
 
@@ -63,7 +85,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+        return static::find()->where(['id' => $id])->active()->one();
     }
 
     /**
@@ -71,66 +93,19 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+        return static::find()->where(['api_key' => $token])->active()->one();
     }
 
     /**
      * Finds user by username
      *
      * @param string $username
+     *
      * @return static|null
      */
     public static function findByUsername($username)
     {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
-    }
-
-    /**
-     * Finds user by password reset token
-     *
-     * @param string $token password reset token
-     * @return static|null
-     */
-    public static function findByPasswordResetToken($token)
-    {
-        if (!static::isPasswordResetTokenValid($token)) {
-            return null;
-        }
-
-        return static::findOne([
-            'password_reset_token' => $token,
-            'status' => self::STATUS_ACTIVE,
-        ]);
-    }
-
-    /**
-     * Finds user by verification email token
-     *
-     * @param string $token verify email token
-     * @return static|null
-     */
-    public static function findByVerificationToken($token) {
-        return static::findOne([
-            'verification_token' => $token,
-            'status' => self::STATUS_INACTIVE
-        ]);
-    }
-
-    /**
-     * Finds out if password reset token is valid
-     *
-     * @param string $token password reset token
-     * @return bool
-     */
-    public static function isPasswordResetTokenValid($token)
-    {
-        if (empty($token)) {
-            return false;
-        }
-
-        $timestamp = (int) substr($token, strrpos($token, '_') + 1);
-        $expire = Yii::$app->params['user.passwordResetTokenExpire'];
-        return $timestamp + $expire >= time();
+        return static::find()->where(['email' => $username])->active()->one();
     }
 
     /**
@@ -161,6 +136,7 @@ class User extends ActiveRecord implements IdentityInterface
      * Validates password
      *
      * @param string $password password to validate
+     *
      * @return bool if password provided is valid for current user
      */
     public function validatePassword($password)
@@ -187,26 +163,61 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Generates new password reset token
+     * Generates API authentication key
      */
-    public function generatePasswordResetToken()
+    public function generateApiKey()
     {
-        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+        $this->api_key = Yii::$app->security->generateRandomString();
     }
 
     /**
-     * Generates new token for email verification
+     * {@inheritdoc}
      */
-    public function generateEmailVerificationToken()
+    public function attributeLabels()
     {
-        $this->verification_token = Yii::$app->security->generateRandomString() . '_' . time();
+        return [
+            'id' => 'ID',
+            'name' => 'Name',
+            'email' => 'Email',
+            'new_email' => 'New Email',
+            'password_hash' => 'Password Hash',
+            'premium_until' => 'Premium Until',
+            'language' => 'Language',
+            'status' => 'Status',
+            'role' => 'Role',
+            'auth_key' => 'Auth Key',
+            'api_key' => 'API Key',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
+        ];
     }
 
     /**
-     * Removes password reset token
+     * {@inheritdoc}
      */
-    public function removePasswordResetToken()
+    public function behaviors()
     {
-        $this->password_reset_token = null;
+        return [
+            TimestampBehavior::class,
+        ];
+    }
+
+    /**
+     * Return HTML-encoded name
+     *
+     * @return string
+     */
+    public function getFName()
+    {
+        return Html::encode($this->name);
+    }
+
+    /**
+     * {@inheritdoc}
+     * @return \common\models\query\UserQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new \common\models\query\UserQuery(get_called_class());
     }
 }

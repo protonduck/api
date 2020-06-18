@@ -37,7 +37,7 @@ class UserHelper
      */
     public static function isModerator($userId = null)
     {
-        return static::can(UserRole::MODERATOR, $userId);
+        return static::can(UserRole::ADMIN, $userId);
     }
 
     /**

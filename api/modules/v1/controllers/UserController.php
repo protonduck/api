@@ -64,7 +64,7 @@ class UserController extends ApiController
 
         $user = Yii::$app->user;
 
-        if ($user->id !== $model->id && !$user->can(UserRole::MODERATOR)) {
+        if ($user->id !== $model->id && !$user->can(UserRole::ADMIN)) {
             throw new ForbiddenHttpException('Access denied');
         }
 

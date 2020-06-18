@@ -38,34 +38,15 @@ docker-compose exec php /bin/bash
 docker-compose down
 ```
 
-#### Install all dependencies via Composer
+#### Add new hosts to your `hosts` File:
 
-```
-composer install
-```
-
-#### Initialize Environment
-
-```
-php init --env=Development
-```
-
-#### Apply migrations
-
-Setup Database with Host: localhost, Post: 3386, Username: user and Password: pass
-
-```
-php yii migrate
-```
-
-Add new hosts to your `hosts` File:
 ```
 127.0.0.1 bookmarks.local
 127.0.0.1 admin.bookmarks.local
 127.0.0.1 api.bookmarks.local
 ```
 
-#### Dev links
+#### Development links
 
 ```
 Frontend: http://bookmarks.local:8025
@@ -74,9 +55,11 @@ API enpoint: http://api.bookmarks.local:8025
 API docs: http://api.bookmarks.local:8025/v1/docs
 ```
 
-#### Note for PHPStorm:
+#### Install all dependencies via Composer
 
-Mark the file `"/vendor/yiisoft/yii2/Yii.php"` as plain text (right-click "Mark as Plain Text").
+```
+composer install
+```
 
 #### Install all dependencies via NPM
 
@@ -96,6 +79,28 @@ or
 npm run frontend-dev
 npm run backend-dev
 ```
+
+#### Initialize Environment
+
+```
+php init --env=Development
+```
+
+#### Apply migrations
+
+Setup Database with Host: localhost, Post: 3386, Username: user and Password: pass
+
+```
+php yii migrate
+```
+
+#### Note for PHPStorm:
+
+Mark the file `"/vendor/yiisoft/yii2/Yii.php"` as plain text (right-click "Mark as Plain Text").
+
+### Console commands
+
+- `php yii user/create` - register new User
 
 ## License
 
