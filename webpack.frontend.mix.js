@@ -5,9 +5,9 @@ const mix = require('laravel-mix');
  */
 
 mix
-    .setResourceRoot('frontend/web')
+    .setResourceRoot('frontend/resources')
     .setPublicPath('frontend/web')
-    .js('frontend/web/resources/js/app.js', 'frontend/web/js')
-    .sass('frontend/web/resources/sass/app.scss', 'frontend/web/css')
-    .sass('frontend/web/resources/sass/site.scss', 'frontend/web/css');
+    .js('frontend/resources/js/app.js', 'frontend/web/js')
+    .sass('frontend/resources/sass/app.scss', 'frontend/web/css')
+    .sass('frontend/resources/sass/site.scss', 'frontend/web/css');
 

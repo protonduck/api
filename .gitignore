@@ -43,12 +43,4 @@ phpunit.phar
 /backend/web/robots.txt
 
 # laravel mix
-node_modules
-frontend/web/css
-frontend/web/js
-frontend/web/fonts
-frontend/web/mix-manifest.json
-backend/web/css
-backend/web/js
-backend/web/fonts
-backend/web/mix-manifest.json
+/node_modules

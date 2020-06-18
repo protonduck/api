@@ -6,13 +6,8 @@
     "frontend-watch": "cross-env process.env.section=frontend NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "frontend-prod": "npm run frontend-production",
     "frontend-production": "cross-env process.env.section=frontend NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "backend-dev": "npm run backend-development",
-    "backend-development": "cross-env process.env.section=backend NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "backend-watch": "cross-env process.env.section=backend NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "backend-prod": "npm run backend-production",
-    "backend-production": "cross-env process.env.section=backend NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "dev": "npm run frontend-dev && npm run backend-dev",
-    "prod": "npm run frontend-prod && npm run backend-prod"
+    "dev": "npm run frontend-dev",
+    "prod": "npm run frontend-prod"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
@@ -22,6 +17,7 @@
     "lodash": "^4.17.13",
     "resolve-url-loader": "^3.1.0",
     "sass": "^1.15.2",
+    "sass-loader": "^8.0.2",
     "vue": "^2.5.17",
     "vue-template-compiler": "^2.6.10"
   }
