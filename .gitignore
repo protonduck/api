@@ -44,3 +44,4 @@ phpunit.phar
 
 # laravel mix
 /node_modules
+/frontend/web/mix-manifest.json
