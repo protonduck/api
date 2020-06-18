@@ -40,7 +40,7 @@ class CategorySearch extends Category
      */
     public function search($params)
     {
-        $query = Category::find();
+        $query = Category::find()->with(['board']);
 
         // add conditions that should always apply here
 

@@ -40,7 +40,7 @@ class LinkSearch extends Link
      */
     public function search($params)
     {
-        $query = Link::find();
+        $query = Link::find()->with(['category', 'domain']);
 
         // add conditions that should always apply here
 
