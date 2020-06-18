@@ -4,6 +4,8 @@ namespace api\models;
 
 use api\modules\v1\models\ApiUser;
 use common\enums\Language;
+use common\enums\UserStatus;
+use common\models\SecureKey;
 use Yii;
 use yii\base\Model;
 use common\models\User;
@@ -13,14 +15,9 @@ use common\models\User;
  */
 class SignupForm extends Model
 {
-    public $login;
-    public $password;
+    public $name;
     public $email;
-    public $first_name;
-    public $last_name;
-    public $middle_name;
-    public $phone;
-    public $country;
+    public $password;
     public $language;
 
     /**
@@ -30,23 +27,23 @@ class SignupForm extends Model
     {
         return [
             // required
-            [['login', 'phone', 'country', 'language', 'first_name', 'password', 'email'], 'required'],
+            [['name', 'password', 'email'], 'required'],
             // string
-            [['login', 'first_name', 'last_name', 'middle_name', 'email', 'phone', 'country'], 'string', 'max' => 255],
+            [['name', 'email'], 'string', 'max' => 255],
             [['password'], 'string', 'min' => 6],
             // range
             [['language'], 'in', 'range' => Language::getKeys()],
             // unique
-            [['login'], 'unique', 'targetClass' => User::class, 'targetAttribute' => 'login'],
             [['email'], 'unique', 'targetClass' => User::class, 'targetAttribute' => 'email'],
-            [['phone'], 'unique', 'targetClass' => User::class, 'targetAttribute' => 'phone'],
+            // default
+            [['language'], 'default', 'value' => Language::getDefault()],
         ];
     }
 
     /**
      * Signs user up.
      *
-     * @return array|$this|ApiUser
+     * @return $this|ApiUser
      */
     public function signup()
     {
@@ -55,43 +52,50 @@ class SignupForm extends Model
         }
 
         $user = new ApiUser();
-        $user->login = $this->login;
-        $user->setPassword($this->password);
+        $user->name = $this->name;
         $user->email = $this->email;
-        $user->first_name = $this->first_name;
-        $user->last_name = $this->last_name;
-        $user->middle_name = $this->middle_name;
-        $user->phone = $this->phone;
-        $user->country = $this->country;
+        $user->setPassword($this->password);
         $user->language = $this->language;
+        $user->status = UserStatus::getDefault();
+
         $user->generateAuthKey();
         $user->generateApiKey();
 
         if (!$user->save()) {
-            $this->addError('login', 'Unknown error');
+            $this->addErrors($user->getErrors());
+            if (!$this->errors) {
+                $this->addError('email', 'Unknown error');
+            }
         }
+
+        $this->sendEmail($user);
 
         return $user;
     }
 
     /**
-     * Sends confirmation email to user
+     * Sends welcome or confirmation email to user
      *
      * @param User $user user model to with email should be send
      *
      * @return bool whether the email was sent
      */
-    protected function sendEmail($user)
+    protected function sendEmail($user): bool
     {
+        if ($user->status == UserStatus::PENDING) {
+            return SecureKey::create(SecureKey::TYPE_ACTIVATE, $user);
+        }
+
+        // Send welcome email
         return Yii::$app
             ->mailer
             ->compose(
-                ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'],
+                ['html' => 'userWelcome-html', 'text' => 'userWelcome-text'],
                 ['user' => $user]
             )
             ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
             ->setTo($this->email)
-            ->setSubject('Account registration at ' . Yii::$app->name)
+            ->setSubject('Welcome to ' . Yii::$app->name)
             ->send();
     }
 }

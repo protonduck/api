@@ -51,53 +51,23 @@
           schema:
             type: object
             required:
-              - login
+              - name
               - password
-              - first_name
-              - phone
-              - country
-              - language
             properties:
-              login:
+              name:
                 required: true
-                description: Login
+                description: Name
                 type: string
-                example: user
+                example: John Dow
               password:
                 required: true
                 description: Password
                 type: string
-                example: pass
-              first_name:
-                description: First name
-                type: string
-                example: John
-              last_name:
-                description: Last name
-                type: string
-                example: Dow
-              middle_name:
-                description: Middle name
-                type: string
-                example: Esquire
-              phone:
-                description: Phone
-                required: true
-                type: string
-                example: '+5 555 555 55 55'
-              email:
-                description: Email
-                required: true
-                type: string
-                example: example@mail.com
-              country:
-                description: Country
-                type: string
-                example: Russia
+                example: verysecret555
               language:
                 description: Language
                 type: string
-                example: ru
+                example: en
     responses:
       '200':
         description: Successful operation
@@ -140,7 +110,7 @@
       - User
     summary: Update user profile
     security:
-      - bearerAuth: []         # use the same name as above
+      - bearerAuth: []
     parameters:
       - name: id
         in: path
@@ -156,37 +126,24 @@
           schema:
             type: object
             required:
-              - login
-              - first_name
-              - phone
-              - country
-              - language
+              - name
             properties:
-              first_name:
-                description: First name
+              name:
+                description: Name
                 type: string
-                example: John
-              last_name:
-                description: Last name
+                example: John Dow
+              password:
+                description: New password
                 type: string
-                example: Dow
-              middle_name:
-                description: Middle name
+                example: newVerysecret999
+              email:
+                description: New email
                 type: string
-                example: Esquire
-              phone:
-                description: Phone
-                required: true
-                type: string
-                example: '+5 555 555 55 55'
-              country:
-                description: Country
-                type: string
-                example: Russia
+                example: 'new.email@gmail.com'
               language:
                 description: Language
                 type: string
-                example: ru
+                example: en
     responses:
       '204':
         description: Profile updated

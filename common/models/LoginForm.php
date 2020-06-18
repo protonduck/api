@@ -1,6 +1,9 @@
 <?php
+
 namespace common\models;
 
+use common\enums\UserRole;
+use common\helpers\UserHelper;
 use Yii;
 use yii\base\Model;
 
@@ -12,6 +15,12 @@ class LoginForm extends Model
     public $username;
     public $password;
     public $rememberMe = true;
+    /**
+     * Backend only for admins
+     *
+     * @var bool
+     */
+    public $isBackend = false;
 
     private $_user;
 
@@ -28,6 +37,7 @@ class LoginForm extends Model
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
+            ['username', 'validateAccess'],
         ];
     }
 
@@ -36,7 +46,7 @@ class LoginForm extends Model
      * This method serves as the inline validation for password.
      *
      * @param string $attribute the attribute currently being validated
-     * @param array $params the additional name-value pairs given in the rule
+     * @param array $params     the additional name-value pairs given in the rule
      */
     public function validatePassword($attribute, $params)
     {
@@ -44,6 +54,22 @@ class LoginForm extends Model
             $user = $this->getUser();
             if (!$user || !$user->validatePassword($this->password)) {
                 $this->addError($attribute, 'Incorrect username or password.');
+            }
+        }
+    }
+
+    /**
+     * Validates role access.
+     *
+     * @param string $attribute the attribute currently being validated
+     * @param array $params     the additional name-value pairs given in the rule
+     */
+    public function validateAccess($attribute, $params)
+    {
+        if (!$this->hasErrors() && $this->isBackend) {
+            $user = $this->getUser();
+            if ($user && !UserHelper::can(UserRole::ADMIN, $user->id)) {
+                $this->addError($attribute, 'Permission denied.');
             }
         }
     }
@@ -58,7 +84,7 @@ class LoginForm extends Model
         if ($this->validate()) {
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
         }
-        
+
         return false;
     }
 

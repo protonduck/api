@@ -4,42 +4,14 @@ ApiUser:
       description: ID
       type: integer
       example: 1
-    login:
-      description: Login
+    name:
+      description: Name
       type: string
-      example: user
-    first_name:
-      description: First name
-      type: string
-      example: John
-    last_name:
-      description: Last name
-      type: string
-      example: Dow
-    middle_name:
-      description: Middle name
-      type: string
-      example: Esquire
-    phone:
-      description: Phone
-      type: string
-      example: +5 555 555 55 55
-    country:
-      description: Country
-      type: string
-      example: Russia
+      example: John Dow
     language:
-      description: Language
+      description: User language
       type: string
-      example: ru
-    group_id:
-      description: Group id
-      type: string
-      example: 123
-    external_id:
-      description: External user id
-      type: string
-      example: 'vk-user-123'
+      example: en
   type: object
   xml:
     name: ApiUser

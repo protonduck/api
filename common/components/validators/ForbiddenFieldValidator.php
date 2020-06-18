@@ -11,7 +11,7 @@ use yii\validators\Validator;
  */
 class ForbiddenFieldValidator extends Validator
 {
-    public $permissionName = UserRole::MODERATOR;
+    public $permissionName = UserRole::ADMIN;
 
     /**
      * @inheritdoc

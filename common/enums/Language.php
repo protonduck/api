@@ -1,11 +1,14 @@
 <?php
 
-
 namespace common\enums;
 
-
+/**
+ * Languages enumerable class
+ */
 class Language extends BasicEnum
 {
+    const __default = self::EN;
+
     const EN = 'en';
     const RU = 'ru';
 

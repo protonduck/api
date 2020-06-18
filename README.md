@@ -73,8 +73,11 @@ Add new hosts to your `hosts` File:
 Frontend: http://bookmarks.local:8025
 Backend: http://admin.bookmarks.local:8025
 API enpoint: http://api.bookmarks.local:8025
-API docs: http://api.bookmarks.local:8025/v1/docs
+API docs: http://api.bookmarks.local:8025/docs
 ```
+
+### Console commands
+- `php yii user/create` - register new User
 
 #### Note for PHPStorm:
 

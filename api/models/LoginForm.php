@@ -16,7 +16,6 @@ class LoginForm extends Model
 
     private $_user;
 
-
     /**
      * {@inheritdoc}
      */
@@ -55,7 +54,7 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
-            return ['api_key'=>$this->getUser()->api_key];
+            return ['api_key' => $this->getUser()->api_key];
         }
 
         return $this;
