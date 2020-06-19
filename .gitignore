@@ -41,3 +41,7 @@ phpunit.phar
 /backend/web/index.php
 /backend/web/index-test.php
 /backend/web/robots.txt
+
+# laravel mix
+/node_modules
+/frontend/web/mix-manifest.json

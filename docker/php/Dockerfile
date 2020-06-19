@@ -86,3 +86,7 @@ RUN echo "php_admin_value[error_reporting] = E_ALL & ~E_STRICT & ~E_DEPRECATED" 
 
 VOLUME ["/var/www"]
 WORKDIR /var/www
+
+# Install node.js
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
+ && apt-get install -y nodejs
