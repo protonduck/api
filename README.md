@@ -1,6 +1,6 @@
 ## Open Source Bookmark Manager
 
-### Local installation
+## Local installation
 
 #### Install Docker (Ubuntu-Linux)
 
@@ -19,23 +19,16 @@ sudo systemctl status docker
 sudo curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
-sudo usermod -aG docker ${USER}
-su - ${USER}
+sudo usermod -aG docker <username>
+su - <username>
 ```
 
 #### Build and run Docker
 
-```
-docker-compose build
-docker-compose up -d
-docker-compose exec php /bin/bash
-```
-
-#### Stop Docker
-
-```
-docker-compose down
-```
+- `docker-compose build` - Build Docker
+- `docker-compose up -d` - Start Docker
+- `docker-compose exec php /bin/bash` - SSH Login to Docker
+- `docker-compose down` - Stop Docker
 
 #### Add new hosts to your `hosts` File:
 
@@ -66,18 +59,11 @@ composer install
 npm install
 ```
 
-### Build CSS/JavaScript
+#### Build CSS/JavaScript
 
-```
-npm run dev
-```
-
-or
-
-```
-npm run frontend-dev
-npm run backend-dev
-```
+- `npm run dev` - for development
+- `npm run prod` - for production (minified)
+- `npm run watch` - for active development
 
 #### Initialize Environment
 
@@ -97,7 +83,7 @@ php yii migrate
 
 Mark the file `"/vendor/yiisoft/yii2/Yii.php"` as plain text (right-click "Mark as Plain Text").
 
-### Console commands
+## Console commands
 
 - `php yii user/create` - register new User
 
@@ -106,6 +92,7 @@ Mark the file `"/vendor/yiisoft/yii2/Yii.php"` as plain text (right-click "Mark 
 This project is licensed under the AGPL-3.0 License. See the LICENSE file for details.
 
 ## Contributing
+
 1. Fork it
 2. Create your feature branch (git checkout -b my-new-feature)
 3. Make your changes

@@ -1,13 +1,11 @@
 {
   "private": true,
   "scripts": {
-    "frontend-dev": "npm run frontend-development",
-    "frontend-development": "cross-env process.env.section=frontend NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "frontend-watch": "cross-env process.env.section=frontend NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "frontend-prod": "npm run frontend-production",
-    "frontend-production": "cross-env process.env.section=frontend NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "dev": "npm run frontend-dev",
-    "prod": "npm run frontend-prod"
+    "dev": "npm run development",
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "cross-env  NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "prod": "npm run production",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
