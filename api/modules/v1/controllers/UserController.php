@@ -38,18 +38,41 @@ class UserController extends ApiController
         $model = new LoginForm();
 
         if ($model->load(Yii::$app->request->post(), '')) {
-            return $model->login();
+            $result = $model->login();
+            if ($result instanceof ApiUser) {
+                $array = $result->toArray();
+                $array['api_key'] = $result->api_key;
+
+                return $array;
+            }
+
+            return $result; // Validation errors
         }
 
         throw new BadRequestHttpException('Body required');
     }
 
+    /**
+     * Signup
+     *
+     * @return \api\models\SignupForm|\api\modules\v1\models\ApiUser|array
+     * @throws \yii\web\BadRequestHttpException
+     */
     public function actionSignup()
     {
         $model = new SignupForm();
 
         if ($model->load(Yii::$app->request->post(), '')) {
-            return $model->signup();
+            $user = $model->signup();
+
+            if ($user instanceof ApiUser) {
+                $array = $user->toArray();
+                $array['api_key'] = $user->api_key;
+
+                return $array;
+            }
+
+            return $user; // validation errors
         }
 
         throw new BadRequestHttpException('Body required');

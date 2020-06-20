@@ -18,7 +18,7 @@ class TimestampBehavior extends \yii\behaviors\TimestampBehavior
 
         // Override the default value time() to `NOW()`
         if (empty($this->value)) {
-            $this->value = new Expression('NOW()');
+            $this->value = date('Y-m-d H:i:s'); // new Expression('NOW()')
         }
     }
 }

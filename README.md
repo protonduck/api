@@ -83,9 +83,32 @@ php yii migrate
 
 Mark the file `"/vendor/yiisoft/yii2/Yii.php"` as plain text (right-click "Mark as Plain Text").
 
-## Console commands
+### Console commands
 
 - `php yii user/create` - register new User
+
+### Testing
+
+```bash
+# Once run 'build'
+vendor/bin/codecept build
+
+# Apply migrations for _test db
+php yii_test migrate
+
+# Run all tests
+vendor/bin/codecept run
+vendor/bin/codecept run -- -c <app_name:api|frontend|backend> <type:api|unit|acceptance|functional> <className>::<methodName>
+
+# Run specific evnviroment tests (also possible: backend, frontend, common)
+vendor/bin/codecept run -- -c api
+
+# Run all tests within one test class
+vendor/bin/codecept run -- -c api api UserCest
+
+# Run one specified test (useful when writing new test)
+vendor/bin/codecept run -- -c api api UserCest::checkRegister
+```
 
 ## License
 

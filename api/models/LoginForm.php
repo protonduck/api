@@ -2,7 +2,8 @@
 
 namespace api\models;
 
-use common\models\User;
+use api\helpers\TimeHelper;
+use api\modules\v1\models\ApiUser;
 use Yii;
 use yii\base\Model;
 
@@ -11,7 +12,7 @@ use yii\base\Model;
  */
 class LoginForm extends Model
 {
-    public $login;
+    public $email;
     public $password;
 
     private $_user;
@@ -22,8 +23,8 @@ class LoginForm extends Model
     public function rules()
     {
         return [
-            // login and password are both required
-            [['login', 'password'], 'required'],
+            // email and password are both required
+            [['email', 'password'], 'required'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
         ];
@@ -49,12 +50,12 @@ class LoginForm extends Model
     /**
      * Logs in a user using the provided login and password.
      *
-     * @return array|$this whether the user is logged in successfully
+     * @return ApiUser|array|$this whether the user is logged in successfully
      */
     public function login()
     {
         if ($this->validate()) {
-            return ['api_key' => $this->getUser()->api_key];
+            return $this->getUser();
         }
 
         return $this;
@@ -63,12 +64,12 @@ class LoginForm extends Model
     /**
      * Finds user by [[login]]
      *
-     * @return User|null
+     * @return ApiUser|null
      */
     protected function getUser()
     {
         if ($this->_user === null) {
-            $this->_user = User::findByUsername($this->login);
+            $this->_user = ApiUser::findByUsername($this->email);
         }
 
         return $this->_user;

@@ -60,7 +60,7 @@ class Board extends \yii\db\ActiveRecord
             // required
             [['name', 'user_id'], 'required'],
             // integer
-            [['user_id', 'visibility', 'sort'], 'integer'],
+            [['user_id', 'sort'], 'integer'],
             // boolean
             [['visibility'], 'boolean'],
             // string max

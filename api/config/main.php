@@ -71,10 +71,12 @@ return [
                     'class' => GroupUrlRule::class,
                     'prefix' => 'v1',
                     'rules' => [
+                        // user
                         'POST user/signup' => 'user/signup',
                         'POST user/login' => 'user/login',
                         'GET user/<id:\d+>' => 'user/view',
                         'PUT user/<id:\d+>' => 'user/update',
+                        // api-docs (swagger)
                         'GET docs' => 'docs/index',
                         'GET docs/resource' => 'docs/resource',
                     ],
@@ -82,10 +84,15 @@ return [
                 // RESTFul
                 [
                     'class' => 'yii\rest\UrlRule',
-                    'controller' => 'v1/bookmark',
-//                    'extraPatterns' => [
-//                        'GET current' => 'current',
-//                    ],
+                    'controller' => 'v1/board',
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'v1/category',
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'v1/link',
                 ],
             ],
         ],

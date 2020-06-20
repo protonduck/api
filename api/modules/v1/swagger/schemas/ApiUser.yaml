@@ -12,6 +12,36 @@ ApiUser:
       description: User language
       type: string
       example: en
+    premium_until:
+      description: Premium until time
+      type: integer
+      example: 1624243463
+    api_key:
+      description: API-key
+      type: string
+      example: WeqmmCX2W1KRURlQI8LEi2dA8OaKadzc
   type: object
   xml:
     name: ApiUser
+
+ApiUserProfile:
+  properties:
+    name:
+      description: Name
+      type: string
+      example: John Dow
+    email:
+      description: Email
+      type: string
+      example: 'example@gmail.com'
+    password:
+      description: Password
+      type: string
+      example: verysecret999
+    language:
+      description: Language
+      type: string
+      example: en
+  type: object
+  xml:
+    name: ApiUserProfile

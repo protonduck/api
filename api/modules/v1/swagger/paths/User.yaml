@@ -25,12 +25,7 @@
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                api_key:
-                  description: API-key
-                  type: string
-                  example: WeqmmCX2W1KRURlQI8LEi2dA8OaKadzc
+              $ref: '#/components/schemas/ApiUser'
       '422':
         description: Data Validation Failed
         content:
@@ -49,25 +44,13 @@
       content:
         application/json:
           schema:
-            type: object
-            required:
-              - name
-              - password
-            properties:
-              name:
-                required: true
-                description: Name
-                type: string
-                example: John Dow
-              password:
-                required: true
-                description: Password
-                type: string
-                example: verysecret555
-              language:
-                description: Language
-                type: string
-                example: en
+            allOf:
+              - $ref: '#/components/schemas/ApiUserProfile'
+              - type: object
+                required:
+                  - name
+                  - email
+                  - password
     responses:
       '200':
         description: Successful operation
@@ -83,28 +66,6 @@
               items:
                 $ref: '#/components/schemas/ValidationError'
 /user/{id}:
-  get:
-    tags:
-      - User
-    summary: View user profile
-    security:
-      - bearerAuth: []
-    parameters:
-      - name: id
-        in: path
-        description: User id
-        required: true
-        schema:
-          type: integer
-    responses:
-      '200':
-        description: User profile
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ApiUser'
-      '404':
-        description: Not found
   put:
     tags:
       - User
@@ -124,26 +85,11 @@
       content:
         application/json:
           schema:
-            type: object
-            required:
-              - name
-            properties:
-              name:
-                description: Name
-                type: string
-                example: John Dow
-              password:
-                description: New password
-                type: string
-                example: newVerysecret999
-              email:
-                description: New email
-                type: string
-                example: 'new.email@gmail.com'
-              language:
-                description: Language
-                type: string
-                example: en
+            allOf:
+              - $ref: '#/components/schemas/ApiUserProfile'
+              - type: object
+                required:
+                  - name
     responses:
       '204':
         description: Profile updated

@@ -70,10 +70,14 @@ class Link extends \yii\db\ActiveRecord
             [['url', 'category_id'], 'required'],
             // integer
             [['category_id', 'domain_id', 'hits', 'http_status_code', 'sort'], 'integer'],
+            // filter
+            [['url', 'title', 'description'], 'filter', 'filter' => 'trim'],
             // string max
             [['url'], 'string', 'max' => 5000],
             [['title', 'favicon'], 'string', 'max' => 255],
             [['description'], 'string', 'max' => 1000],
+            // url
+            [['url'], 'url', 'defaultScheme' => 'http'],
             // range
             [['target'], 'in', 'range' => LinkTarget::getKeys()],
             // boolean
@@ -137,6 +141,10 @@ class Link extends \yii\db\ActiveRecord
         if (!$this->domain_id) {
             // Get exists domain_id or creates new domain
             $this->domain_id = Domain::getIdByUrl($this->url);
+        }
+        // Convert empty title string to null
+        if ($this->title === '') {
+            $this->title = null;
         }
 
         return true;
