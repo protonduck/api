@@ -1,0 +1,50 @@
+ApiLink:
+  allOf:
+    - type: object
+      properties:
+        id:
+          description: ID
+          type: integer
+          example: 1
+    - $ref: '#/components/schemas/ApiLinkForm'
+    - type: object
+      properties:
+        favicon:
+          description: Favicon URL
+          type: string
+          example: 'https://google.com/favicon.ico'
+        hits:
+          description: Clicks count
+          type: integer
+          example: 107
+        http_status_code:
+          description: HTTP status code
+          type: integer
+          example: 404
+    - $ref: '#/components/schemas/MetaFields'
+
+ApiLinkForm:
+  type: object
+  properties:
+    url:
+      description: URL address
+      type: string
+      example: 'https://google.com'
+    category_id:
+      description: Category ID
+      type: integer
+      example: 12
+    title:
+      description: Title
+      type: string
+      example: 'Google'
+    description:
+      description: Description
+      type: string
+      example: 'Google web search'
+    is_favorite:
+      description: Is favorite
+      type: boolean
+      example: true
+    target:
+      $ref: '#/components/schemas/LinkTarget'

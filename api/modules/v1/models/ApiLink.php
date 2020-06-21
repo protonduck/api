@@ -28,10 +28,10 @@ class ApiLink extends Link
             'is_favorite' => static function (self $model) {
                 return (bool)$model->is_favorite;
             },
-            'favicon' => 'favicon',
             'target' => static function (self $model) {
                 return $model->target !== null ? (int)$model->target : null;
             },
+            'favicon' => 'favicon',
             'hits' => static function (self $model) {
                 return (int)$model->hits;
             },

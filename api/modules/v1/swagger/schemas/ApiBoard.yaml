@@ -1,0 +1,32 @@
+ApiBoard:
+  allOf:
+    - type: object
+      properties:
+        id:
+          description: ID
+          type: integer
+          example: 1
+    - $ref: '#/components/schemas/ApiBoardForm'
+    - $ref: '#/components/schemas/MetaFields'
+    - type: object
+      properties:
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiCategory'
+
+ApiBoardForm:
+  type: object
+  properties:
+    name:
+      description: Name
+      type: string
+      example: Home
+    image:
+      description: Background image url
+      type: string
+      example: 'http://example.com/img1.jpg'
+    visibility:
+      description: Private or Public
+      type: boolean
+      example: false

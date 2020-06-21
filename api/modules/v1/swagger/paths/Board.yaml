@@ -1,0 +1,133 @@
+/boards:
+  get:
+    tags:
+      - Board
+    summary: List of all models
+    security:
+      - bearerAuth: []
+    responses:
+      '200':
+        description: Successful operation
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/ApiBoard'
+  post:
+    tags:
+      - Board
+    summary: Create new model
+    security:
+      - bearerAuth: []
+    requestBody:
+      description: Params/values
+      required: true
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/ApiBoardForm'
+              - type: object
+                required:
+                  - name
+    responses:
+      '201':
+        description: Created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiBoard'
+      '422':
+        description: Data Validation Failed
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/ValidationError'
+/boards/{id}:
+  get:
+    tags:
+      - Board
+    summary: Get single model
+    security:
+      - bearerAuth: []
+    parameters:
+      - name: id
+        in: path
+        description: Model ID
+        required: true
+        schema:
+          type: integer
+    responses:
+      '200':
+        description: Successful operation
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiBoard'
+      '403':
+        description: Forbidden
+      '404':
+        description: Not found
+  put:
+    tags:
+      - Board
+    summary: Update existing model
+    security:
+      - bearerAuth: []
+    parameters:
+      - name: id
+        in: path
+        description: Model ID
+        required: true
+        schema:
+          type: integer
+    requestBody:
+      description: Params/values
+      required: true
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/ApiBoardForm'
+              - type: object
+                required:
+                  - name
+    responses:
+      '200':
+        description: Successful operation
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiBoard'
+      '403':
+        description: Forbidden
+      '404':
+        description: Not found
+      '422':
+        description: Data Validation Failed
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/ValidationError'
+  delete:
+    tags:
+      - Board
+    summary: Delete existing model
+    security:
+      - bearerAuth: []
+    parameters:
+      - name: id
+        in: path
+        description: Model ID
+        required: true
+        schema:
+          type: integer
+    responses:
+      '204':
+        description: No content (Successful operation)
+      '403':
+        description: Forbidden
+      '404':
+        description: Not found

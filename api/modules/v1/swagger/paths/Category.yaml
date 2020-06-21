@@ -1,0 +1,135 @@
+/categories:
+  get:
+    tags:
+      - Category
+    summary: List of all models
+    security:
+      - bearerAuth: []
+    responses:
+      '200':
+        description: Successful operation
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/ApiCategory'
+  post:
+    tags:
+      - Category
+    summary: Create new model
+    security:
+      - bearerAuth: []
+    requestBody:
+      description: Params/values
+      required: true
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/ApiCategoryForm'
+              - type: object
+                required:
+                  - name
+                  - board_id
+    responses:
+      '201':
+        description: Created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiCategory'
+      '422':
+        description: Data Validation Failed
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/ValidationError'
+/categories/{id}:
+  get:
+    tags:
+      - Category
+    summary: Get single model
+    security:
+      - bearerAuth: []
+    parameters:
+      - name: id
+        in: path
+        description: Model ID
+        required: true
+        schema:
+          type: integer
+    responses:
+      '200':
+        description: Successful operation
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiCategory'
+      '403':
+        description: Forbidden
+      '404':
+        description: Not found
+  put:
+    tags:
+      - Category
+    summary: Update existing model
+    security:
+      - bearerAuth: []
+    parameters:
+      - name: id
+        in: path
+        description: Model ID
+        required: true
+        schema:
+          type: integer
+    requestBody:
+      description: Params/values
+      required: true
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/ApiCategoryForm'
+              - type: object
+                required:
+                  - name
+                  - board_id
+    responses:
+      '200':
+        description: Successful operation
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiCategory'
+      '403':
+        description: Forbidden
+      '404':
+        description: Not found
+      '422':
+        description: Data Validation Failed
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/ValidationError'
+  delete:
+    tags:
+      - Category
+    summary: Delete existing model
+    security:
+      - bearerAuth: []
+    parameters:
+      - name: id
+        in: path
+        description: Model ID
+        required: true
+        schema:
+          type: integer
+    responses:
+      '204':
+        description: No content (Successful operation)
+      '403':
+        description: Forbidden
+      '404':
+        description: Not found

@@ -1,4 +1,5 @@
 ValidationError:
+  type: object
   properties:
     field:
       description: Filed name
@@ -8,6 +9,3 @@ ValidationError:
       description: Error message
       type: string
       example: 'field_name is required'
-  type: object
-  xml:
-    name: ValidationError

@@ -1,4 +1,5 @@
 ApiUser:
+  type: object
   properties:
     id:
       description: ID
@@ -20,11 +21,9 @@ ApiUser:
       description: API-key
       type: string
       example: WeqmmCX2W1KRURlQI8LEi2dA8OaKadzc
-  type: object
-  xml:
-    name: ApiUser
 
 ApiUserProfile:
+  type: object
   properties:
     name:
       description: Name
@@ -42,6 +41,3 @@ ApiUserProfile:
       description: Language
       type: string
       example: en
-  type: object
-  xml:
-    name: ApiUserProfile

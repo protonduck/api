@@ -5,3 +5,18 @@ Language:
   enum:
     - en
     - ru
+DomainSslStatus:
+  description: 'Domain SSL sertificate Status: 0 - no SSL, 1 - trusted, 2 - expired'
+  type: integer
+  example: 1
+  enum:
+    - 0
+    - 1
+    - 2
+LinkTarget:
+  description: 'Link Target: 0 - normal, 1 - new window'
+  type: string
+  example: 0
+  enum:
+    - 0
+    - 1

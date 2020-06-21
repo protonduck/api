@@ -1,0 +1,40 @@
+ApiCategory:
+  allOf:
+    - type: object
+      properties:
+        id:
+          description: ID
+          type: integer
+          example: 1
+    - $ref: '#/components/schemas/ApiCategoryForm'
+    - $ref: '#/components/schemas/MetaFields'
+    - type: object
+      properties:
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiLink'
+
+ApiCategoryForm:
+  type: object
+  properties:
+    name:
+      description: Name
+      type: string
+      example: Films
+    board_id:
+      description: Board ID
+      type: integer
+      example: 42
+    description:
+      description: Description
+      type: string
+      example: 'My favorite films'
+    color:
+      description: Background color HEX-code
+      type: string
+      example: 'f5c242'
+    icon:
+      description: Icon CSS-class (FontAwesome icons)
+      type: string
+      example: 'fas fas-video'

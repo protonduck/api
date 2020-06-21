@@ -1,0 +1,135 @@
+/links:
+  get:
+    tags:
+      - Link
+    summary: List of all models
+    security:
+      - bearerAuth: []
+    responses:
+      '200':
+        description: Successful operation
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/ApiLink'
+  post:
+    tags:
+      - Link
+    summary: Create new model
+    security:
+      - bearerAuth: []
+    requestBody:
+      description: Params/values
+      required: true
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/ApiLinkForm'
+              - type: object
+                required:
+                  - url
+                  - category_id
+    responses:
+      '201':
+        description: Created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiLink'
+      '422':
+        description: Data Validation Failed
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/ValidationError'
+/links/{id}:
+  get:
+    tags:
+      - Link
+    summary: Get single model
+    security:
+      - bearerAuth: []
+    parameters:
+      - name: id
+        in: path
+        description: Model ID
+        required: true
+        schema:
+          type: integer
+    responses:
+      '200':
+        description: Successful operation
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiLink'
+      '403':
+        description: Forbidden
+      '404':
+        description: Not found
+  put:
+    tags:
+      - Link
+    summary: Update existing model
+    security:
+      - bearerAuth: []
+    parameters:
+      - name: id
+        in: path
+        description: Model ID
+        required: true
+        schema:
+          type: integer
+    requestBody:
+      description: Params/values
+      required: true
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/ApiLinkForm'
+              - type: object
+                required:
+                  - url
+                  - category_id
+    responses:
+      '200':
+        description: Successful operation
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiLink'
+      '403':
+        description: Forbidden
+      '404':
+        description: Not found
+      '422':
+        description: Data Validation Failed
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/ValidationError'
+  delete:
+    tags:
+      - Link
+    summary: Delete existing model
+    security:
+      - bearerAuth: []
+    parameters:
+      - name: id
+        in: path
+        description: Model ID
+        required: true
+        schema:
+          type: integer
+    responses:
+      '204':
+        description: No content (Successful operation)
+      '403':
+        description: Forbidden
+      '404':
+        description: Not found

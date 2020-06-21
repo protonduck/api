@@ -1,0 +1,15 @@
+MetaFields:
+  type: object
+  properties:
+    sort:
+      description: Sorting order
+      type: integer
+      example: 1
+    created_at:
+      description: Created unix timestamp
+      type: integer
+      example: 1592519153
+    updated_at:
+      description: Updated unix timestamp
+      type: integer
+      example: 1592519343
