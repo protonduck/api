@@ -34,4 +34,15 @@ return [
         'created_at' => '2020-06-21 13:00:00',
         'updated_at' => '2020-06-21 13:00:00',
     ],
+    'b4_c4' => [
+        'id' => 4,
+        'name' => 'Another category',
+        'board_id' => 4,
+        'description' => 'Something',
+        'color' => '2d445f',
+        'icon' => 'fas fa-demo',
+        'sort' => 1,
+        'created_at' => '2020-06-21 14:00:00',
+        'updated_at' => '2020-06-21 14:00:00',
+    ],
 ];

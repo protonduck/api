@@ -11,6 +11,7 @@ use api\models\SignupForm;
 use api\modules\v1\forms\UserForm;
 use api\modules\v1\models\ApiUser;
 use common\enums\UserRole;
+use common\helpers\UserHelper;
 use Yii;
 use yii\filters\auth\HttpBearerAuth;
 use yii\web\BadRequestHttpException;
@@ -27,12 +28,18 @@ class UserController extends ApiController
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
             'class' => HttpBearerAuth::class,
-            'only' => ['update'],
+            'only' => ['update', 'view'],
         ];
 
         return $behaviors;
     }
 
+    /**
+     * Login
+     *
+     * @return \api\models\LoginForm|\api\modules\v1\models\ApiUser|array
+     * @throws \yii\web\BadRequestHttpException
+     */
     public function actionLogin()
     {
         $model = new LoginForm();
@@ -78,34 +85,41 @@ class UserController extends ApiController
         throw new BadRequestHttpException('Body required');
     }
 
-    public function actionUpdate($id)
+    /**
+     * Update profile
+     *
+     * @return \api\modules\v1\forms\UserForm|\api\modules\v1\models\ApiUser|array
+     * @throws \yii\web\BadRequestHttpException
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionUpdate()
     {
-        $model = ApiUser::find()->where(['id' => $id])->one();
+        $model = ApiUser::find()->where(['id' => UserHelper::getCurrentId()])->active()->one();
         if (!$model) {
             throw new NotFoundHttpException('User not found');
         }
 
-        $user = Yii::$app->user;
-
-        if ($user->id !== $model->id && !$user->can(UserRole::ADMIN)) {
-            throw new ForbiddenHttpException('Access denied');
-        }
-
         $form = new UserForm();
 
-        if ($form->load(Yii::$app->request->post(), '')) {
-            if ($form->edit($model)) {
-                return Yii::$app->response->setStatusCode(204, 'Profile updated');
+        if ($form->load(Yii::$app->request->post())) {
+            if ($form->update($model)) {
+                return $model; // successfully updated
             }
 
-            return $form;
+            return $form; // validation errors
         }
         throw new BadRequestHttpException('Body required');
     }
 
-    public function actionView($id)
+    /**
+     * Profile info
+     *
+     * @return \api\modules\v1\models\ApiUser|array|\common\models\User|null
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionView()
     {
-        $model = ApiUser::find()->where(['id' => $id])->one();
+        $model = ApiUser::find()->where(['id' => UserHelper::getCurrentId()])->active()->one();
         if (!$model) {
             throw new NotFoundHttpException('User not found');
         }

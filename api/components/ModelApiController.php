@@ -79,7 +79,9 @@ class ModelApiController extends ApiController
         if (!$model->load(Yii::$app->request->post())) {
             throw new BadRequestHttpException('Body required');
         }
-        $model->save();
+        if ($model->save()) {
+            $this->response->setStatusCode(201);
+        }
 
         return $model;
     }
@@ -117,7 +119,7 @@ class ModelApiController extends ApiController
     {
         $this->findModel($id)->delete();
 
-        $this->response->statusCode = 204;
+        $this->response->setStatusCode(204);
     }
 
     /**

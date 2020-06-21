@@ -31,4 +31,14 @@ return [
         'created_at' => '2020-06-21 12:00:00',
         'updated_at' => '2020-06-21 12:00:00',
     ],
+    'simple_4' => [
+        'id' => 4,
+        'name' => 'Second user first board',
+        'user_id' => 2,
+        'image' => null,
+        'visibility' => 0,
+        'sort' => 4,
+        'created_at' => '2020-06-21 12:00:00',
+        'updated_at' => '2020-06-21 12:00:00',
+    ],
 ];

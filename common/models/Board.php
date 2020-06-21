@@ -3,6 +3,7 @@
 namespace common\models;
 
 use common\components\behaviors\TimestampBehavior;
+use common\helpers\FilterHelper;
 use Yii;
 use yii\helpers\Html;
 
@@ -57,6 +58,8 @@ class Board extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            // filter
+            [['name'], 'filter', 'filter' => [FilterHelper::class, 'trim']],
             // required
             [['name', 'user_id'], 'required'],
             // integer

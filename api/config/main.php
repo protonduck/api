@@ -74,8 +74,8 @@ return [
                         // user
                         'POST user/signup' => 'user/signup',
                         'POST user/login' => 'user/login',
-                        'GET user/<id:\d+>' => 'user/view',
-                        'PUT user/<id:\d+>' => 'user/update',
+                        'GET user/profile' => 'user/view',
+                        'PUT user/profile' => 'user/update',
                         // api-docs (swagger)
                         'GET docs' => 'docs/index',
                         'GET docs/resource' => 'docs/resource',

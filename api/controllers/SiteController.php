@@ -1,4 +1,7 @@
 <?php
+/**
+ * @noinspection PhpUnused Controller actions
+ */
 
 namespace api\controllers;
 

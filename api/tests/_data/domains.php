@@ -27,4 +27,12 @@ return [
         'created_at' => '2020-06-21 10:00:00',
         'updated_at' => '2020-06-21 10:05:03',
     ],
+    'd4' => [
+        'id' => 4,
+        'name' => 'google.com',
+        'ssl_status' => DomainSslStatus::TRUSTED,
+        'checked_at' => '2020-06-22 10:05:00',
+        'created_at' => '2020-06-22 10:00:00',
+        'updated_at' => '2020-06-22 10:05:03',
+    ],
 ];

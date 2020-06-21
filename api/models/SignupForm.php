@@ -30,7 +30,9 @@ class SignupForm extends Model
             [['name', 'password', 'email'], 'required'],
             // string
             [['name', 'email'], 'string', 'max' => 255],
-            [['password'], 'string', 'min' => 6],
+            [['password'], 'string', 'min' => 6, 'max' => 100],
+            // email
+            [['email'], 'email'],
             // range
             [['language'], 'in', 'range' => Language::getKeys()],
             // unique

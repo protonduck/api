@@ -9,7 +9,6 @@ use api\components\ModelApiController;
 use api\modules\v1\models\ApiLink;
 use common\helpers\UserHelper;
 use common\models\query\CategoryQuery;
-use yii\db\ActiveQuery;
 
 /**
  * RESTFul controller for model
@@ -28,9 +27,9 @@ class LinkController extends ModelApiController
         return ApiLink::find()
             ->joinWith([
                 'category' => static function (CategoryQuery $query) {
-                    $query->joinWith(['board']);
+                    $query->joinWith(['board'], false);
                 },
-            ])
+            ], false)
             ->andWhere(['boards.user_id' => UserHelper::getCurrentId()])
             ->sort()
             ->all();

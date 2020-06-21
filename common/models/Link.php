@@ -4,6 +4,8 @@ namespace common\models;
 
 use common\components\behaviors\TimestampBehavior;
 use common\enums\LinkTarget;
+use common\helpers\FilterHelper;
+use common\helpers\UserHelper;
 use Yii;
 use yii\helpers\Html;
 
@@ -66,12 +68,12 @@ class Link extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            // filter
+            [['url', 'title', 'description'], 'filter', 'filter' => [FilterHelper::class, 'trim']],
             // required
             [['url', 'category_id'], 'required'],
             // integer
             [['category_id', 'domain_id', 'hits', 'http_status_code', 'sort'], 'integer'],
-            // filter
-            [['url', 'title', 'description'], 'filter', 'filter' => 'trim'],
             // string max
             [['url'], 'string', 'max' => 5000],
             [['title', 'favicon'], 'string', 'max' => 255],
@@ -82,11 +84,33 @@ class Link extends \yii\db\ActiveRecord
             [['target'], 'in', 'range' => LinkTarget::getKeys()],
             // boolean
             [['is_favorite'], 'boolean'],
-            // exists
-            [['category_id'], 'exist', 'targetRelation' => 'category'],
             // default
             [['hits'], 'default', 'value' => 0],
+            // validateCategory()
+            [['category_id'], 'validateCategory'],
         ];
+    }
+
+    /**
+     * Check category exists and belongs to the current user
+     *
+     * @param string $attribute
+     * @param array $params
+     */
+    public function validateCategory($attribute, $params = [])
+    {
+        if ($this->hasErrors('category_id')) {
+            return;
+        }
+
+        $category = Category::findOne($this->category_id);
+        if (!$category) {
+            $this->addError('category_id', 'Category not found');
+        } elseif (!$category->board) {
+            $this->addError('category_id', 'Category no longer refers to the board');
+        } elseif (Yii::$app->has('user') && $category->board->user_id !== UserHelper::getCurrentId()) {
+            $this->addError('category_id', 'Category belongs to another user');
+        }
     }
 
     /**

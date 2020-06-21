@@ -20,16 +20,24 @@ class ApiLink extends Link
         return [
             'id' => 'id',
             'url' => 'url',
-            'category_id' => 'category_id',
+            'category_id' => static function (self $model) {
+                return $model->category_id !== null ? (int)$model->category_id : null;
+            },
             'title' => 'title',
             'description' => 'description',
             'is_favorite' => static function (self $model) {
                 return (bool)$model->is_favorite;
             },
             'favicon' => 'favicon',
-            'target' => 'target',
-            'hits' => 'hits',
-            'http_status_code' => 'http_status_code',
+            'target' => static function (self $model) {
+                return $model->target !== null ? (int)$model->target : null;
+            },
+            'hits' => static function (self $model) {
+                return (int)$model->hits;
+            },
+            'http_status_code' => static function (self $model) {
+                return $model->http_status_code ? (int)$model->http_status_code : null;
+            },
             'sort' => 'sort',
             'created_at' => TimeHelper::dateTimeToUnix('created_at'),
             'updated_at' => TimeHelper::dateTimeToUnix('updated_at'),

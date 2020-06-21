@@ -3,6 +3,7 @@
 namespace common\models;
 
 use common\enums\Language;
+use common\helpers\FilterHelper;
 use Yii;
 use yii\helpers\Html;
 use yii\web\IdentityInterface;
@@ -26,6 +27,9 @@ use common\enums\UserStatus;
  * @property string $api_key
  * @property string $created_at
  * @property string $updated_at
+ *
+ * relations
+ * @property Board[] $boards
  *
  * getters
  * @property-read string $fName     HTML-encoded name
@@ -64,6 +68,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
+            // filter
+            [['name', 'email'], 'filter', 'filter' => [FilterHelper::class, 'trim']],
             // required
             [['name', 'email'], 'required'],
             // string max

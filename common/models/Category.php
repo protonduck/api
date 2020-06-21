@@ -3,6 +3,8 @@
 namespace common\models;
 
 use common\components\behaviors\TimestampBehavior;
+use common\helpers\FilterHelper;
+use common\helpers\UserHelper;
 use Yii;
 use yii\helpers\Html;
 
@@ -53,6 +55,8 @@ class Category extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            // filter
+            [['name', 'description', 'color', 'icon'], 'filter', 'filter' => [FilterHelper::class, 'trim']],
             // required
             [['name', 'board_id'], 'required'],
             // integer
@@ -61,9 +65,29 @@ class Category extends \yii\db\ActiveRecord
             [['name', 'description', 'icon'], 'string', 'max' => 255],
             // string length
             [['color'], 'string', 'min' => 6, 'max' => 7],
-            // exist
-            [['board_id'], 'exist', 'targetRelation' => 'board'],
+            // validateBoard()
+            [['board_id'], 'validateBoard'],
         ];
+    }
+
+    /**
+     * Check board exists and belongs to the current user
+     *
+     * @param string $attribute
+     * @param array $params
+     */
+    public function validateBoard($attribute, $params = [])
+    {
+        if ($this->hasErrors('board_id')) {
+            return;
+        }
+
+        $board = Board::findOne($this->board_id);
+        if (!$board) {
+            $this->addError('board_id', 'Board not found');
+        } elseif (Yii::$app->has('user') && $board->user_id !== UserHelper::getCurrentId()) {
+            $this->addError('board_id', 'Board belongs to another user');
+        }
     }
 
     /**

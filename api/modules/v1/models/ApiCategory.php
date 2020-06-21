@@ -21,7 +21,9 @@ class ApiCategory extends Category
         return [
             'id' => 'id',
             'name' => 'name',
-            'board_id' => 'board_id',
+            'board_id' => static function (self $model) {
+                return $model->board_id !== null ? (int)$model->board_id : null;
+            },
             'description' => 'description',
             'color' => 'color',
             'icon' => 'icon',

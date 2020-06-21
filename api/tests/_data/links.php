@@ -5,7 +5,7 @@ use common\enums\LinkTarget;
 return [
     'b1_c1_l1' => [
         'id' => 1,
-        'url' => 'Opera',
+        'url' => 'https://opera.com',
         'category_id' => 1,
         'domain_id' => 1,
         'title' => 'Opera browser',
@@ -22,7 +22,7 @@ return [
     ],
     'b1_c1_l2' => [
         'id' => 2,
-        'url' => 'Chrome',
+        'url' => 'https://chrome.com',
         'category_id' => 1,
         'domain_id' => 2,
         'title' => 'Chrome browser',
@@ -39,7 +39,7 @@ return [
     ],
     'b1_c1_l3' => [
         'id' => 3,
-        'url' => 'Firefox',
+        'url' => 'http://firefox.org',
         'category_id' => 1,
         'domain_id' => 3,
         'title' => 'Firefox browser',
@@ -53,5 +53,22 @@ return [
         'checked_at' => '2020-06-21 10:05:00',
         'created_at' => '2020-06-21 10:00:00',
         'updated_at' => '2020-06-21 10:05:03',
+    ],
+    'b4_c4_l4' => [
+        'id' => 4,
+        'url' => 'https://google.com',
+        'category_id' => 4,
+        'domain_id' => 4,
+        'title' => 'Google.com',
+        'description' => 'Google search',
+        'is_favorite' => 0,
+        'favicon' => null,
+        'target' => LinkTarget::NORMAL,
+        'hits' => 0,
+        'http_status_code' => 200,
+        'sort' => 2,
+        'checked_at' => '2020-06-22 10:05:00',
+        'created_at' => '2020-06-22 10:00:00',
+        'updated_at' => '2020-06-22 10:05:03',
     ],
 ];

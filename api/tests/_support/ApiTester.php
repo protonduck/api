@@ -66,7 +66,7 @@ class ApiTester extends \Codeception\Actor
      *
      * @return \common\models\Board
      */
-    public function grabBoard($indexKey = null, $name = 'users')
+    public function grabBoard($indexKey = null, $name = 'boards')
     {
         return $this->grabFixture($name, $indexKey);
     }

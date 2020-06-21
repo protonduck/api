@@ -241,7 +241,7 @@ class SecureKey extends ActiveRecord
         $send_email = !empty($email) ? $email : $user->email;
 
         return Yii::$app->mailer->compose($view, ['user' => $user, 'key' => $this])
-            ->setFrom([Yii::$app->params['noreplyEmail'] => Yii::$app->name . ' robot'])
+            ->setFrom([Yii::$app->params['senderEmail'] => Yii::$app->params['senderName']])
             ->setTo([$send_email => $user->name])
             ->setSubject($subject)
             ->send();
@@ -315,7 +315,7 @@ class SecureKey extends ActiveRecord
                 }
                 // Set new_email as primary email
                 $user->email = $user->new_email;
-                $user->new_email = '';
+                $user->new_email = null;
 
                 // Сохраняем изменения
                 if (!$user->save(false, ['email', 'new_email'])) {
