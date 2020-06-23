@@ -3,6 +3,16 @@ body {
   height: 100%;
 }
 
+.body_bg_image {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.hide {
+  display: none;
+}
+
 .wrap {
   min-height: 100%;
   height: auto;
