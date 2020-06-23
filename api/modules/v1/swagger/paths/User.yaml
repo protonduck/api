@@ -11,14 +11,14 @@
           schema:
             type: object
             properties:
-              login:
-                description: Login
+              email:
+                description: Login (email address)
                 type: string
-                example: user
+                example: 'john.dow@gmail.com'
               password:
                 description: Password
                 type: string
-                example: pass
+                example: verySecret123
     responses:
       '200':
         description: Successful operation
@@ -104,3 +104,17 @@
             schema:
               items:
                 $ref: '#/components/schemas/ValidationError'
+/user/profile:
+  get:
+    tags:
+      - User
+    summary: Show my profile info
+    security:
+      - bearerAuth: []
+    responses:
+      '200':
+        description: 'OK (IMPORTANT: api_key removed from response)'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiUser'

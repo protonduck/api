@@ -3,6 +3,7 @@
 namespace api\components;
 
 use yii\filters\auth\HttpBearerAuth;
+use yii\filters\Cors;
 use yii\helpers\ArrayHelper;
 use yii\rest\Controller;
 
@@ -19,6 +20,10 @@ class ApiController extends Controller
         return ArrayHelper::merge(parent::behaviors(), [
             'authenticator' => [
                 'class' => HttpBearerAuth::class,
+            ],
+            'corsFilter' => [
+                // Access-Control-Allow-Origin: *
+                'class' => Cors::class,
             ],
         ]);
     }
