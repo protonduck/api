@@ -14,6 +14,7 @@ use common\enums\UserRole;
 use common\helpers\UserHelper;
 use Yii;
 use yii\filters\auth\HttpBearerAuth;
+use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
@@ -25,13 +26,11 @@ class UserController extends ApiController
 {
     public function behaviors()
     {
-        $behaviors = parent::behaviors();
-        $behaviors['authenticator'] = [
-            'class' => HttpBearerAuth::class,
-            'only' => ['update', 'view'],
-        ];
-
-        return $behaviors;
+        return ArrayHelper::merge(parent::behaviors(), [
+            'authenticator' => [
+                'only' => ['update', 'view'],
+            ],
+        ]);
     }
 
     /**

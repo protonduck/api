@@ -3,6 +3,7 @@
 namespace api\components;
 
 use yii\filters\auth\HttpBearerAuth;
+use yii\filters\auth\QueryParamAuth;
 use yii\filters\Cors;
 use yii\helpers\ArrayHelper;
 use yii\rest\Controller;
@@ -19,11 +20,19 @@ class ApiController extends Controller
     {
         return ArrayHelper::merge(parent::behaviors(), [
             'authenticator' => [
-                'class' => HttpBearerAuth::class,
+                'class' => QueryParamAuth::class,
             ],
             'corsFilter' => [
                 // Access-Control-Allow-Origin: *
                 'class' => Cors::class,
+//                'cors' => [
+//                    'Origin' => ['*'],
+//                    'Access-Control-Allow-Credentials' => true,
+//                    'Access-Control-Max-Age' => 86400,
+//                    'Access-Control-Request-Headers' => ['*'],
+//                    'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
+//                    'Access-Control-Expose-Headers' => [],
+//                ],
             ],
         ]);
     }
