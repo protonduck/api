@@ -4,7 +4,7 @@
             <i v-if="icon" :class="icon" class="category_icon"></i> {{ name }}
         </div>
         <div class="category_content">
-            <div class="category_links">
+            <div class="category_links" v-if="links.length > 0">
                 <template v-for="link in links">
                     <div class="link">
                         <div class="link_favicon">
@@ -15,6 +15,9 @@
                         </div>
                     </div>
                 </template>
+            </div>
+            <div v-else>
+                + Add
             </div>
         </div>
     </div>

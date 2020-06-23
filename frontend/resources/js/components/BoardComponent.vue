@@ -10,8 +10,7 @@
 
         <div class="board_categories">
             <template v-for="category in categories">
-                <category-component v-if="category.links.length > 0"
-                                    :name="category.name"
+                <category-component :name="category.name"
                                     :bg-color="category.color"
                                     :icon="category.icon"
                                     :links="category.links"
