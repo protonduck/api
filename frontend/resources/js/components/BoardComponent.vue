@@ -7,7 +7,15 @@
                     {{ board.name }}
                 </a>
             </template>
-            <div class="board_name">+Add</div>
+            <div class="board_name" @click.prevent="showBoardAddForm = true" v-if="!showBoardAddForm">+Add board</div>
+            <div class="board_form" v-if="showBoardAddForm">
+                <form>
+                    <label for="name"></label>
+                    <input type="text" id="name" class="board_form_input">
+                    <input type="submit" value="Save" class="board_form_button_save">
+                    <a href="#" @click.prevent="showBoardAddForm = false" class="board_form_button_close">Close</a>
+                </form>
+            </div>
         </div>
 
         <div class="board_categories">
@@ -37,6 +45,7 @@
                 boards: [],
                 categories: [],
                 boardId: 0,
+                showBoardAddForm: false
             }
         },
         computed: {},
@@ -90,6 +99,7 @@
 
     .board_names {
         display: flex;
+        flex-wrap: wrap;
         box-shadow: inset 0 0 400px 110px rgba(0, 0, 0, .4);
         color: #fff;
         padding: 10px;
@@ -110,6 +120,35 @@
         box-shadow: inset 0 0 400px 110px rgba(0, 0, 0, .4);
         border-radius: 5px;
         cursor: pointer;
+    }
+
+    .board_form {
+        display: flex;
+        align-items: center;
+    }
+
+    .board_form_input {
+        color: #333333;
+        padding: 3px;
+        border-radius: 5px;
+        border: none;
+    }
+
+    .board_form_button_save {
+        box-shadow: inset 0 0 400px 110px rgba(0, 0, 0, .2);
+        background: rgba(0, 0, 0, .4);
+        border-radius: 5px;
+        cursor: pointer;
+        color: #fff;
+        font-weight: bold;
+        border: none;
+        padding: 5px 10px;
+        margin: 0 10px;
+    }
+
+    .board_form_button_close {
+        color: #fff;
+        margin: 0 10px;
     }
 
     .board_categories {
