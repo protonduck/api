@@ -3,18 +3,28 @@
 
         <div class="board_names">
             <template v-if="boards.length > 0" v-for="(board, index) in boards">
-                <a href="#" @click.prevent="changeBoard(index)" class="board_name" v-bind:class="{ active: boardId === index }">
+                <a href="#" @click.prevent="changeBoard(index)" class="board_name" v-bind:class="{ active: boardId === index }" v-if="!showBoardAddForm">
                     {{ board.name }}
                 </a>
             </template>
-            <div class="board_name" @click.prevent="showBoardAddForm = true" v-if="!showBoardAddForm">+Add board</div>
+            <div class="board_name active" @click.prevent="showBoardAddForm = true" v-if="!showBoardAddForm">
+                <i class="fa fa-plus"></i>
+            </div>
             <div class="board_form" v-if="showBoardAddForm">
-                <form>
-                    <label for="name"></label>
-                    <input type="text" id="name" class="board_form_input">
+                <form @submit.prevent="store">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" class="board_form_input" v-model="form.name"
+                           autofocus="autofocus" placeholder="Private" :class="{'board_form_error': errorMessage}" required>
+
+                    <label for="image">Image URL</label>
+                    <input type="text" id="image" name="image" class="board_form_input" v-model="form.image" placeholder="https://">
+
                     <input type="submit" value="Save" class="board_form_button_save">
                     <a href="#" @click.prevent="showBoardAddForm = false" class="board_form_button_close">Close</a>
                 </form>
+            </div>
+            <div class="board_name active" v-if="!showBoardAddForm">
+                <i class="fa fa-edit"></i>
             </div>
         </div>
 
@@ -37,6 +47,7 @@
 
     import categoryComponent from './CategoryCompontent';
     import axios from 'axios';
+    import bus from './../bus';
 
     export default {
         name: 'board',
@@ -45,7 +56,12 @@
                 boards: [],
                 categories: [],
                 boardId: 0,
-                showBoardAddForm: false
+                showBoardAddForm: false,
+                form: {
+                    name: '',
+                    image: ''
+                },
+                errorMessage: ''
             }
         },
         computed: {},
@@ -82,15 +98,37 @@
                 document.body.className = 'body_bg_image';
 
             },
+            async prependBoard (board) {
+                this.boards.push(board)
+            },
             changeBoard(id) {
                 this.boardId = id;
                 this.loadCategories();
+            },
+            async store () {
+
+                await axios.post(this.endpoint, this.form).then(response => {
+
+                    bus.$emit('board:stored', response.data);
+
+                    this.showBoardAddForm = false;
+                    this.form.name = '';
+                    this.form.image = '';
+                    this.errorMessage = '';
+
+                }).catch(error => {
+                    this.errorMessage = error.message;
+                });
+
             }
         },
         created() {
             this.loadBoards()
         },
         mounted() {
+
+            bus.$on('board:stored', this.prependBoard);
+
         }
     }
 </script>
@@ -125,11 +163,16 @@
     .board_form {
         display: flex;
         align-items: center;
+
+        label {
+            margin: 0 15px;
+        }
     }
 
     .board_form_input {
         color: #333333;
         padding: 3px;
+        margin: 4px;
         border-radius: 5px;
         border: none;
     }
@@ -144,6 +187,11 @@
         border: none;
         padding: 5px 10px;
         margin: 0 10px;
+    }
+
+    .board_form_error {
+        background-color: #F2DEDE;
+        border: 1px solid #EED3D7;
     }
 
     .board_form_button_close {
