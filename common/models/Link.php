@@ -58,7 +58,7 @@ class Link extends \yii\db\ActiveRecord
         return [
             // by default allowed to edit only this fields
             static::SCENARIO_DEFAULT => $default,
-            static::SCENARIO_ADMIN => array_merge($default, ['hits', 'http_status_code', 'checked_at']),
+            static::SCENARIO_ADMIN => array_merge($default, ['hits', 'http_status_code', 'checked_at', 'favicon']),
         ];
     }
 

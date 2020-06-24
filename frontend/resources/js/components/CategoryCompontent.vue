@@ -1,7 +1,16 @@
 <template>
     <div class="category" :style="{ backgroundColor: '#' + bgColor }">
         <div class="category_name">
-            <i v-if="icon" :class="icon" class="category_icon"></i> {{ name }}
+            <i v-if="icon" :class="icon" class="category_icon"></i>
+            {{ name }}
+            <div class="action_links">
+                <div class="action_edit">
+                    <i class="fa fa-edit"></i>
+                </div>
+                <div class="action_add">
+                    <i class="fa fa-plus"></i>
+                </div>
+            </div>
         </div>
         <div class="category_content">
             <div class="category_links" v-if="links.length > 0">
@@ -17,7 +26,7 @@
                 </template>
             </div>
             <div v-else>
-                + Add
+                <i class="fa fa-plus"></i> Add your first Link
             </div>
         </div>
     </div>
@@ -61,7 +70,7 @@
 <style scoped lang="scss">
 
     .category {
-        flex-basis: 450px;
+        flex-basis: 350px;
         flex-grow: 1;
         margin: 10px;
         border: solid 1px #dddddd;
@@ -73,6 +82,9 @@
         color: #fff;
         font-weight: bold;
         font-size: medium;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
     .category_icon {
@@ -85,7 +97,6 @@
 
     .category_links {
         padding: 0 10px;
-        font-weight: lighter;
         font-size: medium;
 
         a {
@@ -97,11 +108,16 @@
     .link {
 
         display: flex;
+        line-height: 30px;
 
         .link_favicon {
 
+            height: 16px;
+            width: 16px;
+
             img {
                 height: 16px;
+                width: 16px;
             }
 
         }
@@ -110,6 +126,21 @@
             display: flex;
             align-items: center;
             padding-left: 10px;
+            text-decoration: underline;
+        }
+
+    }
+
+    .action_links {
+
+        display: flex;
+
+        .action_add,
+        .action_edit {
+            box-shadow: inset 0 0 400px 110px rgba(0, 0, 0, .2);
+            padding: 3px 7px;
+            margin: 0 0 0 10px;
+            font-size: small;
         }
 
     }

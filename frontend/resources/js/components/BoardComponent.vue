@@ -2,9 +2,11 @@
     <div class="board" :endpoint="endpoint">
 
         <div class="board_names">
-            <div v-if="boards.length > 0" class="board_name" v-for="board in boards">
-                {{ board.name }}
-            </div>
+            <template v-if="boards.length > 0" v-for="(board, index) in boards">
+                <a href="#" @click.prevent="changeBoard(index)" class="board_name" v-bind:class="{ active: boardId === index }">
+                    {{ board.name }}
+                </a>
+            </template>
             <div class="board_name">+Add</div>
         </div>
 
@@ -62,15 +64,19 @@
             },
             async loadCategories() {
 
-                let boards = await this.fetchData();
+                let board = this.boards[this.boardId];
 
-                this.categories = boards.data[this.boardId].categories;
+                this.categories = board.categories;
 
                 // add bg to body
-                document.body.style.backgroundImage = "url('" + this.boards[this.boardId].image + "')";
+                document.body.style.backgroundImage = "url('" + board.image + "')";
                 document.body.className = 'body_bg_image';
 
             },
+            changeBoard(id) {
+                this.boardId = id;
+                this.loadCategories();
+            }
         },
         created() {
             this.loadBoards()
@@ -95,9 +101,11 @@
         font-weight: bold;
         font-size: larger;
         padding: 3px 20px;
+        margin: 3px 5px;
+        color: #fff;
     }
 
-    .board_name_active,
+    .active,
     .board_name:hover {
         box-shadow: inset 0 0 400px 110px rgba(0, 0, 0, .4);
         border-radius: 5px;
