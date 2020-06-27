@@ -71,12 +71,6 @@ RUN composer global require --optimize-autoloader \
 RUN curl -L https://raw.githubusercontent.com/yiisoft/yii2/master/contrib/completion/bash/yii \
         -o /etc/bash_completion.d/yii
 
-# Install xdebug
-RUN yes | pecl install xdebug-2.6.1 \
-    && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
-    && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
-    && echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/xdebug.ini
-
 RUN echo "php_admin_value[error_reporting] = E_ALL & ~E_STRICT & ~E_DEPRECATED" >> /usr/local/etc/php-fpm.d/www.conf \
  && echo "php_admin_value[display_startup_errors] = on" >> /usr/local/etc/php-fpm.d/www.conf \
  && echo "php_admin_flag[log_errors] = on" >> /usr/local/etc/php-fpm.d/www.conf \
@@ -84,9 +78,9 @@ RUN echo "php_admin_value[error_reporting] = E_ALL & ~E_STRICT & ~E_DEPRECATED" 
  && echo "catch_workers_output = yes" >> /usr/local/etc/php-fpm.d/www.conf \
  && mv /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
 
-VOLUME ["/var/www"]
-WORKDIR /var/www
-
 # Install node.js
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
  && apt-get install -y nodejs
+
+VOLUME ["/var/www"]
+WORKDIR /var/www
