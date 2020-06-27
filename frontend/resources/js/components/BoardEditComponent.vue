@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="board_buttons" @click.prevent="showBoardForm = true" v-if="!showBoardForm">
+        <div class="board_buttons" @click.prevent="boardEditing" v-if="!showBoardForm">
             <i class="fa fa-edit"></i>
         </div>
         <div class="board_form" v-if="showBoardForm">
@@ -68,9 +68,13 @@
                 });
 
             },
+            boardEditing() {
+                this.showBoardForm = true;
+                bus.$emit('board:editing')
+            },
             cancel() {
                 this.showBoardForm = false;
-                bus.$emit('board:edit-cancelled', this.board)
+                bus.$emit('board:edit-cancelled')
             }
         },
         created() {},

@@ -2,16 +2,18 @@
     <div class="board" :endpoint="endpoint" :accesstoken="accesstoken">
 
         <div class="board_names">
-            <template v-if="boards.length > 0" v-for="(board, index) in boards">
+            <template v-if="showBoardNames" v-for="(board, index) in boards">
                 <a href="#" @click.prevent="changeBoard(index)" class="board_name" v-bind:class="{ active: boardId === index }" :id="`board-${board.id}`">
                     {{ board.name }}
                 </a>
             </template>
             <board-add-component :endpoint="endpoint" :accesstoken="accesstoken"></board-add-component>
-            <board-edit-component :endpoint="endpoint" :accesstoken="accesstoken" :board="board"></board-edit-component>
-            <div class="board_buttons active" @click.prevent="destroy">
-                <i class="fa fa-trash"></i>
-            </div>
+            <template v-if="boards.length > 0">
+                <board-edit-component :endpoint="endpoint" :accesstoken="accesstoken" :board="board"></board-edit-component>
+                <div class="board_buttons active" @click.prevent="destroy">
+                    <i class="fa fa-trash"></i>
+                </div>
+            </template>
         </div>
 
         <div class="board_categories">
@@ -46,7 +48,7 @@
                 board: {},
                 categories: [],
                 boardId: 0,
-                editing: false
+                showBoardNames: true,
             }
         },
         computed: {},
@@ -82,26 +84,40 @@
 
                 let board = this.boards[this.boardId];
 
-                this.board = board;
+                if (typeof board !== 'undefined') {
 
-                this.categories = board.categories;
+                    this.board = board;
 
-                // add bg to body
-                document.body.style.backgroundImage = "url('" + board.image + "')";
-                document.body.className = 'body_bg_image';
+                    this.categories = board.categories;
+
+                    // add bg to body
+                    document.body.style.backgroundImage = "url('" + board.image + "')";
+                    document.body.className = 'body_bg_image';
+
+                }
 
             },
             async prependBoard (board) {
-                this.boards.push(board)
+
+                if (typeof board !== 'undefined') {
+                    this.boards.push(board);
+                }
+
+                this.showBoardNames = true;
+
             },
             changeBoard(id) {
                 this.boardId = id;
                 this.loadCategories();
             },
             editBoard(boards){
+
                 _.assign(_.find(this.boards, {id: boards.id}), boards);
+
+                this.showBoardNames = true;
+
             },
-            async destroy () {
+            async destroy() {
 
                 if (confirm('Are you sure?')) {
                     await axios.delete(`${this.endpoint}/${this.board.id}?access-token=${this.accesstoken}`);
@@ -123,15 +139,21 @@
 
             bus.$on('board:edited', this.editBoard);
 
-            bus.$on('board:edit-cancelled', (board) => {
+            bus.$on('board:editing', () => {
+                this.showBoardNames = false;
+            });
 
-                if (board.id === this.board.id) {
-                    this.editing = false
-                }
-
+            bus.$on('board:edit-cancelled', () => {
+                this.showBoardNames = true
             })
 
-            bus.$on('board:add-cancelled', () => {});
+            bus.$on('board:adding', () => {
+                this.showBoardNames = false;
+            });
+
+            bus.$on('board:add-cancelled', () => {
+                this.showBoardNames = true;
+            });
 
             bus.$on('board:deleted', this.deleteBoard);
 

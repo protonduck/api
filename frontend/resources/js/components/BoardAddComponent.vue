@@ -1,16 +1,16 @@
 <template>
     <div>
-        <div class="board_buttons" @click.prevent="showBoardForm = true" v-if="!showBoardForm">
+        <div class="board_buttons" @click.prevent="boardAdding" v-if="!showBoardForm">
             <i class="fa fa-plus"></i>
         </div>
         <div class="board_form" v-if="showBoardForm">
             <form @submit.prevent="store">
                 <label for="name">Name</label>
                 <input type="text" id="name" name="name" class="board_form_input" v-model="form.name"
-                       autofocus="autofocus" placeholder="Private" :class="{'board_form_error': errorMessage}" required>
+                       autofocus="autofocus" placeholder="" :class="{'board_form_error': errorMessage}" required>
 
                 <label for="image">Image URL</label>
-                <input type="text" id="image" name="image" class="board_form_input" v-model="form.image" placeholder="https://">
+                <input type="text" id="image" name="image" class="board_form_input" v-model="form.image" placeholder="">
 
                 <input type="submit" value="Save" class="board_form_button_save">
                 <a href="#" @click.prevent="cancel" class="board_form_button_close">Close</a>
@@ -65,6 +65,10 @@
                     this.errorMessage = error.message;
                 });
 
+            },
+            boardAdding() {
+                this.showBoardForm = true;
+                bus.$emit('board:adding')
             },
             cancel() {
                 this.showBoardForm = false;
