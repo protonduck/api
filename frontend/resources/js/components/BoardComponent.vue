@@ -1,30 +1,16 @@
 <template>
-    <div class="board" :endpoint="endpoint">
+    <div class="board" :endpoint="endpoint" :accesstoken="accesstoken">
 
         <div class="board_names">
             <template v-if="boards.length > 0" v-for="(board, index) in boards">
-                <a href="#" @click.prevent="changeBoard(index)" class="board_name" v-bind:class="{ active: boardId === index }" v-if="!showBoardAddForm">
+                <a href="#" @click.prevent="changeBoard(index)" class="board_name" v-bind:class="{ active: boardId === index }" :id="`board-${board.id}`">
                     {{ board.name }}
                 </a>
             </template>
-            <div class="board_name active" @click.prevent="showBoardAddForm = true" v-if="!showBoardAddForm">
-                <i class="fa fa-plus"></i>
-            </div>
-            <div class="board_form" v-if="showBoardAddForm">
-                <form @submit.prevent="store">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" class="board_form_input" v-model="form.name"
-                           autofocus="autofocus" placeholder="Private" :class="{'board_form_error': errorMessage}" required>
-
-                    <label for="image">Image URL</label>
-                    <input type="text" id="image" name="image" class="board_form_input" v-model="form.image" placeholder="https://">
-
-                    <input type="submit" value="Save" class="board_form_button_save">
-                    <a href="#" @click.prevent="showBoardAddForm = false" class="board_form_button_close">Close</a>
-                </form>
-            </div>
-            <div class="board_name active" v-if="!showBoardAddForm">
-                <i class="fa fa-edit"></i>
+            <board-add-component :endpoint="endpoint" :accesstoken="accesstoken"></board-add-component>
+            <board-edit-component :endpoint="endpoint" :accesstoken="accesstoken" :board="board"></board-edit-component>
+            <div class="board_buttons active" @click.prevent="destroy">
+                <i class="fa fa-trash"></i>
             </div>
         </div>
 
@@ -46,22 +32,21 @@
 <script>
 
     import categoryComponent from './CategoryCompontent';
+    import boardAddComponent from './BoardAddComponent';
+    import boardEditComponent from './BoardEditComponent';
     import axios from 'axios';
     import bus from './../bus';
+    import _ from 'lodash';
 
     export default {
         name: 'board',
         data () {
             return {
                 boards: [],
+                board: {},
                 categories: [],
                 boardId: 0,
-                showBoardAddForm: false,
-                form: {
-                    name: '',
-                    image: ''
-                },
-                errorMessage: ''
+                editing: false
             }
         },
         computed: {},
@@ -70,13 +55,19 @@
                 required: true,
                 type: String
             },
+            accesstoken: {
+                required: true,
+                type: String
+            },
         },
         components: {
             categoryComponent,
+            boardAddComponent,
+            boardEditComponent
         },
         methods: {
             fetchData() {
-                return axios.get(`${this.endpoint}`)
+                return axios.get(`${this.endpoint}` + '?access-token=' +  `${this.accesstoken}`)
             },
             async loadBoards() {
 
@@ -90,6 +81,8 @@
             async loadCategories() {
 
                 let board = this.boards[this.boardId];
+
+                this.board = board;
 
                 this.categories = board.categories;
 
@@ -105,21 +98,20 @@
                 this.boardId = id;
                 this.loadCategories();
             },
-            async store () {
+            editBoard(boards){
+                _.assign(_.find(this.boards, {id: boards.id}), boards);
+            },
+            async destroy () {
 
-                await axios.post(this.endpoint, this.form).then(response => {
+                if (confirm('Are you sure?')) {
+                    await axios.delete(`${this.endpoint}/${this.board.id}?access-token=${this.accesstoken}`);
+                    bus.$emit('board:deleted', this.board);
+                }
 
-                    bus.$emit('board:stored', response.data);
-
-                    this.showBoardAddForm = false;
-                    this.form.name = '';
-                    this.form.image = '';
-                    this.errorMessage = '';
-
-                }).catch(error => {
-                    this.errorMessage = error.message;
-                });
-
+            },
+            deleteBoard(board) {
+                this.boards = this.boards.filter((b) => b.id !== board.id);
+                this.changeBoard(0);
             }
         },
         created() {
@@ -128,6 +120,20 @@
         mounted() {
 
             bus.$on('board:stored', this.prependBoard);
+
+            bus.$on('board:edited', this.editBoard);
+
+            bus.$on('board:edit-cancelled', (board) => {
+
+                if (board.id === this.board.id) {
+                    this.editing = false
+                }
+
+            })
+
+            bus.$on('board:add-cancelled', () => {});
+
+            bus.$on('board:deleted', this.deleteBoard);
 
         }
     }
@@ -145,7 +151,8 @@
         border-radius: 10px;
     }
 
-    .board_name {
+    .board_name,
+    .board_buttons {
         font-weight: bold;
         font-size: larger;
         padding: 3px 20px;
@@ -154,49 +161,17 @@
     }
 
     .active,
-    .board_name:hover {
+    .board_name:hover,
+    .board_buttons {
         box-shadow: inset 0 0 400px 110px rgba(0, 0, 0, .4);
         border-radius: 5px;
         cursor: pointer;
     }
 
-    .board_form {
-        display: flex;
-        align-items: center;
-
-        label {
-            margin: 0 15px;
-        }
-    }
-
-    .board_form_input {
-        color: #333333;
-        padding: 3px;
-        margin: 4px;
-        border-radius: 5px;
-        border: none;
-    }
-
-    .board_form_button_save {
-        box-shadow: inset 0 0 400px 110px rgba(0, 0, 0, .2);
-        background: rgba(0, 0, 0, .4);
-        border-radius: 5px;
-        cursor: pointer;
-        color: #fff;
-        font-weight: bold;
-        border: none;
-        padding: 5px 10px;
-        margin: 0 10px;
-    }
-
-    .board_form_error {
-        background-color: #F2DEDE;
-        border: 1px solid #EED3D7;
-    }
-
-    .board_form_button_close {
-        color: #fff;
-        margin: 0 10px;
+    .board_buttons {
+        border-radius: 0;
+        padding-left: 7px;
+        padding-right: 7px;
     }
 
     .board_categories {
