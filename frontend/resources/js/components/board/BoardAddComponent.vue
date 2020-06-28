@@ -1,16 +1,16 @@
 <template>
     <div>
-        <div class="board_buttons" @click.prevent="boardEditing" v-if="!showBoardForm">
-            <i class="fa fa-edit"></i>
+        <div class="board_buttons" @click.prevent="boardAdding" v-if="!showBoardForm">
+            <i class="fa fa-plus"></i>
         </div>
         <div class="board_form" v-if="showBoardForm">
-            <form @submit.prevent="patch">
+            <form @submit.prevent="store">
                 <label for="name">Name</label>
                 <input type="text" id="name" name="name" class="board_form_input" v-model="form.name"
-                       autofocus="autofocus" :class="{'board_form_error': errorMessage}" required />
+                       autofocus="autofocus" placeholder="" :class="{'board_form_error': errorMessage}" required>
 
                 <label for="image">Image URL</label>
-                <input type="text" id="image" name="image" class="board_form_input" v-model="form.image" />
+                <input type="text" id="image" name="image" class="board_form_input" v-model="form.image" placeholder="">
 
                 <input type="submit" value="Save" class="board_form_button_save">
                 <a href="#" @click.prevent="cancel" class="board_form_button_close">Close</a>
@@ -22,17 +22,17 @@
 <script>
 
     import axios from 'axios';
-    import bus from './../bus';
+    import bus from '../../bus';
 
     export default {
-        name: 'boardEdit',
+        name: 'boardAdd',
         data () {
             return {
-                form: {
-                    name: this.board.name,
-                    image: this.board.image
-                },
                 showBoardForm: false,
+                form: {
+                    name: '',
+                    image: ''
+                },
                 errorMessage: ''
             }
         },
@@ -46,21 +46,19 @@
                 required: true,
                 type: String
             },
-            board: {
-                required: true,
-                type: Object
-            },
         },
         components: {
         },
         methods: {
-            async patch () {
+            async store () {
 
-                await axios.patch(`${this.endpoint}/${this.board.id}?access-token=${this.accesstoken}`, this.form).then(response => {
+                await axios.post(this.endpoint + '?access-token=' +  `${this.accesstoken}`, this.form).then(response => {
 
-                    bus.$emit('board:edited', response.data);
+                    bus.$emit('board:stored', response.data);
 
                     this.showBoardForm = false;
+                    this.form.name = '';
+                    this.form.image = '';
                     this.errorMessage = '';
 
                 }).catch(error => {
@@ -68,16 +66,17 @@
                 });
 
             },
-            boardEditing() {
+            boardAdding() {
                 this.showBoardForm = true;
-                bus.$emit('board:editing')
+                bus.$emit('board:adding')
             },
             cancel() {
                 this.showBoardForm = false;
-                bus.$emit('board:edit-cancelled')
+                bus.$emit('board:add-cancelled')
             }
         },
-        created() {},
+        created() {
+        },
         mounted() {}
     }
 </script>

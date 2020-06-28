@@ -11,6 +11,8 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    // Catch all requests to index page
+    'catchAll' => ['/site/index'],
     'components' => [
         'request' => [
             'class' => 'common\components\lang\Request',
@@ -43,9 +45,19 @@ return [
             'showScriptName' => false,
             'rules' => [
                 '' => 'site/index',
-                'login' => 'site/login',
-                'logout' => 'site/logout',
-                'signup' => 'site/signup',
+            ],
+        ],
+        'assetManager' => [
+            'bundles' => [
+                'yii\web\JqueryAsset' => [
+                    'js' => [],
+                ],
+                'yii\bootstrap\BootstrapAsset' => [
+                    'css' => [],
+                ],
+                'yii\bootstrap\BootstrapPluginAsset' => [
+                    'js' => [],
+                ],
             ],
         ],
     ],

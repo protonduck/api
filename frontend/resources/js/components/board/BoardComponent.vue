@@ -33,11 +33,11 @@
 
 <script>
 
-    import categoryComponent from './CategoryCompontent';
+    import categoryComponent from '../category/CategoryCompontent';
     import boardAddComponent from './BoardAddComponent';
     import boardEditComponent from './BoardEditComponent';
     import axios from 'axios';
-    import bus from './../bus';
+    import bus from '../../bus';
     import _ from 'lodash';
 
     export default {
