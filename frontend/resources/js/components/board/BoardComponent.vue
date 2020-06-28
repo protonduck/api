@@ -1,15 +1,15 @@
 <template>
-    <div class="board" :endpoint="endpoint" :accesstoken="accesstoken">
-
+    <div class="board">
         <div class="board_names">
             <template v-if="showBoardNames" v-for="(board, index) in boards">
-                <a href="#" @click.prevent="changeBoard(index)" class="board_name" v-bind:class="{ active: boardId === index }" :id="`board-${board.id}`">
+                <a href="#" @click.prevent="changeBoard(index)" class="board_name"
+                   v-bind:class="{ active: boardId === index }" :id="`board-${board.id}`">
                     {{ board.name }}
                 </a>
             </template>
-            <board-add-component :endpoint="endpoint" :accesstoken="accesstoken"></board-add-component>
+            <board-add-component></board-add-component>
             <template v-if="boards.length > 0">
-                <board-edit-component :endpoint="endpoint" :accesstoken="accesstoken" :board="board"></board-edit-component>
+                <board-edit-component :board="board"></board-edit-component>
                 <div class="board_buttons active" @click.prevent="destroy">
                     <i class="fa fa-trash"></i>
                 </div>
@@ -25,7 +25,7 @@
                 ></category-component>
             </template>
             <div class="category_add">
-                   +Add category
+                +Add category
             </div>
         </div>
     </div>
@@ -42,7 +42,7 @@
 
     export default {
         name: 'board',
-        data () {
+        data() {
             return {
                 boards: [],
                 board: {},
@@ -52,16 +52,7 @@
             }
         },
         computed: {},
-        props: {
-            endpoint: {
-                required: true,
-                type: String
-            },
-            accesstoken: {
-                required: true,
-                type: String
-            },
-        },
+        props: {},
         components: {
             categoryComponent,
             boardAddComponent,
@@ -69,7 +60,7 @@
         },
         methods: {
             fetchData() {
-                return axios.get(`${this.endpoint}` + '?access-token=' +  `${this.accesstoken}`)
+                return axios.get('/boards');
             },
             async loadBoards() {
 
@@ -97,7 +88,7 @@
                 }
 
             },
-            async prependBoard (board) {
+            async prependBoard(board) {
 
                 if (typeof board !== 'undefined') {
                     this.boards.push(board);
@@ -110,7 +101,7 @@
                 this.boardId = id;
                 this.loadCategories();
             },
-            editBoard(boards){
+            editBoard(boards) {
 
                 _.assign(_.find(this.boards, {id: boards.id}), boards);
 
@@ -120,7 +111,7 @@
             async destroy() {
 
                 if (confirm('Are you sure?')) {
-                    await axios.delete(`${this.endpoint}/${this.board.id}?access-token=${this.accesstoken}`);
+                    await axios.delete(`/boards`);
                     bus.$emit('board:deleted', this.board);
                 }
 

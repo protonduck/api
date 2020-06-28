@@ -35,7 +35,7 @@ Vue.prototype.$http = Axios;
 Vue.prototype.$http.defaults.baseURL = 'http://api.bookmarks.local:8025/v1';
 const token = localStorage.getItem('token')
 if (token) {
-    Vue.prototype.$http.defaults.headers.common['Authorization'] = token
+    Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 }
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
