@@ -38,14 +38,6 @@
         },
         computed: {},
         props: {
-            endpoint: {
-                required: true,
-                type: String
-            },
-            accesstoken: {
-                required: true,
-                type: String
-            },
             board: {
                 required: true,
                 type: Object
@@ -56,7 +48,7 @@
         methods: {
             async patch () {
 
-                await axios.patch(`${this.endpoint}/${this.board.id}?access-token=${this.accesstoken}`, this.form).then(response => {
+                await axios({url: 'boards/' + this.board.id, data: this.form, method: 'PATCH'}).then(response => {
 
                     bus.$emit('board:edited', response.data);
 

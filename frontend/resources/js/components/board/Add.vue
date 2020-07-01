@@ -37,22 +37,13 @@
             }
         },
         computed: {},
-        props: {
-            endpoint: {
-                required: true,
-                type: String
-            },
-            accesstoken: {
-                required: true,
-                type: String
-            },
-        },
+        props: {},
         components: {
         },
         methods: {
             async store () {
 
-                await axios.post(this.endpoint + '?access-token=' +  `${this.accesstoken}`, this.form).then(response => {
+                await axios({url: 'boards', data: this.form, method: 'POST'}).then(response => {
 
                     bus.$emit('board:stored', response.data);
 

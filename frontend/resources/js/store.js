@@ -36,7 +36,7 @@ export default new Vuex.Store({
                         const token = resp.data.api_key;
                         const user = resp.data;
                         localStorage.setItem('token', token)
-                        axios.defaults.headers.common['Authorization'] = token
+                        axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
                         commit('auth_success', token, user)
                         resolve(resp)
                     })
@@ -50,12 +50,12 @@ export default new Vuex.Store({
         register({commit}, user) {
             return new Promise((resolve, reject) => {
                 commit('auth_request')
-                axios({url: 'http://localhost:3000/register', data: user, method: 'POST'})
+                axios({url: '/user/signup', data: user, method: 'POST'})
                     .then(resp => {
-                        const token = resp.data.token
-                        const user = resp.data.user
+                        const token = resp.data.api_key;
+                        const user = resp.data;
                         localStorage.setItem('token', token)
-                        axios.defaults.headers.common['Authorization'] = token
+                        axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
                         commit('auth_success', token, user)
                         resolve(resp)
                     })

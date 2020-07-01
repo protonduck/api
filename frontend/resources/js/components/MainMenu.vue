@@ -1,9 +1,13 @@
 <template>
     <nav>
-        <router-link to="/">Boards</router-link>
-        <router-link to="/login">Login</router-link>
-        <router-link to="/signup">Signup</router-link>
-        <span v-if="isLoggedIn"> | <a @click="logout">Logout</a></span>
+        <template v-if="isLoggedIn">
+            <router-link to="/">Boards</router-link>
+            <span> | <a @click="logout">Logout</a></span>
+        </template>
+        <template v-else>
+            <router-link to="/login">Login</router-link>
+            <router-link to="/signup">Signup</router-link>
+        </template>
     </nav>
 </template>
 
@@ -25,12 +29,14 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     nav {
-        text-align: center;
-    }
 
-    nav ul {
-        list-style: none;
+        text-align: center;
+
+        ul {
+            list-style: none;
+        }
+
     }
 </style>

@@ -7,9 +7,9 @@
                     {{ board.name }}
                 </a>
             </template>
-            <board-add-component></board-add-component>
+            <board-add></board-add>
             <template v-if="boards.length > 0">
-                <board-edit-component :board="board"></board-edit-component>
+                <board-edit :board="board"></board-edit>
                 <div class="board_buttons active" @click.prevent="destroy">
                     <i class="fa fa-trash"></i>
                 </div>
@@ -18,11 +18,11 @@
 
         <div class="board_categories">
             <template v-for="category in categories">
-                <category-component :name="category.name"
+                <category :name="category.name"
                                     :bg-color="category.color"
                                     :icon="category.icon"
                                     :links="category.links"
-                ></category-component>
+                ></category>
             </template>
             <div class="category_add">
                 +Add category
@@ -33,9 +33,9 @@
 
 <script>
 
-    import categoryComponent from '../category/CategoryCompontent';
-    import boardAddComponent from './BoardAddComponent';
-    import boardEditComponent from './BoardEditComponent';
+    import category from '../category/Category';
+    import boardAdd from '../board/Add';
+    import boardEdit from '../board/Edit';
     import axios from 'axios';
     import bus from '../../bus';
     import _ from 'lodash';
@@ -54,17 +54,14 @@
         computed: {},
         props: {},
         components: {
-            categoryComponent,
-            boardAddComponent,
-            boardEditComponent
+            category,
+            boardAdd,
+            boardEdit
         },
         methods: {
-            fetchData() {
-                return axios.get('/boards');
-            },
             async loadBoards() {
 
-                let boards = await this.fetchData();
+                let boards = await axios({url: 'boards', method: 'GET'});
 
                 this.boards = boards.data;
 
@@ -111,7 +108,7 @@
             async destroy() {
 
                 if (confirm('Are you sure?')) {
-                    await axios.delete(`/boards`);
+                    await axios({url: 'boards/' + this.board.id, method: 'DELETE'});
                     bus.$emit('board:deleted', this.board);
                 }
 

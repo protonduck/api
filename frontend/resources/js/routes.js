@@ -1,6 +1,6 @@
 import Login from "./components/user/Login";
 import Signup from "./components/user/Signup";
-import BoardComponent from "./components/board/BoardComponent";
+import BoardComponent from "./components/board/Board";
 
 export const routes = [
     {
@@ -23,6 +23,9 @@ export const routes = [
     },
     {
         path: '*',
-        component: BoardComponent
+        component: BoardComponent,
+        meta: {
+            requiresAuth: true
+        }
     }
 ]
