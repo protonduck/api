@@ -6,6 +6,15 @@
 
 <script>
     export default {
+        name: 'boardItem',
+        data() {
+            return {}
+        },
+        computed: {},
+        props: {},
+        components: {},
+        methods: {},
+        created() {},
         mounted() {
             console.log('Component mounted.')
         }

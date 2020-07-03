@@ -29,8 +29,8 @@
         data () {
             return {
                 form: {
-                    name: this.board.name,
-                    image: this.board.image
+                    name: this.selectedBoard.name,
+                    image: this.selectedBoard.image
                 },
                 showBoardForm: false,
                 errorMessage: ''
@@ -38,7 +38,7 @@
         },
         computed: {},
         props: {
-            board: {
+            selectedBoard: {
                 required: true,
                 type: Object
             },
@@ -48,7 +48,11 @@
         methods: {
             async patch () {
 
-                await axios({url: 'boards/' + this.board.id, data: this.form, method: 'PATCH'}).then(response => {
+                await axios({
+                    url: 'boards/' + this.selectedBoard.id,
+                    data: this.form,
+                    method: 'PATCH'
+                }).then(response => {
 
                     bus.$emit('board:edited', response.data);
 
@@ -62,7 +66,7 @@
             },
             boardEditing() {
                 this.showBoardForm = true;
-                bus.$emit('board:editing')
+                bus.$emit('board:editing', this.selectedBoard)
             },
             cancel() {
                 this.showBoardForm = false;

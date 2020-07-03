@@ -1,15 +1,17 @@
 <template>
     <div class="board">
         <div class="board_names">
-            <template v-if="showBoardNames" v-for="(board, index) in boards">
-                <a href="#" @click.prevent="changeBoard(index)" class="board_name"
-                   v-bind:class="{ active: boardId === index }" :id="`board-${board.id}`">
-                    {{ board.name }}
-                </a>
-            </template>
+            <board-item
+                v-if="showBoardNames"
+                v-for="(board, index) in boards"
+                :board="board"
+                :key="board.id"
+                :index="(index + 1)"
+                @changeItem="changeItem"
+            ></board-item>
             <board-add></board-add>
             <template v-if="boards.length > 0">
-                <board-edit :board="board"></board-edit>
+                <board-edit :selectedBoard="selectedBoard"></board-edit>
                 <div class="board_buttons active" @click.prevent="destroy">
                     <i class="fa fa-trash"></i>
                 </div>
@@ -18,10 +20,11 @@
 
         <div class="board_categories">
             <template v-for="category in categories">
-                <category :name="category.name"
-                                    :bg-color="category.color"
-                                    :icon="category.icon"
-                                    :links="category.links"
+                <category
+                    :name="category.name"
+                    :bg-color="category.color"
+                    :icon="category.icon"
+                    :links="category.links"
                 ></category>
             </template>
             <div class="category_add">
@@ -36,6 +39,7 @@
     import category from '../category/Category';
     import boardAdd from '../board/Add';
     import boardEdit from '../board/Edit';
+    import boardItem from '../board/Item';
     import axios from 'axios';
     import bus from '../../bus';
     import _ from 'lodash';
@@ -45,9 +49,8 @@
         data() {
             return {
                 boards: [],
-                board: {},
+                selectedBoard: {},
                 categories: [],
-                boardId: 0,
                 showBoardNames: true,
             }
         },
@@ -56,51 +59,42 @@
         components: {
             category,
             boardAdd,
-            boardEdit
+            boardEdit,
+            boardItem,
         },
         methods: {
-            async loadBoards() {
+            async loadBoardsData() {
 
                 let boards = await axios({url: 'boards', method: 'GET'});
 
                 this.boards = boards.data;
 
-                await this.loadCategories();
+                if (this.boards[0] !== undefined) {
+                    this.changeItem(this.boards[0].id);
+                }
 
             },
-            async loadCategories() {
+            changeItem(id) {
 
-                let board = this.boards[this.boardId];
+                this.selectedBoard = _.find(this.boards, {id: id});
 
-                if (typeof board !== 'undefined') {
+                this.categories = this.selectedBoard.categories;
 
-                    this.board = board;
-
-                    this.categories = board.categories;
-
-                    // add bg to body
-                    document.body.style.backgroundImage = "url('" + board.image + "')";
-                    document.body.className = 'body_bg_image';
-
-                }
+                // add bg to body
+                document.body.style.backgroundImage = "url('" + this.selectedBoard.image + "')";
+                document.body.className = 'body_bg_image';
 
             },
             async prependBoard(board) {
 
-                if (typeof board !== 'undefined') {
-                    this.boards.push(board);
-                }
+                this.boards.push(board);
 
                 this.showBoardNames = true;
 
             },
-            changeBoard(id) {
-                this.boardId = id;
-                this.loadCategories();
-            },
-            editBoard(boards) {
+            editBoard(board) {
 
-                _.assign(_.find(this.boards, {id: boards.id}), boards);
+                _.assign(_.find(this.boards, {id: board.id}), board);
 
                 this.showBoardNames = true;
 
@@ -108,18 +102,17 @@
             async destroy() {
 
                 if (confirm('Are you sure?')) {
-                    await axios({url: 'boards/' + this.board.id, method: 'DELETE'});
-                    bus.$emit('board:deleted', this.board);
+                    await axios({url: 'boards/' + this.selectedBoard.id, method: 'DELETE'});
+                    bus.$emit('board:deleted', this.selectedBoard);
                 }
 
             },
             deleteBoard(board) {
                 this.boards = this.boards.filter((b) => b.id !== board.id);
-                this.changeBoard(0);
-            }
+            },
         },
         created() {
-            this.loadBoards()
+            this.loadBoardsData();
         },
         mounted() {
 
@@ -161,7 +154,6 @@
         border-radius: 10px;
     }
 
-    .board_name,
     .board_buttons {
         font-weight: bold;
         font-size: larger;
@@ -171,7 +163,6 @@
     }
 
     .active,
-    .board_name:hover,
     .board_buttons {
         box-shadow: inset 0 0 400px 110px rgba(0, 0, 0, .4);
         border-radius: 5px;
