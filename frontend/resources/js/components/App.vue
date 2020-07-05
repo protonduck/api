@@ -30,12 +30,10 @@
 
 <style scoped lang="scss">
     nav {
-
         text-align: center;
 
         ul {
             list-style: none;
         }
-
     }
 </style>

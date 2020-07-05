@@ -1,12 +1,13 @@
 <template>
     <nav>
         <template v-if="isLoggedIn">
-            <router-link to="/">Boards</router-link>
-            <span> | <a @click="logout">Logout</a></span>
+            <router-link :to="{name: 'home'}">Boards</router-link>
+            <router-link :to="{name: 'products'}">Products</router-link>
+            <span> | <a href="#" @click.prevent="logout">Logout</a></span>
         </template>
         <template v-else>
-            <router-link to="/login">Login</router-link>
-            <router-link to="/signup">Signup</router-link>
+            <router-link :to="{name: 'login'}">Login</router-link>
+            <router-link :to="{name: 'signup'}">Signup</router-link>
         </template>
     </nav>
 </template>

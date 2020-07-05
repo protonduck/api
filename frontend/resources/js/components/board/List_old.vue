@@ -75,7 +75,6 @@
 
             },
             changeItem(id) {
-
                 this.selectedBoard = _.find(this.boards, {id: id});
 
                 this.categories = this.selectedBoard.categories;
