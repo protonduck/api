@@ -4,7 +4,7 @@
             <nav class="nav nav-pills">
                 <a class="nav-item nav-link" href="#"
                    @click.prevent="switchBoard"
-                   v-bind:class="{active: board.id == activeBoardId}"
+                   v-bind:class="{active: board.id === activeBoardId}"
                    v-for="(board, i) in boards">{{ board.name }}</a>
 
                 <a href="#" class="nav-item nav-link" @click.prevent="addBoard"><i class="fa fa-plus"></i></a>
@@ -17,8 +17,8 @@
 
 <script>
     import BoardService from "../../services/BoardService";
-    import Category from "../category/Category";
     import CategoriesList from "../category/List";
+    import Modal from "../Modal";
 
     export default {
         name: "BoardsList",
@@ -29,10 +29,13 @@
                 activeBoardId: null,
             }
         },
-        components: {CategoriesList},
+        components: {
+            CategoriesList,
+            Modal
+        },
         methods: {
             addBoard() {
-
+                //boardsChanged
             },
             switchBoard(id) {
                 BoardService.activeBoardId = id;
@@ -40,13 +43,20 @@
             }
         },
         created() {
+
             BoardService.$on('boardsChanged', () => {
+
                 this.boards = BoardService.boards;
-                this.categories = BoardService.getActiveBoard().categories;
+
+                if (BoardService.getActiveBoard() !== undefined) {
+                    this.categories = BoardService.getActiveBoard().categories;
+                }
+
                 this.activeBoardId = BoardService.activeBoardId;
             });
 
             BoardService.fetchBoards();
+
         },
     }
 </script>

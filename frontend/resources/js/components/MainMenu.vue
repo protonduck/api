@@ -2,7 +2,6 @@
     <nav>
         <template v-if="isLoggedIn">
             <router-link :to="{name: 'home'}">Boards</router-link>
-            <router-link :to="{name: 'products'}">Products</router-link>
             <span> | <a href="#" @click.prevent="logout">Logout</a></span>
         </template>
         <template v-else>

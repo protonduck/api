@@ -16,12 +16,15 @@ export default new Vue({
             });
         },
         setBoards(boards) {
+
             this.boards = boards;
+            
             if (!this.activeBoardId && boards.length) {
                 this.activeBoardId = boards[0]['id'];
             }
 
             this.$emit('boardsChanged');
+
         },
         getActiveBoard() {
             return _.find(this.boards, {id: this.activeBoardId});

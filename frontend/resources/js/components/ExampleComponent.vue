@@ -6,7 +6,7 @@
 
 <script>
     export default {
-        name: 'boardItem',
+        name: 'example',
         data() {
             return {}
         },

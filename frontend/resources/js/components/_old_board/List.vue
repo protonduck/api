@@ -36,7 +36,7 @@
 
 <script>
 
-    import category from '../category/Category';
+    import category from './Category';
     import boardAdd from '../board/Add';
     import boardEdit from '../board/Edit';
     import boardItem from '../board/Item';
