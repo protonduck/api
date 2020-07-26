@@ -2,12 +2,12 @@
     <div class="board">
         <div class="board_names">
             <board-item
-                v-if="showBoardNames"
-                v-for="(board, index) in boards"
-                :board="board"
-                :key="board.id"
-                :index="(index + 1)"
-                @changeItem="changeItem"
+                    v-if="showBoardNames"
+                    v-for="(board, index) in boards"
+                    :board="board"
+                    :key="board.id"
+                    :index="(index + 1)"
+                    @changeItem="changeItem"
             ></board-item>
             <board-add></board-add>
             <template v-if="boards.length > 0">
@@ -21,10 +21,10 @@
         <div class="board_categories">
             <template v-for="category in categories">
                 <category
-                    :name="category.name"
-                    :bg-color="category.color"
-                    :icon="category.icon"
-                    :links="category.links"
+                        :name="category.name"
+                        :bg-color="category.color"
+                        :icon="category.icon"
+                        :links="category.links"
                 ></category>
             </template>
             <div class="category_add">
@@ -36,7 +36,7 @@
 
 <script>
 
-    import category from '../category/Category';
+    import category from './Category';
     import boardAdd from '../board/Add';
     import boardEdit from '../board/Edit';
     import boardItem from '../board/Item';
@@ -75,7 +75,6 @@
 
             },
             changeItem(id) {
-
                 this.selectedBoard = _.find(this.boards, {id: id});
 
                 this.categories = this.selectedBoard.categories;

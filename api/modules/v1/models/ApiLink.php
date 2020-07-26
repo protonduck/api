@@ -23,7 +23,9 @@ class ApiLink extends Link
             'category_id' => static function (self $model) {
                 return $model->category_id !== null ? (int)$model->category_id : null;
             },
-            'title' => 'title',
+            'title' => static function (self $model) {
+                return $model->title ?? $model->url;
+            },
             'description' => 'description',
             'is_favorite' => static function (self $model) {
                 return (bool)$model->is_favorite;

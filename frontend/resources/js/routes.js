@@ -1,12 +1,12 @@
 import Login from "./components/user/Login";
 import Signup from "./components/user/Signup";
-import BoardComponent from "./components/board/Board";
+import BoardsList from "./components/board/List";
 
 export const routes = [
     {
         path: '/',
         name: 'home',
-        component: BoardComponent,
+        component: BoardsList,
         meta: {
             requiresAuth: true
         }
@@ -22,8 +22,12 @@ export const routes = [
         component: Signup
     },
     {
+        path: '/catergories',
+        name: 'catergoryAdd',
+    },
+    {
         path: '*',
-        component: BoardComponent,
+        component: BoardsList,
         meta: {
             requiresAuth: true
         }

@@ -47,16 +47,16 @@
                 type: String
             },
             bgColor: {
-                required: true,
-                type: String
+                type: String,
+                default: '#fff'
             },
             links: {
                 required: true,
                 type: Array
             },
             icon: {
-                required: true,
-                type: String
+                type: String,
+                default: ''
             }
         },
         components: {},

@@ -24,7 +24,8 @@ import {router} from "./router";
 
 Vue.prototype.$store = Store;
 Vue.prototype.$http = Axios;
-Vue.prototype.$http.defaults.baseURL = 'http://api.bookmarks.local:8025/v1';
+
+Vue.config.productionTip = false;
 
 const token = localStorage.getItem('token');
 
@@ -41,8 +42,9 @@ if (token) {
 const app = new Vue({
     router,
     el: '#app',
-    data: {
-        endpoint: ''
-    },
-    render: h => h(App)
+    render: h => h(App),
+    beforeMount() {
+        // set BaseURL for axios
+        Vue.prototype.$http.defaults.baseURL = this.$el.attributes['endpoint'].value;
+    }
 });
