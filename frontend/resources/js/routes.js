@@ -32,4 +32,4 @@ export const routes = [
             requiresAuth: true
         }
     }
-]
+];

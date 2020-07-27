@@ -20,7 +20,10 @@ window.Vue = require('vue');
 import Axios from 'axios'
 import Store from "./store";
 import App from './components/App';
+import Vuelidate from 'vuelidate'
 import {router} from "./router";
+
+Vue.use(Vuelidate);
 
 Vue.prototype.$store = Store;
 Vue.prototype.$http = Axios;
@@ -41,10 +44,14 @@ if (token) {
 
 const app = new Vue({
     router,
-    el: '#app',
     render: h => h(App),
     beforeMount() {
         // set BaseURL for axios
         Vue.prototype.$http.defaults.baseURL = this.$el.attributes['endpoint'].value;
     }
 });
+
+// Mount only if div#app exist
+if (document.getElementById('app')) {
+    app.$mount('#app');
+}

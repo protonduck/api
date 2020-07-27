@@ -19,7 +19,7 @@
             </div>
         </div>
 
-        <modal v-show="showModal">
+        <modal v-if="showModal">
             <div slot="content">
                 <category-form></category-form>
             </div>
@@ -55,8 +55,10 @@
         methods: {
             edit(selectedId) {
                 let selectedItem = _.find(this.items, {'id': selectedId});
-                CategoryService.edit(selectedItem);
-                this.showModal = true
+                this.showModal = true;
+                this.$nextTick(() => {
+                    CategoryService.edit(selectedItem);
+                });
             },
         },
         created() {

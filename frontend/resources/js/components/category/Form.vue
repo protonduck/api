@@ -4,23 +4,79 @@
         <div class="card-body">
             <form method="post" @submit.prevent="submit">
                 <div class="form-group">
-                    <input class="form-control" type="text" v-model="name" placeholder="Name">
+                    <label for="category-name">Name</label>
+                    <input id="category-name"
+                           type="text"
+                           autocomplete="off"
+                           class="form-control"
+                           :class="validationCssClass($v.name)"
+                           v-model.trim="$v.name.$model"
+                           @keydown="responseErrors = responseErrors.filter((item) => item.field !== 'name')"
+                    >
+                    <template v-for="(validator, validatorName) in $v.name.$params">
+                        <div class="invalid-feedback"
+                             v-if="!$v.name[validatorName]"
+                             v-text="validator && validator.message ? validator.message : validator"
+                        ></div>
+                    </template>
                 </div>
                 <div class="form-group">
-                    <textarea rows="2" class="form-control" type="text" v-model="description"
-                        placeholder="Description"></textarea>
+                    <label for="category-description">Description</label>
+                    <textarea id="category-description"
+                              rows="2"
+                              type="text"
+                              class="form-control"
+                              :class="validationCssClass($v.description)"
+                              v-model.trim="$v.description.$model"
+                              @keydown="responseErrors = responseErrors.filter((item) => item.field !== 'description')"
+                    ></textarea>
+                    <template v-for="(validator, validatorName) in $v.description.$params">
+                        <div class="invalid-feedback"
+                             v-if="!$v.description[validatorName]"
+                             v-text="validator && validator.message ? validator.message : validator"
+                        ></div>
+                    </template>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" v-model="color" placeholder="Color">
+                    <label for="category-color">Color</label>
+                    <input id="category-color"
+                           type="color"
+                           autocomplete="off"
+                           class="form-control"
+                           :class="validationCssClass($v.color)"
+                           v-model.trim="$v.color.$model"
+                           @keydown="responseErrors = responseErrors.filter((item) => item.field !== 'color')"
+                    >
+                    <template v-for="(validator, validatorName) in $v.color.$params">
+                        <div class="invalid-feedback"
+                             v-if="!$v.color[validatorName]"
+                             v-text="validator && validator.message ? validator.message : validator"
+                        ></div>
+                    </template>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" v-model="icon" placeholder="Icon">
+                    <label for="category-icon">Icon</label>
+                    <input id="category-icon"
+                           type="text"
+                           class="form-control"
+                           :class="validationCssClass($v.icon)"
+                           v-model.trim="$v.icon.$model"
+                           @keydown="responseErrors = responseErrors.filter((item) => item.field !== 'icon')"
+                    >
+                    <template v-for="(validator, validatorName) in $v.icon.$params">
+                        <div class="invalid-feedback"
+                             v-if="!$v.icon[validatorName]"
+                             v-text="validator && validator.message ? validator.message : validator"
+                        ></div>
+                    </template>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-success"
-                            v-text="isNewRecord ? 'Add' : 'Save'"></button>
-                    <button type="reset" class="btn btn-danger"
-                            @click.prevent="close">Close
+                    <button type="submit" class="btn btn-success" :disabled="isSaving">
+                        <spinner :state="isSaving"><i :class="['fas', isNewRecord ? 'fa-plus-square' : 'fa-save']"></i>
+                        </spinner>
+                        {{ isNewRecord ? 'Add' : 'Save' }}
+                    </button>
+                    <button type="reset" class="btn btn-danger" @click.prevent="close" :disabled="isSaving">Close
                     </button>
                 </div>
             </form>
@@ -31,18 +87,49 @@
 <script>
     import CategoryService from "../../services/CategoryService";
     import BoardService from "../../services/BoardService";
-    import Bus from "../../bus"
+    import Bus from "../../bus";
+    import Spinner from "../misc/Spinner";
+    import {required, minLength, maxLength, helpers} from 'vuelidate/lib/validators';
+    import {serverError} from "../../validators/validators";
 
     export default {
         name: "CategoryForm",
+        components: {Spinner},
         data() {
             return {
+                // form data
                 id: null,
                 name: '',
                 description: '',
                 color: '',
                 icon: '',
+                // states
+                isSaving: false,
+                // server errors
+                responseErrors: [],
             };
+        },
+        validations: {
+            name: {
+                required: helpers.withParams({message: 'Field is required'}, required),
+                minLength: helpers.withParams({message: 'Too short (min: 2)'}, minLength(2)),
+                maxLength: helpers.withParams({message: 'Too long (max: 255)'}, maxLength(255)),
+                serverError: serverError('name'),
+            },
+            description: {
+                maxLength: helpers.withParams({message: 'Too long (max: 255)'}, maxLength(255)),
+                serverError: serverError('description'),
+            },
+            color: {
+                minLength: helpers.withParams({message: 'Too short (min: 6)'}, minLength(6)),
+                maxLength: helpers.withParams({message: 'Too long (max: 7)'}, maxLength(7)),
+                serverError: serverError('color'),
+            },
+            icon: {
+                minLength: helpers.withParams({message: 'Too short (min: 2)'}, minLength(2)),
+                maxLength: helpers.withParams({message: 'Too long (max: 255)'}, maxLength(255)),
+                serverError: serverError('icon'),
+            },
         },
         computed: {
             isNewRecord() {
@@ -51,6 +138,13 @@
         },
         methods: {
             submit(e) {
+                this.$v.$touch();
+                if (this.$v.$invalid) {
+                    return;
+                }
+
+                this.isSaving = true;
+
                 this.$http.request({
                     url: this.isNewRecord ? '/categories' : '/categories/' + this.id,
                     method: this.isNewRecord ? 'post' : 'put',
@@ -62,11 +156,17 @@
                         icon: this.icon,
                     },
                 }).then(resp => {
-                    this.reset();
                     BoardService.fetchBoards();
                     Bus.$emit('closeModal');
+                    this.reset();
                 }).catch(err => {
-                    console.log(err);
+
+                    if (err.response?.status === 422) {
+                        this.responseErrors = err.response.data;
+                        // this.$v.$touch();
+                    }
+                }).finally(() => {
+                    this.isSaving = false;
                 });
 
             },
@@ -80,9 +180,18 @@
             close() {
                 this.reset();
                 Bus.$emit('closeModal')
-            }
+            },
+            validationCssClass(validation) {
+                return {
+                    'is-valid': !validation.$error && validation.$dirty,
+                    'is-invalid': validation.$error,
+                }
+            },
         },
         created() {
+            // Reset validation
+            this.$v.$reset();
+
             CategoryService.$on('edit', (item) => {
                 this.id = item.id;
                 this.name = item.name;
@@ -94,7 +203,7 @@
             CategoryService.$on('reset', () => {
                 reset();
             });
-        }
+        },
     }
 </script>
 

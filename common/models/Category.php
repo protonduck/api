@@ -63,6 +63,7 @@ class Category extends \yii\db\ActiveRecord
             [['board_id'], 'integer'],
             // string max
             [['name', 'description', 'icon'], 'string', 'max' => 255],
+            [['name', 'icon'], 'string', 'min' => 2],
             // string length
             [['color'], 'string', 'min' => 6, 'max' => 7],
             // validateBoard()
