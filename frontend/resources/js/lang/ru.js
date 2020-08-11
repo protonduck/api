@@ -15,6 +15,7 @@ export default {
         save: 'Сохранить',
         update: 'Изменить',
         close: 'Закрыть',
+        remove: 'Удалить',
         addCategory: '@:form.add категорию',
         updateCategory: '@:form.update категорию',
         description: 'Описание',

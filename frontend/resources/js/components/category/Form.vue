@@ -76,9 +76,16 @@
                         </spinner>
                         {{ isNewRecord ? $t('form.add') : $t('form.save') }}
                     </button>
-                    <button type="reset" class="btn btn-danger" @click.prevent="close" :disabled="isSaving">
-                        {{ $t('form.close') }}
+                    <button type="reset" class="btn btn-secondary" @click.prevent="close" :disabled="isSaving">
+                      <i class="fas fa-times"></i>
+                      {{ $t('form.close') }}
                     </button>
+                  <button type="submit" class="btn btn-danger" @click.prevent="remove" :disabled="isRemoving" v-if="!isNewRecord">
+                    <spinner :state="isRemoving">
+                      <i class="fas fa-trash-alt"></i>
+                    </spinner>
+                    {{ $t('form.remove') }}
+                  </button>
                 </div>
             </form>
         </div>
@@ -106,6 +113,7 @@
                 icon: '',
                 // states
                 isSaving: false,
+                isRemoving: false,
                 // server errors
                 responseErrors: [],
             };
@@ -182,6 +190,28 @@
                 this.reset();
                 Bus.$emit('closeModal')
             },
+            remove() {
+
+                this.isRemoving = true;
+
+                this.$http.request({
+                  url: '/categories/' + this.id,
+                  method: 'delete',
+                }).then(resp => {
+                  BoardService.fetchBoards();
+                  Bus.$emit('closeModal');
+                  this.reset();
+                }).catch(err => {
+
+                  if (err.response?.status === 422) {
+                    this.responseErrors = err.response.data;
+                  }
+
+                }).finally(() => {
+                  this.isRemoving = false;
+                });
+
+            },
             validationCssClass(validation) {
                 return {
                     'is-valid': !validation.$error && validation.$dirty,
@@ -207,7 +237,3 @@
         },
     }
 </script>
-
-<style scoped>
-
-</style>

@@ -15,6 +15,7 @@ export default {
         save: 'Save',
         update: 'Update',
         close: 'Close',
+        remove: 'Remove',
         addCategory: '@:form.add category',
         updateCategory: '@:form.update category',
         description: 'Description',
