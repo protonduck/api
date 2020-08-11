@@ -21,6 +21,12 @@ export default {
         description: 'Описание',
         color: 'Цвет',
         icon: 'Иконка',
+        board: {
+            name: 'Имя',
+            image: 'URL картинки',
+            add: 'Добавить доску',
+            update: 'Изменить доску',
+        },
     },
     error: {
         required: 'Поле является обязательным',

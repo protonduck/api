@@ -21,6 +21,12 @@ export default {
         description: 'Description',
         color: 'Color',
         icon: 'Icon',
+        board: {
+            name: 'Name',
+            image: 'Background URL',
+            add: 'Добавить доску',
+            update: 'Изменить доску',
+        },
     },
     error: {
         required: 'Field is required',

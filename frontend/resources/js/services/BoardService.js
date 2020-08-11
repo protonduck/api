@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import axios from "axios";
 import _ from "lodash";
 
 export default new Vue({
@@ -28,6 +27,9 @@ export default new Vue({
         },
         getActiveBoard() {
             return _.find(this.boards, {id: this.activeBoardId});
-        }
+        },
+        edit(item) {
+            this.$emit('edit', item);
+        },
     },
 });
