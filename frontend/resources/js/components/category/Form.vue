@@ -1,10 +1,10 @@
 <template>
     <div class="card bg-light">
-        <div class="card-header" v-text="isNewRecord ? 'Add category' : 'Update category'"></div>
+        <div class="card-header" v-text="$t(isNewRecord ? 'form.addCategory' : 'form.updateCategory')"></div>
         <div class="card-body">
             <form method="post" @submit.prevent="submit">
                 <div class="form-group">
-                    <label for="category-name">Name</label>
+                    <label for="category-name">{{ $t('form.name') }}</label>
                     <input id="category-name"
                            type="text"
                            autocomplete="off"
@@ -16,12 +16,12 @@
                     <template v-for="(validator, validatorName) in $v.name.$params">
                         <div class="invalid-feedback"
                              v-if="!$v.name[validatorName]"
-                             v-text="validator && validator.message ? validator.message : validator"
+                             v-t="validator && validator.message ? validator.message : validator"
                         ></div>
                     </template>
                 </div>
                 <div class="form-group">
-                    <label for="category-description">Description</label>
+                    <label for="category-description">{{ $t('form.description') }}</label>
                     <textarea id="category-description"
                               rows="2"
                               type="text"
@@ -33,12 +33,12 @@
                     <template v-for="(validator, validatorName) in $v.description.$params">
                         <div class="invalid-feedback"
                              v-if="!$v.description[validatorName]"
-                             v-text="validator && validator.message ? validator.message : validator"
+                             v-t="validator && validator.message ? validator.message : validator"
                         ></div>
                     </template>
                 </div>
                 <div class="form-group">
-                    <label for="category-color">Color</label>
+                    <label for="category-color">{{ $t('form.color') }}</label>
                     <input id="category-color"
                            type="color"
                            autocomplete="off"
@@ -50,12 +50,12 @@
                     <template v-for="(validator, validatorName) in $v.color.$params">
                         <div class="invalid-feedback"
                              v-if="!$v.color[validatorName]"
-                             v-text="validator && validator.message ? validator.message : validator"
+                             v-t="validator && validator.message ? validator.message : validator"
                         ></div>
                     </template>
                 </div>
                 <div class="form-group">
-                    <label for="category-icon">Icon</label>
+                    <label for="category-icon">{{ $t('form.icon') }}</label>
                     <input id="category-icon"
                            type="text"
                            class="form-control"
@@ -66,7 +66,7 @@
                     <template v-for="(validator, validatorName) in $v.icon.$params">
                         <div class="invalid-feedback"
                              v-if="!$v.icon[validatorName]"
-                             v-text="validator && validator.message ? validator.message : validator"
+                             v-t="validator && validator.message ? validator.message : validator"
                         ></div>
                     </template>
                 </div>
@@ -74,9 +74,10 @@
                     <button type="submit" class="btn btn-success" :disabled="isSaving">
                         <spinner :state="isSaving"><i :class="['fas', isNewRecord ? 'fa-plus-square' : 'fa-save']"></i>
                         </spinner>
-                        {{ isNewRecord ? 'Add' : 'Save' }}
+                        {{ isNewRecord ? $t('form.add') : $t('form.save') }}
                     </button>
-                    <button type="reset" class="btn btn-danger" @click.prevent="close" :disabled="isSaving">Close
+                    <button type="reset" class="btn btn-danger" @click.prevent="close" :disabled="isSaving">
+                        {{ $t('form.close') }}
                     </button>
                 </div>
             </form>
@@ -111,23 +112,23 @@
         },
         validations: {
             name: {
-                required: helpers.withParams({message: 'Field is required'}, required),
-                minLength: helpers.withParams({message: 'Too short (min: 2)'}, minLength(2)),
-                maxLength: helpers.withParams({message: 'Too long (max: 255)'}, maxLength(255)),
+                required: helpers.withParams({message: 'error.required'}, required),
+                minLength: helpers.withParams({message: {path: 'error.tooShort', args: {min: 2}}}, minLength(2)),
+                maxLength: helpers.withParams({message: {path: 'error.tooLong', args: {max: 255}}}, maxLength(255)),
                 serverError: serverError('name'),
             },
             description: {
-                maxLength: helpers.withParams({message: 'Too long (max: 255)'}, maxLength(255)),
+                maxLength: helpers.withParams({message: {path: 'error.tooLong', args: {max: 255}}}, maxLength(255)),
                 serverError: serverError('description'),
             },
             color: {
-                minLength: helpers.withParams({message: 'Too short (min: 6)'}, minLength(6)),
-                maxLength: helpers.withParams({message: 'Too long (max: 7)'}, maxLength(7)),
+                minLength: helpers.withParams({message: {path: 'error.tooShort', args: {min: 6}}}, minLength(6)),
+                maxLength: helpers.withParams({message: {path: 'error.tooLong', args: {max: 7}}}, maxLength(7)),
                 serverError: serverError('color'),
             },
             icon: {
-                minLength: helpers.withParams({message: 'Too short (min: 2)'}, minLength(2)),
-                maxLength: helpers.withParams({message: 'Too long (max: 255)'}, maxLength(255)),
+                minLength: helpers.withParams({message: {path: 'error.tooShort', args: {min: 2}}}, minLength(2)),
+                maxLength: helpers.withParams({message: {path: 'error.tooLong', args: {max: 255}}}, maxLength(255)),
                 serverError: serverError('icon'),
             },
         },

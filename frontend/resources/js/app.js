@@ -17,12 +17,15 @@ try {
 
 window.Vue = require('vue');
 
-import Axios from 'axios'
-import Store from "./store";
+import Axios from 'axios';
+import Store, {authTokenName} from './store';
 import App from './components/App';
-import Vuelidate from 'vuelidate'
-import {router} from "./router";
+import Vuelidate from 'vuelidate';
+import VueI18n from 'vue-i18n';
+import {router} from './router';
+import {i18n} from './lang/i18n-setup';
 
+Vue.use(VueI18n);
 Vue.use(Vuelidate);
 
 Vue.prototype.$store = Store;
@@ -30,25 +33,20 @@ Vue.prototype.$http = Axios;
 
 Vue.config.productionTip = false;
 
-const token = localStorage.getItem('token');
-
-if (token) {
-    Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+// Authorization
+const authToken = localStorage.getItem(authTokenName);
+if (authToken) {
+    Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + authToken;
 }
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
 const app = new Vue({
+    i18n,
     router,
     render: h => h(App),
     beforeMount() {
         // set BaseURL for axios
         Vue.prototype.$http.defaults.baseURL = this.$el.attributes['endpoint'].value;
-    }
+    },
 });
 
 // Mount only if div#app exist

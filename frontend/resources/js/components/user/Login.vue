@@ -1,18 +1,19 @@
 <template>
     <div>
-        <h1>Sign in</h1>
+        <h1>{{ $t('menu.login') }}</h1>
         <form @submit.prevent="login">
             <div class="form-group">
-                <label for="email">Email</label>
-                <input id="email" required v-model="email" type="email" placeholder="Name" class="form-control"/>
+                <label for="email">{{ $t('form.email') }}</label>
+                <input id="email" required v-model="email" type="email" :placeholder="$t('form.email')"
+                       class="form-control"/>
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
-                <input id="password" required v-model="password" type="password" placeholder="Password"
+                <label for="password">{{ $t('form.password') }}</label>
+                <input id="password" required v-model="password" type="password" :placeholder="$t('form.password')"
                        class="form-control"/>
             </div>
 
-            <button class="btn btn-success" type="submit">Login</button>
+            <button class="btn btn-success" type="submit">{{ $t('menu.login') }}</button>
         </form>
     </div>
 </template>
@@ -22,7 +23,7 @@
         data() {
             return {
                 email: "",
-                password: ""
+                password: "",
             }
         },
         methods: {
@@ -32,8 +33,8 @@
                 this.$store.dispatch('login', {email, password})
                     .then(() => this.$router.push('/'))
                     .catch(err => console.log(err))
-            }
-        }
+            },
+        },
     }
 </script>
 

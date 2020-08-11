@@ -29,6 +29,7 @@
         "webpack-cli": "^3.3.12"
     },
     "dependencies": {
+        "vue-i18n": "^8.20.0",
         "vuelidate": "^0.7.5"
     }
 }
