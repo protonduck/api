@@ -24,8 +24,15 @@ export default {
         board: {
             name: 'Name',
             image: 'Background URL',
-            add: 'Добавить доску',
-            update: 'Изменить доску',
+            add: 'Add board',
+            update: 'Edit board',
+        },
+        link: {
+            add: 'Add bookmark',
+            update: 'Edit bookmark',
+            title: 'Title',
+            description: 'Description',
+            url: 'Url',
         },
     },
     error: {

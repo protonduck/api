@@ -2,19 +2,20 @@
     <div class="row">
         <div v-for="item in items" class="col-md-4">
             <div class="card bg-light mb-3">
-                <div class="card-header">{{ item.name }} <a href="#" @click.prevent="edit(item.id)">Edit</a></div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item" v-for="link in item.links">
-                        <a :href="link.url">{{ link.title }}</a>
-                    </li>
-                </ul>
+                <div class="card-header d-flex justify-content-between align-items-center">{{ item.name }}
+                  <a href="#" @click.prevent="edit(item.id)" class="btn btn-outline-primary btn-sm">Edit</a>
+                </div>
+                <link-list :items="item"></link-list>
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="card bg-white">
                 <div class="card-header">
-                    <a href="#" @click.prevent="showModal = true">Add category</a>
+                    <i class="fa fa-plus pr-1"></i>
+                    <a href="#" @click.prevent="showModal = true">
+                      Add category
+                    </a>
                 </div>
             </div>
         </div>
@@ -30,6 +31,7 @@
 
 <script>
     import CategoryForm from "./Form";
+    import LinkList from "../link/List"
     import _ from 'lodash';
     import CategoryService from "../../services/CategoryService";
     import Modal from "../Modal";
@@ -44,6 +46,7 @@
         },
         components: {
             CategoryForm,
+            LinkList,
             Modal
         },
         props: {
