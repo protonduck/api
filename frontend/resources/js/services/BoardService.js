@@ -20,6 +20,7 @@ export default new Vue({
             
             if (!this.activeBoardId && boards.length) {
                 this.activeBoardId = boards[0]['id'];
+                this.$store.commit('change_active_board_id', boards[0]['id']);
             }
 
             this.$emit('boardsChanged');

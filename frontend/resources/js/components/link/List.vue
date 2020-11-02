@@ -7,11 +7,11 @@
             </li>
             <li class="list-group-item">
               <i class="fa fa-plus pr-1"></i>
-              <a href="#" @click.prevent="add">Add link</a>
+              <a href="#" @click.prevent="$store.commit('toggle_link_modal', true)">Add link</a>
             </li>
         </ul>
 
-        <modal v-if="showModal">
+        <modal v-if="$store.getters.showLinkModal">
             <div slot="content">
                 <link-form></link-form>
             </div>
@@ -24,14 +24,11 @@
     import _ from 'lodash';
     import LinkService from "../../services/LinkService";
     import Modal from "../Modal";
-    import Bus from "../../bus";
 
     export default {
         name: "LinkList",
         data() {
-            return {
-                showModal: false
-            }
+            return {}
         },
         components: {
             LinkForm,
@@ -44,14 +41,11 @@
             },
         },
         methods: {
-            add() {
-                this.showModal = true;
-            },
             edit(selectedId) {
 
                 let selectedItem = _.find(this.items.links, {'id': selectedId});
 
-                this.showModal = true;
+                this.$store.commit('toggle_link_modal', true);
 
                 this.$nextTick(() => {
                     LinkService.edit(selectedItem);
@@ -59,11 +53,7 @@
 
             },
         },
-        created() {
-            Bus.$on('closeModal', () => {
-                this.showModal = false
-            });
-        }
+        created() {}
     }
 </script>
 

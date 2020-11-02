@@ -3,20 +3,20 @@
         <div class="boards mb-3">
             <nav class="nav nav-pills">
                 <a class="nav-item nav-link" href="#"
-                   v-bind:class="{active: board.id === activeBoardId}"
+                   v-bind:class="{active: board.id === $store.getters.activeBoardId}"
                    v-for="(board, i) in boards" @click.prevent="switchBoard(board.id)">{{ board.name }}</a>
 
-                <a href="#" class="nav-item nav-link" @click.prevent="add">
+                <a href="#" class="nav-item nav-link" @click.prevent="$store.commit('toggle_board_modal', true)">
                   <i class="fa fa-plus"></i>
                 </a>
 
-                <a href="#" class="nav-item nav-link" @click.prevent="edit(activeBoardId)">
+                <a href="#" class="nav-item nav-link" @click.prevent="edit">
                   <i class="fa fa-edit"></i>
                 </a>
             </nav>
         </div>
 
-      <modal v-if="showModal">
+      <modal v-if="$store.getters.showBoardModal">
         <div slot="content">
           <board-form></board-form>
         </div>
@@ -31,7 +31,6 @@
     import CategoriesList from "../category/List";
     import Modal from "../Modal";
     import BoardForm from "./Form";
-    import Bus from "../../bus";
     import _ from "lodash";
 
     export default {
@@ -40,8 +39,6 @@
             return {
                 boards: [],
                 categories: [],
-                activeBoardId: null,
-                showModal: false,
             }
         },
         components: {
@@ -50,14 +47,11 @@
             BoardForm,
         },
         methods: {
-            add() {
-                this.showModal = true
-            },
-            edit(selectedId) {
+            edit() {
 
-              let selectedItem = _.find(this.boards, {'id': selectedId});
+              let selectedItem = _.find(this.boards, {'id': this.$store.getters.activeBoardId});
 
-              this.showModal = true;
+              this.$store.commit('toggle_board_modal', true);
 
               this.$nextTick(() => {
                   BoardService.edit(selectedItem);
@@ -65,7 +59,7 @@
 
             },
             switchBoard(id) {
-                BoardService.activeBoardId = id;
+                this.$store.commit('change_active_board_id', id);
                 BoardService.$emit('boardsChanged');
             }
         },
@@ -86,12 +80,6 @@
 
                 }
 
-                this.activeBoardId = BoardService.activeBoardId;
-
-            });
-
-            Bus.$on('closeModal', () => {
-                this.showModal = false
             });
 
             BoardService.fetchBoards();

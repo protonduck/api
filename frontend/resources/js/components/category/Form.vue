@@ -95,7 +95,6 @@
 <script>
     import CategoryService from "../../services/CategoryService";
     import BoardService from "../../services/BoardService";
-    import Bus from "../../bus";
     import Spinner from "../misc/Spinner";
     import {required, minLength, maxLength, helpers} from 'vuelidate/lib/validators';
     import {serverError} from "../../validators/validators";
@@ -146,37 +145,37 @@
             },
         },
         methods: {
-            submit(e) {
-                this.$v.$touch();
-                if (this.$v.$invalid) {
-                    return;
+          submit() {
+            this.$v.$touch();
+
+            if (this.$v.$invalid) {
+              return;
+            }
+
+            this.isSaving = true;
+
+            this.$store.dispatch('category_save', {
+              url: this.isNewRecord ? '/categories' : '/categories/' + this.id,
+              method: this.isNewRecord ? 'post' : 'put',
+              board_id: this.$store.getters.activeBoardId,
+              name: this.name,
+              description: this.description,
+              color: this.color,
+              icon: this.icon,
+            })
+              .then(resp => {
+                BoardService.fetchBoards();
+                this.$store.commit('toggle_category_modal', false);
+                this.reset();
+              })
+              .catch(err => {
+                if (err.response?.status === 422) {
+                  this.responseErrors = err.response.data;
+                  // this.$v.$touch();
                 }
-
-                this.isSaving = true;
-
-                this.$http.request({
-                    url: this.isNewRecord ? '/categories' : '/categories/' + this.id,
-                    method: this.isNewRecord ? 'post' : 'put',
-                    data: {
-                        board_id: BoardService.activeBoardId,
-                        name: this.name,
-                        description: this.description,
-                        color: this.color,
-                        icon: this.icon,
-                    },
-                }).then(resp => {
-                    BoardService.fetchBoards();
-                    Bus.$emit('closeModal');
-                    this.reset();
-                }).catch(err => {
-
-                    if (err.response?.status === 422) {
-                        this.responseErrors = err.response.data;
-                        // this.$v.$touch();
-                    }
-                }).finally(() => {
-                    this.isSaving = false;
-                });
+              }).finally(() => {
+                this.isSaving = false;
+              });
 
             },
             reset() {
@@ -187,30 +186,28 @@
                 this.icon = '';
             },
             close() {
-                this.reset();
-                Bus.$emit('closeModal')
+              this.reset();
+              this.$store.commit('toggle_category_modal', false);
             },
             remove() {
+              this.isRemoving = true;
 
-                this.isRemoving = true;
-
-                this.$http.request({
-                  url: '/categories/' + this.id,
-                  method: 'delete',
-                }).then(resp => {
+              this.$store.dispatch('category_remove', {
+                url: '/categories/' + this.id,
+                method: 'delete',
+              })
+                .then(resp => {
                   BoardService.fetchBoards();
-                  Bus.$emit('closeModal');
+                  this.$store.commit('toggle_category_modal', false);
                   this.reset();
-                }).catch(err => {
-
+                })
+                .catch(err => {
                   if (err.response?.status === 422) {
                     this.responseErrors = err.response.data;
                   }
-
                 }).finally(() => {
                   this.isRemoving = false;
-                });
-
+              });
             },
             validationCssClass(validation) {
                 return {

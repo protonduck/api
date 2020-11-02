@@ -78,7 +78,6 @@
 
 <script>
     import LinkService from "../../services/LinkService";
-    import Bus from "../../bus";
     import Spinner from "../misc/Spinner";
     import {required, minLength, maxLength, helpers} from 'vuelidate/lib/validators';
     import {serverError} from "../../validators/validators";
@@ -135,30 +134,27 @@
 
                 this.isSaving = true;
 
-                this.$http.request({
-                    url: this.isNewRecord ? '/links' : '/links/' + this.id,
-                    method: this.isNewRecord ? 'post' : 'put',
-                    data: {
-                        id: this.id,
-                        category_id: this.category_id,
-                        title: this.title,
-                        description: this.description,
-                        url: this.url,
-                    },
-                }).then(resp => {
+              this.$store.dispatch('link_save', {
+                url: this.isNewRecord ? '/links' : '/links/' + this.id,
+                method: this.isNewRecord ? 'post' : 'put',
+                id: this.id,
+                category_id: this.category_id,
+                title: this.title,
+                description: this.description,
+              })
+                  .then(resp => {
                     BoardService.fetchBoards();
-                    Bus.$emit('closeModal');
+                    this.$store.commit('toggle_link_modal', false);
                     this.reset();
-                }).catch(err => {
-
+                  })
+                  .catch(err => {
                     if (err.response?.status === 422) {
-                        this.responseErrors = err.response.data;
-                        // this.$v.$touch();
+                      this.responseErrors = err.response.data;
+                      // this.$v.$touch();
                     }
-
-                }).finally(() => {
-                    this.isSaving = false;
-                });
+                  }).finally(() => {
+                this.isSaving = false;
+              });
 
             },
             reset() {
@@ -170,25 +166,25 @@
             },
             close() {
                 this.reset();
-                Bus.$emit('closeModal')
+              this.$store.commit('toggle_link_modal', false);
             },
             remove() {
 
                 this.isRemoving = true;
 
-                this.$http.request({
+                this.$store.dispatch('link_remove', {
                   url: '/links/' + this.id,
                   method: 'delete',
-                }).then(resp => {
-                  Bus.$emit('closeModal');
-                  this.reset();
-                }).catch(err => {
-
-                  if (err.response?.status === 422) {
-                    this.responseErrors = err.response.data;
-                  }
-
-                }).finally(() => {
+                })
+                    .then(resp => {
+                      this.$store.commit('toggle_link_modal', false);
+                      this.reset();
+                    })
+                    .catch(err => {
+                      if (err.response?.status === 422) {
+                        this.responseErrors = err.response.data;
+                      }
+                    }).finally(() => {
                   this.isRemoving = false;
                 });
 
