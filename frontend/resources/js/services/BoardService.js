@@ -4,7 +4,6 @@ import _ from "lodash";
 export default new Vue({
     data: {
         boards: [],
-        activeBoardId: null,
     },
     methods: {
         fetchBoards() {
@@ -17,9 +16,8 @@ export default new Vue({
         setBoards(boards) {
 
             this.boards = boards;
-            
-            if (!this.activeBoardId && boards.length) {
-                this.activeBoardId = boards[0]['id'];
+
+            if (!this.$store.getters.activeBoardId && boards.length) {
                 this.$store.commit('change_active_board_id', boards[0]['id']);
             }
 
@@ -27,7 +25,7 @@ export default new Vue({
 
         },
         getActiveBoard() {
-            return _.find(this.boards, {id: this.activeBoardId});
+            return _.find(this.boards, {id: this.$store.getters.activeBoardId});
         },
         edit(item) {
             this.$emit('edit', item);

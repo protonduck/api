@@ -7,7 +7,7 @@
             </li>
             <li class="list-group-item">
               <i class="fa fa-plus pr-1"></i>
-              <a href="#" @click.prevent="$store.commit('toggle_link_modal', true)">Add link</a>
+              <a href="#" @click.prevent="add(items.id)">Add link</a>
             </li>
         </ul>
 
@@ -20,41 +20,45 @@
 </template>
 
 <script>
-    import LinkForm from "./Form";
-    import _ from 'lodash';
-    import LinkService from "../../services/LinkService";
-    import Modal from "../Modal";
+import LinkForm from "./Form";
+import _ from 'lodash';
+import LinkService from "../../services/LinkService";
+import Modal from "../Modal";
 
-    export default {
-        name: "LinkList",
-        data() {
-            return {}
-        },
-        components: {
-            LinkForm,
-            Modal
-        },
-        props: {
-            items: {
-                required: false,
-                type: Object,
-            },
-        },
-        methods: {
-            edit(selectedId) {
+export default {
+  name: "LinkList",
+  data() {
+    return {}
+  },
+  components: {
+    LinkForm,
+    Modal
+  },
+  props: {
+    items: {
+      required: false,
+      type: Object,
+    },
+  },
+  methods: {
+    add(categoryId) {
+      this.$store.commit('toggle_link_modal', true);
+      this.$store.commit('change_current_category_id', categoryId);
+    },
+    edit(selectedId) {
 
-                let selectedItem = _.find(this.items.links, {'id': selectedId});
+      let selectedItem = _.find(this.items.links, {'id': selectedId});
 
-                this.$store.commit('toggle_link_modal', true);
+      this.$store.commit('toggle_link_modal', true);
 
-                this.$nextTick(() => {
-                    LinkService.edit(selectedItem);
-                });
+      this.$nextTick(() => {
+        LinkService.edit(selectedItem);
+      });
 
-            },
-        },
-        created() {}
-    }
+    },
+  },
+  created() {}
+}
 </script>
 
 <style scoped>

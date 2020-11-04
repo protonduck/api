@@ -161,11 +161,14 @@ class Link extends \yii\db\ActiveRecord
             return false;
         }
 
-        // Set domain_id value
-        if (!$this->domain_id) {
-            // Get exists domain_id or creates new domain
-            $this->domain_id = Domain::getIdByUrl($this->url);
-        }
+        $this->domain_id = 0;
+
+        // @TODO: Currently not working
+//        // Set domain_id value
+//        if (!$this->domain_id) {
+//            // Get exists domain_id or creates new domain
+//            $this->domain_id = Domain::getIdByUrl($this->url);
+//        }
         // Convert empty title string to null
         if ($this->title === '') {
             $this->title = null;

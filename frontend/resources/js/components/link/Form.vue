@@ -93,7 +93,6 @@
                 title: '',
                 description: '',
                 url: '',
-                category_id: null,
                 // states
                 isSaving: false,
                 isRemoving: false,
@@ -126,21 +125,22 @@
         methods: {
             submit(e) {
 
-                this.$v.$touch();
+              this.$v.$touch();
 
-                if (this.$v.$invalid) {
-                    return;
-                }
+              if (this.$v.$invalid) {
+                  return;
+              }
 
-                this.isSaving = true;
+              this.isSaving = true;
 
               this.$store.dispatch('link_save', {
-                url: this.isNewRecord ? '/links' : '/links/' + this.id,
+                api_url: this.isNewRecord ? '/links' : '/links/' + this.id,
                 method: this.isNewRecord ? 'post' : 'put',
                 id: this.id,
                 category_id: this.category_id,
                 title: this.title,
                 description: this.description,
+                url: this.url
               })
                   .then(resp => {
                     BoardService.fetchBoards();
@@ -159,7 +159,7 @@
             },
             reset() {
                 this.id = null;
-                this.category_id = null;
+                this.category_id = 0;
                 this.title = '';
                 this.description = '';
                 this.url = '';
@@ -177,6 +177,7 @@
                   method: 'delete',
                 })
                     .then(resp => {
+                      BoardService.fetchBoards();
                       this.$store.commit('toggle_link_modal', false);
                       this.reset();
                     })
@@ -200,6 +201,8 @@
 
             // Reset validation
             this.$v.$reset();
+
+            this.category_id = this.$store.getters.currentCategoryId;
 
             LinkService.$on('edit', (item) => {
                 this.id = item.id;

@@ -14,7 +14,8 @@ export default new Vuex.Store({
     show_category_modal: false,
     show_board_modal: false,
     show_link_modal: false,
-    activeBoardId: 0,
+    active_board_id: 0,
+    current_category_id: 0,
   },
   mutations: {
     auth_request(state) {
@@ -48,8 +49,11 @@ export default new Vuex.Store({
       state.show_link_modal = payload;
     },
     change_active_board_id(state, payload) {
-      state.activeBoardId = payload;
-    }
+      state.active_board_id = payload;
+    },
+    change_current_category_id(state, payload) {
+      state.current_category_id = payload;
+    },
   },
   actions: {
     login({commit}, user) {
@@ -157,7 +161,7 @@ export default new Vuex.Store({
     link_save({commit}, payload) {
       return new Promise((resolve, reject) => {
         commit('link_save', payload);
-        axios({url: payload.url, method: payload.method, data: payload})
+        axios({url: payload.api_url, method: payload.method, data: payload})
           .then(resp => {
             commit('link_save', payload);
             resolve(resp);
@@ -189,6 +193,7 @@ export default new Vuex.Store({
     showCategoryModal: state => state.show_category_modal,
     showBoardModal: state => state.show_board_modal,
     showLinkModal: state => state.show_link_modal,
-    activeBoardId: state => state.activeBoardId,
+    activeBoardId: state => state.active_board_id,
+    currentCategoryId: state => state.current_category_id,
   },
 })
