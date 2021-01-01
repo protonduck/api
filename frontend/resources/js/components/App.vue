@@ -28,12 +28,4 @@
     }
 </script>
 
-<style scoped lang="scss">
-    nav {
-        text-align: center;
-
-        ul {
-            list-style: none;
-        }
-    }
-</style>
+<style scoped lang="scss"></style>

@@ -1,20 +1,33 @@
 <template>
     <nav>
+      <div class="nav">
         <template v-if="isLoggedIn">
-            <router-link :to="{name: 'home'}">{{ $t('menu.boards') }}</router-link>
-            <span> | <a href="#" @click.prevent="logout">{{ $t('menu.logout') }}</a></span>
+          <div class="nav__item">
+            <router-link :to="{name: 'home'}" class="btn btn-outline-success btn-sm">{{ $t('menu.boards') }}</router-link>
+          </div>
+          <div class="nav__item">
+            <a href="#" @click.prevent="logout" class="btn btn-outline-danger btn-sm">{{ $t('menu.logout') }}</a>
+          </div>
         </template>
         <template v-else>
-            <router-link :to="{name: 'login'}">{{ $t('menu.login') }}</router-link>
-            <router-link :to="{name: 'signup'}">{{ $t('menu.signup') }}</router-link>
+          <div class="nav__item">
+            <router-link :to="{name: 'login'}" class="btn btn-outline-success btn-sm">{{ $t('menu.login') }}</router-link>
+          </div>
+          <div class="nav__item">
+            <router-link :to="{name: 'signup'}" class="btn btn-outline-primary btn-sm">{{ $t('menu.signup') }}</router-link>
+          </div>
         </template>
-        <div class="locale-changer">
-            <select v-model="selectedLanguage" @change="changeLang($event.target.value)">
-                <option v-for="(lang, i) in langs" :key="`Lang${i}`" :value="lang">
-                    {{ lang }}
-                </option>
-            </select>
+        <div class="nav__item locale-changer">
+          <select
+              v-model="selectedLanguage"
+              @change="changeLang($event.target.value)"
+              class="custom-select custom-select-sm">
+              <option v-for="(lang, i) in langs" :key="`Lang${i}`" :value="lang">
+                  {{ lang }}
+              </option>
+          </select>
         </div>
+      </div>
     </nav>
 </template>
 
@@ -46,6 +59,7 @@
         },
         created() {
             const selectedLocale = localStorage.getItem(localeParamName);
+
             if (selectedLocale) {
                 this.selectedLanguage = selectedLocale;
             }
@@ -54,11 +68,13 @@
 </script>
 
 <style scoped lang="scss">
-    nav {
-        text-align: center;
+  .nav {
+    display: flex;
+    padding: 10px 0;
+    justify-content: center;
 
-        ul {
-            list-style: none;
-        }
+    &__item {
+      padding: 0 5px;
     }
+  }
 </style>
