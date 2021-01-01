@@ -3,11 +3,13 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item d-flex justify-content-between align-items-center" v-for="item in items.links">
                 <a :href="item.url" target="_blank">{{ item.title }}</a>
-                <a href="#" @click.prevent="edit(item.id)" class="btn btn-outline-primary btn-sm">Edit</a>
+                <a href="#" @click.prevent="edit(item.id)" class="btn btn-outline-light btn-sm">
+                  <i class="fa fa-edit"></i>
+                </a>
             </li>
             <li class="list-group-item">
               <i class="fa fa-plus pr-1"></i>
-              <a href="#" @click.prevent="add(items.id)">Add link</a>
+              <a href="#" @click.prevent="add(items.id)">{{ $t('link.add') }}</a>
             </li>
         </ul>
 

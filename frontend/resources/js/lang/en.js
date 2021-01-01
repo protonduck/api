@@ -35,6 +35,12 @@ export default {
             url: 'Url',
         },
     },
+    category: {
+        add: 'Add category',
+    },
+    link: {
+        add: 'Add bookmark',
+    },
     error: {
         required: 'Field is required',
         tooShort: 'Too short (min: {min})',

@@ -3,7 +3,9 @@
         <div v-for="item in items" class="col-md-3">
             <div class="card bg-light mb-3">
                 <div class="card-header d-flex justify-content-between align-items-center">{{ item.name }}
-                  <a href="#" @click.prevent="edit(item.id)" class="btn btn-outline-primary btn-sm">Edit</a>
+                  <a href="#" @click.prevent="edit(item.id)" class="btn btn-outline-light btn-sm">
+                    <i class="fa fa-edit"></i>
+                  </a>
                 </div>
                 <link-list :items="item"></link-list>
             </div>
@@ -14,7 +16,7 @@
                 <div class="card-header">
                     <i class="fa fa-plus pr-1"></i>
                     <a href="#" @click.prevent="$store.commit('toggle_category_modal', true)">
-                      Add category
+                      {{ $t('category.add') }}
                     </a>
                 </div>
             </div>
