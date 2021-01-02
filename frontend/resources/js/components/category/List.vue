@@ -7,7 +7,7 @@
                     :title="item.description"
                     :style="{backgroundColor: '#' + item.color, opacity: 0.5}"
                 >
-                  <i :class="item.icon"></i>
+                  <i :class="item.icon" v-show="item.icon"></i>
                   {{ item.name }}
                   <a href="#" @click.prevent="edit(item.id)" class="btn btn-outline-light btn-sm">
                     <i class="fa fa-edit"></i>
