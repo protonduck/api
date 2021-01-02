@@ -59,6 +59,8 @@ return [
                     'js' => [],
                 ],
             ],
+            'linkAssets' => true,
+            'appendTimestamp' => true,
         ],
     ],
     'params' => $params,
