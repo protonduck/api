@@ -2,7 +2,7 @@
     <div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item d-flex justify-content-between align-items-center" v-for="item in items.links">
-                <a :href="item.url" target="_blank">{{ item.title }}</a>
+                <a :href="item.url" :title="item.description" target="_blank">{{ item.title }}</a>
                 <a href="#" @click.prevent="edit(item.id)" class="btn btn-outline-light btn-sm">
                   <i class="fa fa-edit"></i>
                 </a>

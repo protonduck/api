@@ -1,8 +1,14 @@
 <template>
     <div class="row">
         <div v-for="item in items" class="col-md-3">
-            <div class="card bg-light mb-3">
-                <div class="card-header d-flex justify-content-between align-items-center">{{ item.name }}
+            <div class="card mb-3" :style="{borderColor: '#' + item.color}">
+                <div
+                    class="card-header d-flex justify-content-between align-items-center"
+                    :title="item.description"
+                    :style="{backgroundColor: '#' + item.color, opacity: 0.5}"
+                >
+                  <i :class="item.icon"></i>
+                  {{ item.name }}
                   <a href="#" @click.prevent="edit(item.id)" class="btn btn-outline-light btn-sm">
                     <i class="fa fa-edit"></i>
                   </a>
