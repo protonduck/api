@@ -43,7 +43,7 @@ class Board extends \yii\db\ActiveRecord
      */
     public function scenarios()
     {
-        $default = ['name', 'image', 'visibility'];
+        $default = ['name', 'image', 'visibility', 'sort'];
 
         return [
             // by default allowed to edit only this fields

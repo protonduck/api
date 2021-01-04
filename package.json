@@ -30,6 +30,7 @@
     },
     "dependencies": {
         "vue-i18n": "^8.20.0",
+        "vuedraggable": "^2.24.3",
         "vuelidate": "^0.7.5"
     }
 }

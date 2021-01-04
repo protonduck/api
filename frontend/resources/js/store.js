@@ -16,6 +16,7 @@ export default new Vuex.Store({
     show_link_modal: false,
     active_board_id: 0,
     current_category_id: 0,
+    boards: [],
   },
   mutations: {
     auth_request(state) {
@@ -33,7 +34,9 @@ export default new Vuex.Store({
       state.status = '';
       state.token = '';
     },
-    board_save(state, board) {},
+    board_save(state, board) {
+      state.board = board;
+    },
     board_remove(state) {},
     category_save(state, category) {},
     category_remove(state) {},
@@ -53,6 +56,9 @@ export default new Vuex.Store({
     },
     change_current_category_id(state, payload) {
       state.current_category_id = payload;
+    },
+    update_boards(state, payload) {
+      state.boards = payload;
     },
   },
   actions: {
@@ -195,5 +201,6 @@ export default new Vuex.Store({
     showLinkModal: state => state.show_link_modal,
     activeBoardId: state => state.active_board_id,
     currentCategoryId: state => state.current_category_id,
+    boards: state => state.boards,
   },
 })
