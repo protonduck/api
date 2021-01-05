@@ -2,8 +2,10 @@
     <div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item d-flex justify-content-between align-items-center" v-for="item in items.links">
-              <img :src="favicon(item)" alt="" width="16" height="16">
-              <a :href="item.url" :title="item.description" target="_blank" class="text-center">{{ item.title }}</a>
+              <div class="d-flex align-items-center">
+                <img :src="favicon(item)" alt="" width="16" height="16">
+                <a :href="item.url" :title="item.description" target="_blank" class="pl-3">{{ item.title }}</a>
+              </div>
               <a href="#" @click.prevent="edit(item.id)" class="btn btn-outline-light btn-sm">
                 <i class="fa fa-edit"></i>
               </a>
