@@ -2,10 +2,11 @@
     <div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item d-flex justify-content-between align-items-center" v-for="item in items.links">
-                <a :href="item.url" :title="item.description" target="_blank">{{ item.title }}</a>
-                <a href="#" @click.prevent="edit(item.id)" class="btn btn-outline-light btn-sm">
-                  <i class="fa fa-edit"></i>
-                </a>
+              <img :src="favicon(item)" alt="" width="16" height="16">
+              <a :href="item.url" :title="item.description" target="_blank" class="text-center">{{ item.title }}</a>
+              <a href="#" @click.prevent="edit(item.id)" class="btn btn-outline-light btn-sm">
+                <i class="fa fa-edit"></i>
+              </a>
             </li>
             <li class="list-group-item">
               <i class="fa fa-plus pr-1"></i>
@@ -48,7 +49,6 @@ export default {
       this.$store.commit('change_current_category_id', categoryId);
     },
     edit(selectedId) {
-
       let selectedItem = _.find(this.items.links, {'id': selectedId});
 
       this.$store.commit('toggle_link_modal', true);
@@ -56,8 +56,10 @@ export default {
       this.$nextTick(() => {
         LinkService.edit(selectedItem);
       });
-
     },
+    favicon(item) {
+      return item.favicon ?? 'https://www.google.com/s2/favicons?domain=' + item.url;
+    }
   },
   created() {}
 }
