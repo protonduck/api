@@ -149,6 +149,7 @@
                     .then(resp => {
                       BoardService.fetchBoards();
                       this.$store.commit('toggle_board_modal', false);
+                      localStorage.removeItem('active_board_id');
                       this.reset();
                     })
                     .catch(err => {

@@ -11,8 +11,16 @@ export default new Vue({
             });
         },
         setBoards(boards) {
-            if (!this.$store.getters.activeBoardId && boards.length) {
-                this.$store.commit('change_active_board_id', boards[0]['id']);
+            if (localStorage.getItem('active_board_id') === null) {
+                if (!this.$store.getters.activeBoardId && boards.length) {
+                    this.$store.commit('change_active_board_id', boards[0]['id']);
+                }
+            } else {
+                boards.forEach((board) => {
+                    if (board.id === parseInt(localStorage.getItem('active_board_id'))) {
+                        this.$store.commit('change_active_board_id', board.id);
+                    }
+                });
             }
 
             this.$store.commit('update_boards', boards);

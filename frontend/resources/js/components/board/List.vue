@@ -78,6 +78,9 @@ export default {
     },
     switchBoard(id) {
       this.$store.commit('change_active_board_id', id);
+
+      localStorage.setItem('active_board_id', id);
+
       BoardService.$emit('boardsChanged');
     },
     update() {
