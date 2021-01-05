@@ -45,7 +45,7 @@ class Category extends \yii\db\ActiveRecord
     {
         return [
             // by default allowed to edit only this fields
-            static::SCENARIO_DEFAULT => ['name', 'board_id', 'description', 'color', 'icon'],
+            static::SCENARIO_DEFAULT => ['name', 'board_id', 'description', 'color', 'icon', 'sort'],
         ];
     }
 
@@ -60,7 +60,7 @@ class Category extends \yii\db\ActiveRecord
             // required
             [['name', 'board_id'], 'required'],
             // integer
-            [['board_id'], 'integer'],
+            [['board_id', 'sort'], 'integer'],
             // string max
             [['name', 'description', 'icon'], 'string', 'max' => 255],
             [['name', 'icon'], 'string', 'min' => 2],
