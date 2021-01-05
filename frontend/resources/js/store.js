@@ -17,6 +17,7 @@ export default new Vuex.Store({
     active_board_id: 0,
     current_category_id: 0,
     boards: [],
+    categories: [],
   },
   mutations: {
     auth_request(state) {
@@ -59,6 +60,9 @@ export default new Vuex.Store({
     },
     update_boards(state, payload) {
       state.boards = payload;
+    },
+    update_categories(state, payload) {
+      state.categories = payload;
     },
   },
   actions: {
@@ -202,5 +206,6 @@ export default new Vuex.Store({
     activeBoardId: state => state.active_board_id,
     currentCategoryId: state => state.current_category_id,
     boards: state => state.boards,
+    categories: state => state.categories,
   },
 })

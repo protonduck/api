@@ -31,7 +31,7 @@
       </div>
     </modal>
 
-    <categories-list :items="categories"></categories-list>
+    <categories-list></categories-list>
   </div>
 </template>
 
@@ -45,11 +45,6 @@ import draggable from 'vuedraggable'
 
 export default {
   name: "BoardsList",
-  data() {
-    return {
-      categories: [],
-    }
-  },
   components: {
     CategoriesList,
     Modal,
@@ -98,7 +93,7 @@ export default {
       if (BoardService.getActiveBoard() !== undefined) {
         let activeBoard = BoardService.getActiveBoard();
 
-        this.categories = activeBoard.categories;
+        this.$store.commit('update_categories', activeBoard.categories);
 
         document.body.style.backgroundImage = "url('" + activeBoard.image + "')";
         document.body.className = 'body_bg_image';

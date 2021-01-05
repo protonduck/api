@@ -1,80 +1,80 @@
 <template>
-    <div class="row">
-        <div v-for="item in items" class="col-md-3">
-            <div class="card mb-3" :style="{borderColor: '#' + item.color}">
-                <div
-                    class="card-header d-flex justify-content-between align-items-center"
-                    :title="item.description"
-                    :style="{backgroundColor: '#' + item.color, opacity: 0.5}"
-                >
-                  <i :class="item.icon" v-show="item.icon"></i>
-                  {{ item.name }}
-                  <a href="#" @click.prevent="edit(item.id)" class="btn btn-outline-light btn-sm">
-                    <i class="fa fa-edit"></i>
-                  </a>
-                </div>
-                <link-list :items="item"></link-list>
-            </div>
+  <div class="row">
+    <div v-for="category in categories" class="col-md-3">
+      <div class="card mb-3" :style="{borderColor: '#' + category.color}">
+        <div
+            class="card-header d-flex justify-content-between align-items-center"
+            :title="category.description"
+            :style="{backgroundColor: '#' + category.color, opacity: 0.5}"
+        >
+          <i :class="category.icon" v-show="category.icon"></i>
+          {{ category.name }}
+          <a href="#" @click.prevent="edit(category.id)" class="btn btn-outline-light btn-sm">
+            <i class="fa fa-edit"></i>
+          </a>
         </div>
-
-        <div class="col-md-3" v-if="$store.getters.activeBoardId !== 0">
-            <div class="card bg-white">
-                <div class="card-header">
-                    <i class="fa fa-plus pr-1"></i>
-                    <a href="#" @click.prevent="$store.commit('toggle_category_modal', true)">
-                      {{ $t('category.add') }}
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <modal v-if="$store.getters.showCategoryModal">
-            <div slot="content">
-                <category-form></category-form>
-            </div>
-        </modal>
-
+        <link-list :items="category"></link-list>
+      </div>
     </div>
+
+    <div class="col-md-3" v-if="$store.getters.activeBoardId !== 0">
+      <div class="card bg-white">
+        <div class="card-header">
+          <i class="fa fa-plus pr-1"></i>
+          <a href="#" @click.prevent="$store.commit('toggle_category_modal', true)">
+            {{ $t('category.add') }}
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <modal v-if="$store.getters.showCategoryModal">
+      <div slot="content">
+        <category-form></category-form>
+      </div>
+    </modal>
+  </div>
 </template>
 
 <script>
-    import CategoryForm from "./Form";
-    import LinkList from "../link/List"
-    import _ from 'lodash';
-    import CategoryService from "../../services/CategoryService";
-    import Modal from "../Modal";
+import CategoryForm from "./Form";
+import LinkList from "../link/List"
+import _ from 'lodash';
+import CategoryService from "../../services/CategoryService";
+import Modal from "../Modal";
 
-    export default {
-        name: "CategoriesList",
-        data() {
-            return {}
-        },
-        components: {
-            CategoryForm,
-            LinkList,
-            Modal
-        },
-        props: {
-            items: {
-                required: false,
-                type: Array,
-            },
-        },
-        methods: {
-            edit(selectedId) {
-                let selectedItem = _.find(this.items, {'id': selectedId});
-                this.$store.commit('toggle_category_modal', true);
-                this.$nextTick(() => {
-                    CategoryService.edit(selectedItem);
-                });
-            },
-        },
-        created() {
-            CategoryService.$on('categoriesChanged', () => {
-                this.items = CategoryService.categories;
-            });
-        }
+export default {
+  name: "CategoriesList",
+  components: {
+    CategoryForm,
+    LinkList,
+    Modal
+  },
+  computed: {
+    categories: {
+      get() {
+        return this.$store.getters.categories;
+      },
+      set(value) {
+        this.$store.commit('update_categories', value);
+      }
     }
+  },
+  methods: {
+    edit(selectedId) {
+      let selectedCategory = _.find(this.categories, {'id': selectedId});
+      this.$store.commit('toggle_category_modal', true);
+      this.$nextTick(() => {
+        CategoryService.edit(selectedCategory);
+      });
+    },
+  },
+  created() {
+    CategoryService.$on('categoriesChanged', () => {
+      this.categories = CategoryService.categories;
+    });
+  }
+}
 </script>
 
 <style scoped>
