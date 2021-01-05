@@ -53,7 +53,7 @@ class Link extends \yii\db\ActiveRecord
      */
     public function scenarios()
     {
-        $default = ['url', 'category_id', 'title', 'description', 'is_favorite', 'target'];
+        $default = ['url', 'category_id', 'title', 'description', 'is_favorite', 'target', 'sort'];
 
         return [
             // by default allowed to edit only this fields
