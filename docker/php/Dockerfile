@@ -61,12 +61,6 @@ RUN chmod 700 \
         /usr/local/bin/docker-php-entrypoint \
         /usr/local/bin/composer
 
-# Install composer plugins
-RUN composer global require --optimize-autoloader \
-        "hirak/prestissimo:^0.3.7" && \
-    composer global dumpautoload --optimize && \
-    composer clear-cache
-
 # Install Yii framework bash autocompletion
 RUN curl -L https://raw.githubusercontent.com/yiisoft/yii2/master/contrib/completion/bash/yii \
         -o /etc/bash_completion.d/yii
