@@ -7,7 +7,7 @@ return [
     'components' => [
         // fix console create url
         'urlManager' => [
-            'baseUrl' => 'http://bookmarks.local:8025',
+            'baseUrl' => 'http://admin.bookmarks.local:8025',
         ],
     ],
 ];

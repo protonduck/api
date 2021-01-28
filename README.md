@@ -1,5 +1,7 @@
 ## Open Source Bookmark Manager
 
+Backend/API for [Bookmarks-Frontend](https://github.com/dignityinside/bookmarks-frontend).
+
 ## Local installation
 
 #### Install Docker (Ubuntu-Linux)
@@ -33,7 +35,6 @@ su - <username>
 #### Add new hosts to your `hosts` File:
 
 ```
-127.0.0.1 bookmarks.local
 127.0.0.1 admin.bookmarks.local
 127.0.0.1 api.bookmarks.local
 ```
@@ -41,7 +42,6 @@ su - <username>
 #### Development links
 
 ```
-Frontend: http://bookmarks.local:8025
 Backend: http://admin.bookmarks.local:8025
 API enpoint: http://api.bookmarks.local:8025
 API docs: http://api.bookmarks.local:8025/v1/docs
@@ -52,18 +52,6 @@ API docs: http://api.bookmarks.local:8025/v1/docs
 ```
 composer install
 ```
-
-#### Install all dependencies via NPM
-
-```
-npm install
-```
-
-#### Build CSS/JavaScript
-
-- `npm run dev` - for development
-- `npm run prod` - for production (minified)
-- `npm run watch` - for active development
 
 #### Initialize Environment
 
@@ -98,9 +86,9 @@ php yii_test migrate
 
 # Run all tests
 vendor/bin/codecept run
-vendor/bin/codecept run -- -c <app_name:api|frontend|backend> <type:api|unit|acceptance|functional> <className>::<methodName>
+vendor/bin/codecept run -- -c <app_name:api|backend> <type:api|unit|acceptance|functional> <className>::<methodName>
 
-# Run specific evnviroment tests (also possible: backend, frontend, common)
+# Run specific evnviroment tests (also possible: backend, common)
 vendor/bin/codecept run -- -c api
 
 # Run all tests within one test class
