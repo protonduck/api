@@ -8,13 +8,8 @@ namespace api\controllers;
 use api\components\ApiController;
 use Yii;
 use yii\base\UserException;
-use yii\filters\auth\HttpBearerAuth;
 use yii\helpers\ArrayHelper;
 use yii\helpers\UnsetArrayValue;
-use yii\web\Controller;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-use common\models\LoginForm;
 use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 
@@ -32,16 +27,6 @@ class SiteController extends ApiController
             // No authentication required
             'authenticator' => new UnsetArrayValue(),
         ]);
-    }
-
-    /**
-     * Displays homepage.
-     *
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        return $this->render('index');
     }
 
     /**

@@ -4,27 +4,6 @@ Backend/API for [Bookmarks-Frontend](https://github.com/dignityinside/bookmarks-
 
 ## Local installation
 
-#### Install Docker (Ubuntu-Linux)
-
-```
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-sudo apt-get update
-apt-cache policy docker-ce
-sudo apt-get install -y docker-ce docker-ce-cli containerd.io
-sudo systemctl status docker
-```
-
-#### Install Docker-Compose (Ubuntu-Linux)
-
-```
-sudo curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
-sudo usermod -aG docker <username>
-su - <username>
-```
-
 #### Build and run Docker
 
 - `docker-compose build` - Build Docker
