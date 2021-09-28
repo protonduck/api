@@ -109,7 +109,7 @@ class UserCest
         $I->seeResponseJsonMatchesXpath('//id');
         $I->seeResponseJsonMatchesXpath('//api_key');
 
-        $user = User::findByUsername($email);
+        $user = User::findByEmail($email);
         $this->assertNotNull($user, 'New user registered');
     }
 

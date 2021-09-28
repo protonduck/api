@@ -108,15 +108,15 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Finds user by username
+     * Finds user by email
      *
-     * @param string $username
+     * @param string $email
      *
      * @return static|null
      */
-    public static function findByUsername($username)
+    public static function findByEmail($email)
     {
-        return static::find()->where(['email' => $username])->active()->one();
+        return static::find()->where(['email' => $email])->active()->one();
     }
 
     /**
