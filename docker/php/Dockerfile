@@ -1,7 +1,7 @@
-FROM php:7.2.11-fpm
+FROM php:7.4.3-fpm
 
 RUN apt-get update
-RUN apt-get -y install gcc make build-essential autoconf libssl-dev \
+RUN apt-get -y install --no-install-recommends gcc make build-essential autoconf libssl-dev \
   git bash nano wget libc-dev pkg-config librabbitmq-dev libmcrypt-dev zlib1g-dev libicu-dev g++ libpng-dev zip \
             curl \
             imagemagick \
@@ -13,10 +13,11 @@ RUN apt-get -y install gcc make build-essential autoconf libssl-dev \
             libpq-dev \
             libxml2-dev \
             libzip-dev \
-            mysql-client \
+            mariadb-client \
             openssh-client \
-            unzip
-RUN pecl install mcrypt-1.0.1
+            unzip \
+            libonig-dev
+RUN pecl install mcrypt
 
 # bcmath bz2 calendar ctype curl dba dom enchant exif fileinfo filter ftp gd gettext gmp hash iconv imap interbase intl
 # json ldap mbstring mcrypt mssql mysql mysqli oci8 odbc opcache pcntl pdo pdo_dblib pdo_firebird pdo_mysql pdo_oci
@@ -24,14 +25,13 @@ RUN pecl install mcrypt-1.0.1
 # sockets spl standard sybase_ct sysvmsg sysvsem sysvshm tidy tokenizer wddx xml xmlreader xmlrpc xmlwriter xsl zip
 
 # Install phpunit
-RUN wget https://phar.phpunit.de/phpunit-6.0.phar && \
+RUN wget --no-check-certificate https://phar.phpunit.de/phpunit-6.0.phar && \
         chmod +x phpunit-6.0.phar && \
         mv phpunit-6.0.phar /usr/local/bin/phpunit
 
 RUN docker-php-ext-configure gd \
-        --with-freetype-dir=/usr/include/ \
-        --with-png-dir=/usr/include/ \
-        --with-jpeg-dir=/usr/include/ && \
+        --with-freetype=/usr/include/ \
+        --with-jpeg=/usr/include/ && \
     docker-php-ext-configure bcmath && \
     docker-php-ext-install \
         soap \
@@ -71,10 +71,6 @@ RUN echo "php_admin_value[error_reporting] = E_ALL & ~E_STRICT & ~E_DEPRECATED" 
  && echo "php_flag[display_errors] = on" >> /usr/local/etc/php-fpm.d/www.conf \
  && echo "catch_workers_output = yes" >> /usr/local/etc/php-fpm.d/www.conf \
  && mv /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
-
-# Install node.js
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
- && apt-get install -y nodejs
 
 VOLUME ["/var/www"]
 WORKDIR /var/www

@@ -14,7 +14,7 @@
     },
     "minimum-stability": "dev",
     "require": {
-        "php": ">=7.2.11",
+        "php": ">=7.4.3",
         "ext-json": "*",
         "yiisoft/yii2": "~2.0.14",
         "yiisoft/yii2-bootstrap": "~2.0.0",
