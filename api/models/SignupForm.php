@@ -32,11 +32,11 @@ class SignupForm extends Model
             [['name', 'email'], 'string', 'max' => 255],
             [['password'], 'string', 'min' => 6, 'max' => 100],
             // email
-            [['email'], 'email'],
+            [['email'], 'email', 'message'=>'email_invalid'],
             // range
             [['language'], 'in', 'range' => Language::getKeys()],
             // unique
-            [['email'], 'unique', 'targetClass' => User::class, 'targetAttribute' => 'email'],
+            [['email'], 'unique', 'targetClass' => User::class, 'targetAttribute' => 'email', 'message'=>'email_not_unique'],
             // default
             [['language'], 'default', 'value' => Language::getDefault()],
         ];
