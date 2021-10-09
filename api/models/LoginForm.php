@@ -25,6 +25,7 @@ class LoginForm extends Model
         return [
             // email and password are both required
             [['email', 'password'], 'required'],
+            [['email'], 'email', 'message'=>'email_invalid'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
         ];
@@ -42,7 +43,7 @@ class LoginForm extends Model
         if (!$this->hasErrors()) {
             $user = $this->getUser();
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect login or password.');
+                $this->addError($attribute, 'incorrect_login_password');
             }
         }
     }
