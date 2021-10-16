@@ -1,18 +1,4 @@
 /categories:
-  get:
-    tags:
-      - Category
-    summary: List of all models
-    security:
-      - bearerAuth: []
-    responses:
-      '200':
-        description: Successful operation
-        content:
-          application/json:
-            schema:
-              items:
-                $ref: '#/components/schemas/ApiCategory'
   post:
     tags:
       - Category

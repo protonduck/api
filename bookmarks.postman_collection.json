@@ -1,0 +1,612 @@
+{
+	"info": {
+		"_postman_id": "0541065c-802a-4bda-bca1-8f01916cbd83",
+		"name": "bookmarks",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Board",
+			"item": [
+				{
+					"name": "List of all models",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://api.bookmarks.local:8025/v1/boards",
+							"protocol": "http",
+							"host": [
+								"api",
+								"bookmarks",
+								"local"
+							],
+							"port": "8025",
+							"path": [
+								"v1",
+								"boards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new model",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Home",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api.bookmarks.local:8025/v1/boards",
+							"protocol": "http",
+							"host": [
+								"api",
+								"bookmarks",
+								"local"
+							],
+							"port": "8025",
+							"path": [
+								"v1",
+								"boards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get single model",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://api.bookmarks.local:8025/v1/boards/1",
+							"protocol": "http",
+							"host": [
+								"api",
+								"bookmarks",
+								"local"
+							],
+							"port": "8025",
+							"path": [
+								"v1",
+								"boards",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update existing model",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Test",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api.bookmarks.local:8025/v1/boards/4",
+							"protocol": "http",
+							"host": [
+								"api",
+								"bookmarks",
+								"local"
+							],
+							"port": "8025",
+							"path": [
+								"v1",
+								"boards",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete existing model",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Test",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api.bookmarks.local:8025/v1/boards/1",
+							"protocol": "http",
+							"host": [
+								"api",
+								"bookmarks",
+								"local"
+							],
+							"port": "8025",
+							"path": [
+								"v1",
+								"boards",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Create new model",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "board_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Test",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api.bookmarks.local:8025/v1/categories",
+							"protocol": "http",
+							"host": [
+								"api",
+								"bookmarks",
+								"local"
+							],
+							"port": "8025",
+							"path": [
+								"v1",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get single model",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://api.bookmarks.local:8025/v1/categories/1",
+							"protocol": "http",
+							"host": [
+								"api",
+								"bookmarks",
+								"local"
+							],
+							"port": "8025",
+							"path": [
+								"v1",
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update existing model",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Updated name",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api.bookmarks.local:8025/v1/categories/1",
+							"protocol": "http",
+							"host": [
+								"api",
+								"bookmarks",
+								"local"
+							],
+							"port": "8025",
+							"path": [
+								"v1",
+								"categories",
+								"1"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete existing model",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Test",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api.bookmarks.local:8025/v1/categories/1",
+							"protocol": "http",
+							"host": [
+								"api",
+								"bookmarks",
+								"local"
+							],
+							"port": "8025",
+							"path": [
+								"v1",
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Link",
+			"item": [
+				{
+					"name": "List of all models",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://api.bookmarks.local:8025/v1/links",
+							"protocol": "http",
+							"host": [
+								"api",
+								"bookmarks",
+								"local"
+							],
+							"port": "8025",
+							"path": [
+								"v1",
+								"links"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new model",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "url",
+									"value": "https://google.ru",
+									"type": "text"
+								},
+								{
+									"key": "category_id",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api.bookmarks.local:8025/v1/links",
+							"protocol": "http",
+							"host": [
+								"api",
+								"bookmarks",
+								"local"
+							],
+							"port": "8025",
+							"path": [
+								"v1",
+								"links"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get single model",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://api.bookmarks.local:8025/v1/links/3",
+							"protocol": "http",
+							"host": [
+								"api",
+								"bookmarks",
+								"local"
+							],
+							"port": "8025",
+							"path": [
+								"v1",
+								"links",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update existing model",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "Test updated",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api.bookmarks.local:8025/v1/links/3",
+							"protocol": "http",
+							"host": [
+								"api",
+								"bookmarks",
+								"local"
+							],
+							"port": "8025",
+							"path": [
+								"v1",
+								"links",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete existing model",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Test",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api.bookmarks.local:8025/v1/links/4",
+							"protocol": "http",
+							"host": [
+								"api",
+								"bookmarks",
+								"local"
+							],
+							"port": "8025",
+							"path": [
+								"v1",
+								"links",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get api_key",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "admin@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api.bookmarks.local:8025/v1/user/login",
+							"protocol": "http",
+							"host": [
+								"api",
+								"bookmarks",
+								"local"
+							],
+							"port": "8025",
+							"path": [
+								"v1",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register new user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin123",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "admin@example.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api.bookmarks.local:8025/v1/user/signup",
+							"protocol": "http",
+							"host": [
+								"api",
+								"bookmarks",
+								"local"
+							],
+							"port": "8025",
+							"path": [
+								"v1",
+								"user",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user profile",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "John Dow",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "example@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "verysecret999",
+									"type": "text"
+								},
+								{
+									"key": "language",
+									"value": "en",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://api.bookmarks.local:8025/v1/user/profile",
+							"protocol": "http",
+							"host": [
+								"api",
+								"bookmarks",
+								"local"
+							],
+							"port": "8025",
+							"path": [
+								"v1",
+								"user",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "WnhfCTr-VfPI8u6KbLUw4o_OHu-XV5Jb",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
