@@ -1,4 +1,4 @@
-## Open Source Bookmark Manager
+## ProtonDuck - Open Source Bookmark Manager
 
 Backend/API for [Bookmarks-Frontend](https://github.com/protonduck/bookmarks-frontend).
 
