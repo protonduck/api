@@ -1,6 +1,6 @@
 ## Open Source Bookmark Manager
 
-Backend/API for [Bookmarks-Frontend](https://github.com/dignityinside/bookmarks-frontend).
+Backend/API for [Bookmarks-Frontend](https://github.com/protonduck/bookmarks-frontend).
 
 ## Local installation
 
@@ -76,6 +76,10 @@ vendor/bin/codecept run -- -c api api UserCest
 # Run one specified test (useful when writing new test)
 vendor/bin/codecept run -- -c api api UserCest::checkRegister
 ```
+
+## Postman collection
+
+You can import the Postman collection for the `bookmarks.postman_collection.json` file.
 
 ## License
 
