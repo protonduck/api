@@ -630,7 +630,7 @@ state the exclusion of warranty; and each file should have at least
 the "copyright" line and a pointer to where the full notice is found.
 
     ProtonDuck - Open Source Bookmark Manager.
-    Copyright (C) 2020-2021 Ivan Orlov, Alexander Schilling
+    Copyright (C) 2020-2022 Ivan Orlov, Alexander Schilling
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as published

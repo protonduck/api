@@ -49,6 +49,10 @@ RUN docker-php-ext-configure gd \
         pcntl \
         sockets
 
+# set composer related environment variables
+ENV PATH="/composer/vendor/bin:$PATH" \
+    COMPOSER_ALLOW_SUPERUSER=1
+
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- \
         --filename=composer \
