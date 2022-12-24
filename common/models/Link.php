@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-use common\components\behaviors\TimestampBehavior;
+use api\components\behaviors\TimestampBehavior;
 use common\enums\LinkTarget;
 use common\helpers\FilterHelper;
 use common\helpers\UserHelper;

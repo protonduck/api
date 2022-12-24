@@ -4,7 +4,7 @@ namespace common\helpers;
 
 use Yii;
 use yii\helpers\Url;
-use common\components\lang\Request;
+use api\components\lang\Request;
 
 class LangHelper
 {

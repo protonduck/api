@@ -1,6 +1,6 @@
 <?php
 
-namespace common\components\lang;
+namespace api\components\lang;
 
 use Yii;
 use common\helpers\LangHelper;

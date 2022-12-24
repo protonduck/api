@@ -1,5 +1,5 @@
 <?php
-namespace common\components\rbac;
+namespace api\components\rbac;
 
 use Yii;
 

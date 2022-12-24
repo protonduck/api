@@ -13,10 +13,10 @@ return [
             'class' => 'yii\caching\FileCache',
         ],
         'authManager' => [
-            'class' => 'common\components\rbac\PhpManager',
-            'itemFile' => '@common/components/rbac/items.php',
-            'assignmentFile' => '@common/components/rbac/assignments.php',
-            'ruleFile' => '@common/components/rbac/rules.php',
+            'class' => 'api\components\rbac\PhpManager',
+            'itemFile' => '@api/components/rbac/items.php',
+            'assignmentFile' => '@api/components/rbac/assignments.php',
+            'ruleFile' => '@api/components/rbac/rules.php',
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,

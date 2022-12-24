@@ -1,6 +1,6 @@
 <?php
 
-use common\components\WebUser;
+use api\components\WebUser;
 use common\models\User;
 use yii\web\GroupUrlRule;
 use yii\web\JsonParser;

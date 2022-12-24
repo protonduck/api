@@ -7,7 +7,7 @@ use common\helpers\FilterHelper;
 use Yii;
 use yii\helpers\Html;
 use yii\web\IdentityInterface;
-use common\components\behaviors\TimestampBehavior;
+use api\components\behaviors\TimestampBehavior;
 use common\enums\UserRole;
 use common\enums\UserStatus;
 

@@ -18,7 +18,7 @@ class Yii extends \yii\BaseYii
 /**
  * Fake-class for make IDE autocomplete
  *
- * @property \common\components\WebUser $user
+ * @property \api\components\WebUser $user
  */
 class Application
 {

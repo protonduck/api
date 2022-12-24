@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-use common\components\behaviors\TimestampBehavior;
+use api\components\behaviors\TimestampBehavior;
 use common\helpers\FilterHelper;
 use common\helpers\UserHelper;
 use Yii;
