@@ -9,7 +9,7 @@ use api\helpers\TimeHelper;
 use api\tests\ApiTester;
 use Codeception\Util\HttpCode;
 use Codeception\Util\Shared\Asserts;
-use common\enums\Language;
+use api\enums\Language;
 use common\fixtures\UserFixture;
 use common\models\SecureKey;
 use common\models\User;

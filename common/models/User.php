@@ -2,14 +2,14 @@
 
 namespace common\models;
 
-use common\enums\Language;
+use api\enums\Language;
 use common\helpers\FilterHelper;
 use Yii;
 use yii\helpers\Html;
 use yii\web\IdentityInterface;
 use api\components\behaviors\TimestampBehavior;
-use common\enums\UserRole;
-use common\enums\UserStatus;
+use api\enums\UserRole;
+use api\enums\UserStatus;
 
 /**
  * This is the model class for table "users".

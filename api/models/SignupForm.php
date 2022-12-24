@@ -3,8 +3,8 @@
 namespace api\models;
 
 use api\modules\v1\models\ApiUser;
-use common\enums\Language;
-use common\enums\UserStatus;
+use api\enums\Language;
+use api\enums\UserStatus;
 use common\models\SecureKey;
 use Yii;
 use yii\base\Model;

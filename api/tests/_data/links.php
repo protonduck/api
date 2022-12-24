@@ -1,6 +1,6 @@
 <?php
 
-use common\enums\LinkTarget;
+use api\enums\LinkTarget;
 
 return [
     'b1_c1_l1' => [

@@ -1,6 +1,6 @@
 <?php
 
-use common\enums\DomainSslStatus;
+use api\enums\DomainSslStatus;
 
 return [
     'd1' => [

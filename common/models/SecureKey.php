@@ -6,7 +6,7 @@ use Yii;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 use yii\base\InvalidArgumentException;
-use common\enums\UserStatus;
+use api\enums\UserStatus;
 
 /**
  * Secure keys

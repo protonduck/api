@@ -1,6 +1,6 @@
 <?php
 
-namespace common\enums;
+namespace api\enums;
 
 /**
  * Domain SSL statuses enumerable class

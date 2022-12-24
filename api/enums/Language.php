@@ -1,6 +1,6 @@
 <?php
 
-namespace common\enums;
+namespace api\enums;
 
 /**
  * Languages enumerable class

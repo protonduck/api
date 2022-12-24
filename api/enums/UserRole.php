@@ -1,6 +1,6 @@
 <?php
 
-namespace common\enums;
+namespace api\enums;
 
 /**
  * User Roles enumerable class

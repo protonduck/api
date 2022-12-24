@@ -2,7 +2,7 @@
 
 namespace common\models\query;
 
-use common\enums\UserStatus;
+use api\enums\UserStatus;
 
 /**
  * This is the ActiveQuery class for [[\common\models\User]].

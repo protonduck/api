@@ -3,7 +3,7 @@
 namespace common\models;
 
 use api\components\behaviors\TimestampBehavior;
-use common\enums\DomainSslStatus;
+use api\enums\DomainSslStatus;
 use Yii;
 use yii\helpers\Html;
 

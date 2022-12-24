@@ -2,8 +2,8 @@
 
 namespace console\controllers;
 
-use common\enums\UserRole;
-use common\enums\UserStatus;
+use api\enums\UserRole;
+use api\enums\UserStatus;
 use common\models\User;
 use console\traits\ConsoleOutput;
 use yii\console\Controller;

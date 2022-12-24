@@ -2,7 +2,7 @@
 
 namespace api\modules\v1\forms;
 
-use common\enums\Language;
+use api\enums\Language;
 use common\helpers\UserHelper;
 use common\models\SecureKey;
 use Yii;

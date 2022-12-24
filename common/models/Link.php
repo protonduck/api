@@ -3,7 +3,7 @@
 namespace common\models;
 
 use api\components\behaviors\TimestampBehavior;
-use common\enums\LinkTarget;
+use api\enums\LinkTarget;
 use common\helpers\FilterHelper;
 use common\helpers\UserHelper;
 use Yii;

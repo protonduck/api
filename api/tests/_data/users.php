@@ -1,8 +1,8 @@
 <?php
 
-use common\enums\Language;
-use common\enums\UserRole;
-use common\enums\UserStatus;
+use api\enums\Language;
+use api\enums\UserRole;
+use api\enums\UserStatus;
 
 return [
     'simple' => [

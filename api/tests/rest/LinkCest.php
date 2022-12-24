@@ -8,7 +8,7 @@ namespace api\tests\api;
 use api\tests\ApiTester;
 use Codeception\Util\HttpCode;
 use Codeception\Util\Shared\Asserts;
-use common\enums\LinkTarget;
+use api\enums\LinkTarget;
 use common\fixtures\BoardFixture;
 use common\fixtures\CategoryFixture;
 use common\fixtures\DomainFixture;

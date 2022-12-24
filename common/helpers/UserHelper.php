@@ -2,7 +2,7 @@
 
 namespace common\helpers;
 
-use common\enums\UserRole;
+use api\enums\UserRole;
 use common\models\User;
 use Yii;
 
