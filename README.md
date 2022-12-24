@@ -1,6 +1,6 @@
-## ProtonDuck - Open Source Bookmark Manager
+## ProtonDuck - Open Source Bookmark Manager (API)
 
-Backend/API for [Bookmarks-Frontend](https://github.com/protonduck/frontend).
+API for [Bookmarks-Frontend](https://github.com/protonduck/frontend).
 
 ## Local installation
 
@@ -21,7 +21,6 @@ Backend/API for [Bookmarks-Frontend](https://github.com/protonduck/frontend).
 #### Development links
 
 ```
-Backend: http://admin.bookmarks.local:8025
 API enpoint: http://api.bookmarks.local:8025
 API docs: http://api.bookmarks.local:8025/v1/docs
 ```
@@ -65,9 +64,9 @@ php yii_test migrate
 
 # Run all tests
 vendor/bin/codecept run
-vendor/bin/codecept run -- -c <app_name:api|backend> <type:api|unit|acceptance|functional> <className>::<methodName>
+vendor/bin/codecept run -- -c <app_name:api> <type:api|unit|acceptance|functional> <className>::<methodName>
 
-# Run specific environment tests (also possible: backend, common)
+# Run specific environment tests (also possible: common)
 vendor/bin/codecept run -- -c api
 
 # Run all tests within one test class

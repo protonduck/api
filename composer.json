@@ -1,8 +1,8 @@
 {
-    "name": "protonduck/bookmarks",
-    "description": "API/Backend for open source bookmark manager ProtonDuck.",
+    "name": "protonduck/backend",
+    "description": "API for open source bookmark manager ProtonDuck.",
     "keywords": ["bookmarking-application","bookmark-manager","selfhosted","bookmarks","bookmark","api","yii2"],
-    "homepage": "http://protonduck.com",
+    "homepage": "https://github.com/protonduck",
     "type": "project",
     "license": "AGPL-3.0-only",
     "support": {
@@ -16,8 +16,7 @@
         "yiisoft/yii2": "~2.0.43",
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
-        "demi/sort": "~1.0",
-        "rmrevin/yii2-fontawesome": "~3.5"
+        "demi/sort": "~1.0"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master",
