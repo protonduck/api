@@ -10,7 +10,6 @@ use Codeception\Util\HttpCode;
 use Codeception\Util\Shared\Asserts;
 use api\fixtures\BoardFixture;
 use api\fixtures\CategoryFixture;
-use api\fixtures\DomainFixture;
 use api\fixtures\LinkFixture;
 use api\fixtures\UserFixture;
 
@@ -47,10 +46,6 @@ class CategoryCest
             'links' => [
                 'class' => LinkFixture::class,
                 'dataFile' => codecept_data_dir() . 'links.php',
-            ],
-            'domains' => [
-                'class' => DomainFixture::class,
-                'dataFile' => codecept_data_dir() . 'domains.php',
             ],
         ];
     }

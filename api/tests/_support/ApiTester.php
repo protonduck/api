@@ -103,19 +103,6 @@ class ApiTester extends \Codeception\Actor
      * @param string|null $indexKey
      * @param string $name
      *
-     * @return \api\models\Domain
-     */
-    public function grabDomain($indexKey = null, $name = 'domains')
-    {
-        return $this->grabFixture($name, $indexKey);
-    }
-
-    /**
-     * Get model fixture
-     *
-     * @param string|null $indexKey
-     * @param string $name
-     *
      * @return \api\models\SecureKey
      */
     public function grabSecureKey($indexKey = null, $name = 'secure_keys')

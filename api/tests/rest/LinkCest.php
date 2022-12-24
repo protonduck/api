@@ -11,7 +11,6 @@ use Codeception\Util\Shared\Asserts;
 use api\enums\LinkTarget;
 use api\fixtures\BoardFixture;
 use api\fixtures\CategoryFixture;
-use api\fixtures\DomainFixture;
 use api\fixtures\LinkFixture;
 use api\fixtures\UserFixture;
 
@@ -48,10 +47,6 @@ class LinkCest
             'links' => [
                 'class' => LinkFixture::class,
                 'dataFile' => codecept_data_dir() . 'links.php',
-            ],
-            'domains' => [
-                'class' => DomainFixture::class,
-                'dataFile' => codecept_data_dir() . 'domains.php',
             ],
         ];
     }

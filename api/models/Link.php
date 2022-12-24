@@ -15,7 +15,6 @@ use yii\helpers\Html;
  * @property int $id
  * @property string $url
  * @property int $category_id
- * @property int $domain_id
  * @property string|null $title
  * @property string|null $description
  * @property int $is_favorite
@@ -29,7 +28,6 @@ use yii\helpers\Html;
  * @property string $updated_at
  *
  * relations
- * @property Domain $domain
  * @property Category $category
  *
  * getters
@@ -73,7 +71,7 @@ class Link extends \yii\db\ActiveRecord
             // required
             [['url', 'category_id'], 'required'],
             // integer
-            [['category_id', 'domain_id', 'hits', 'http_status_code', 'sort'], 'integer'],
+            [['category_id', 'hits', 'http_status_code', 'sort'], 'integer'],
             // string max
             [['url'], 'string', 'max' => 5000],
             [['title', 'favicon'], 'string', 'max' => 255],
@@ -114,16 +112,6 @@ class Link extends \yii\db\ActiveRecord
     }
 
     /**
-     * Domain relation
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getDomain()
-    {
-        return $this->hasOne(Domain::class, ['id' => 'domain_id']);
-    }
-
-    /**
      * Category relation
      *
      * @return \yii\db\ActiveQuery
@@ -161,14 +149,6 @@ class Link extends \yii\db\ActiveRecord
             return false;
         }
 
-        $this->domain_id = 0;
-
-        // @TODO: Currently not working
-//        // Set domain_id value
-//        if (!$this->domain_id) {
-//            // Get exists domain_id or creates new domain
-//            $this->domain_id = Domain::getIdByUrl($this->url);
-//        }
         // Convert empty title string to null
         if ($this->title === '') {
             $this->title = null;
@@ -186,7 +166,6 @@ class Link extends \yii\db\ActiveRecord
             'id' => 'ID',
             'url' => 'Url',
             'category_id' => 'Category ID',
-            'domain_id' => 'Domain ID',
             'title' => 'Title',
             'description' => 'Description',
             'is_favorite' => 'Is Favorite',
