@@ -3,7 +3,7 @@
 namespace api\modules\v1\forms;
 
 use api\enums\Language;
-use common\helpers\UserHelper;
+use api\helpers\UserHelper;
 use common\models\SecureKey;
 use Yii;
 use yii\base\Model;

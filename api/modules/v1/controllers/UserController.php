@@ -11,7 +11,7 @@ use api\models\SignupForm;
 use api\modules\v1\forms\UserForm;
 use api\modules\v1\models\ApiUser;
 use api\enums\UserRole;
-use common\helpers\UserHelper;
+use api\helpers\UserHelper;
 use Yii;
 use yii\filters\auth\HttpBearerAuth;
 use yii\helpers\ArrayHelper;

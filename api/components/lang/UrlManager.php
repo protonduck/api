@@ -3,7 +3,7 @@
 namespace api\components\lang;
 
 use Yii;
-use common\helpers\LangHelper;
+use api\helpers\LangHelper;
 
 class UrlManager extends \yii\web\UrlManager
 {

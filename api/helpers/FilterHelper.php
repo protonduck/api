@@ -1,6 +1,6 @@
 <?php
 
-namespace common\helpers;
+namespace api\helpers;
 
 class FilterHelper
 {

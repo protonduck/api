@@ -3,7 +3,7 @@
 namespace common\models;
 
 use api\enums\Language;
-use common\helpers\FilterHelper;
+use api\helpers\FilterHelper;
 use Yii;
 use yii\helpers\Html;
 use yii\web\IdentityInterface;

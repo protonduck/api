@@ -1,6 +1,6 @@
 <?php
 
-namespace common\helpers;
+namespace api\helpers;
 
 use api\enums\UserRole;
 use common\models\User;

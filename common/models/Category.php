@@ -3,8 +3,8 @@
 namespace common\models;
 
 use api\components\behaviors\TimestampBehavior;
-use common\helpers\FilterHelper;
-use common\helpers\UserHelper;
+use api\helpers\FilterHelper;
+use api\helpers\UserHelper;
 use Yii;
 use yii\helpers\Html;
 

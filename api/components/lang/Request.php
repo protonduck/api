@@ -2,7 +2,7 @@
 
 namespace api\components\lang;
 
-use common\helpers\LangHelper;
+use api\helpers\LangHelper;
 use Yii;
 
 class Request extends \yii\web\Request

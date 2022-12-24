@@ -7,7 +7,7 @@ namespace api\modules\v1\controllers;
 
 use api\components\ModelApiController;
 use api\modules\v1\models\ApiBoard;
-use common\helpers\UserHelper;
+use api\helpers\UserHelper;
 use common\models\query\CategoryQuery;
 use common\models\query\LinkQuery;
 use yii\db\ActiveQuery;

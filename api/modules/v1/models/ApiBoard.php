@@ -3,7 +3,7 @@
 namespace api\modules\v1\models;
 
 use api\helpers\TimeHelper;
-use common\helpers\UserHelper;
+use api\helpers\UserHelper;
 use common\models\Board;
 
 /**

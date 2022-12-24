@@ -7,7 +7,7 @@ namespace api\modules\v1\controllers;
 
 use api\components\ModelApiController;
 use api\modules\v1\models\ApiLink;
-use common\helpers\UserHelper;
+use api\helpers\UserHelper;
 use common\models\query\CategoryQuery;
 
 /**

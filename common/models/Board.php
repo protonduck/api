@@ -3,7 +3,7 @@
 namespace common\models;
 
 use api\components\behaviors\TimestampBehavior;
-use common\helpers\FilterHelper;
+use api\helpers\FilterHelper;
 use Yii;
 use yii\helpers\Html;
 

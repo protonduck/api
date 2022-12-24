@@ -6,7 +6,7 @@ use Yii;
 use api\modules\v1\models\ApiBoard;
 use api\modules\v1\models\ApiCategory;
 use api\modules\v1\models\ApiLink;
-use common\helpers\UserHelper;
+use api\helpers\UserHelper;
 use yii\base\InvalidConfigException;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
