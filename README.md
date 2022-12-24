@@ -14,7 +14,6 @@ API for [Bookmarks-Frontend](https://github.com/protonduck/frontend).
 #### Add new hosts to your `hosts` File:
 
 ```
-127.0.0.1 admin.bookmarks.local
 127.0.0.1 api.bookmarks.local
 ```
 
@@ -66,7 +65,7 @@ php yii_test migrate
 vendor/bin/codecept run
 vendor/bin/codecept run -- -c <app_name:api> <type:api|unit|acceptance|functional> <className>::<methodName>
 
-# Run specific environment tests (also possible: common)
+# Run specific environment tests
 vendor/bin/codecept run -- -c api
 
 # Run all tests within one test class
