@@ -3,7 +3,7 @@
 namespace api\modules\v1\models;
 
 use api\helpers\TimeHelper;
-use common\models\Category;
+use api\models\Category;
 
 /**
  * Category model for API

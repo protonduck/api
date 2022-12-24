@@ -1,11 +1,11 @@
 <?php
 
-namespace common\models\query;
+namespace api\models\query;
 
 /**
- * This is the ActiveQuery class for [[\common\models\Domain]].
+ * This is the ActiveQuery class for [[\api\models\Domain]].
  *
- * @see \common\models\Domain
+ * @see \api\models\Domain
  */
 class DomainQuery extends \yii\db\ActiveQuery
 {
@@ -16,7 +16,7 @@ class DomainQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\Domain[]|array
+     * @return \api\models\Domain[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class DomainQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\Domain|array|null
+     * @return \api\models\Domain|array|null
      */
     public function one($db = null)
     {

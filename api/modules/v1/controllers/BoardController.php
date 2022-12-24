@@ -8,8 +8,8 @@ namespace api\modules\v1\controllers;
 use api\components\ModelApiController;
 use api\modules\v1\models\ApiBoard;
 use api\helpers\UserHelper;
-use common\models\query\CategoryQuery;
-use common\models\query\LinkQuery;
+use api\models\query\CategoryQuery;
+use api\models\query\LinkQuery;
 use yii\db\ActiveQuery;
 
 /**

@@ -2,7 +2,7 @@
 
 namespace api\fixtures;
 
-use common\models\Domain;
+use api\models\Domain;
 use yii\test\ActiveFixture;
 
 class DomainFixture extends ActiveFixture

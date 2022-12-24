@@ -1,6 +1,6 @@
 <?php
 
-namespace common\models;
+namespace api\models;
 
 use api\enums\Language;
 use api\helpers\FilterHelper;
@@ -235,10 +235,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
 
     /**
      * {@inheritdoc}
-     * @return \common\models\query\UserQuery the active query used by this AR class.
+     * @return \api\models\query\UserQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new \common\models\query\UserQuery(get_called_class());
+        return new \api\models\query\UserQuery(get_called_class());
     }
 }

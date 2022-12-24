@@ -2,7 +2,7 @@
 
 namespace api\fixtures;
 
-use common\models\Board;
+use api\models\Board;
 use yii\test\ActiveFixture;
 
 class BoardFixture extends ActiveFixture

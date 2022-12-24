@@ -4,10 +4,10 @@ namespace api\modules\v1\forms;
 
 use api\enums\Language;
 use api\helpers\UserHelper;
-use common\models\SecureKey;
+use api\models\SecureKey;
 use Yii;
 use yii\base\Model;
-use common\models\User;
+use api\models\User;
 use yii\db\Query;
 
 /**
@@ -58,7 +58,7 @@ class UserForm extends Model
     /**
      * Update profile
      *
-     * @param \common\models\User $user
+     * @param \api\models\User $user
      *
      * @return bool
      */

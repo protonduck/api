@@ -1,13 +1,13 @@
 <?php
 
-namespace common\models\query;
+namespace api\models\query;
 
 /**
- * This is the ActiveQuery class for [[\common\models\Category]].
+ * This is the ActiveQuery class for [[\api\models\Board]].
  *
- * @see \common\models\Category
+ * @see \api\models\Board
  */
-class CategoryQuery extends \yii\db\ActiveQuery
+class BoardQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -26,7 +26,7 @@ class CategoryQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\Category[]|array
+     * @return \api\models\Board[]|array
      */
     public function all($db = null)
     {
@@ -35,7 +35,7 @@ class CategoryQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\Category|array|null
+     * @return \api\models\Board|array|null
      */
     public function one($db = null)
     {

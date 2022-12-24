@@ -8,7 +8,7 @@ namespace api\modules\v1\controllers;
 use api\components\ModelApiController;
 use api\modules\v1\models\ApiBoard;
 use api\modules\v1\models\ApiCategory;
-use common\models\query\LinkQuery;
+use api\models\query\LinkQuery;
 use yii\web\NotFoundHttpException;
 
 /**

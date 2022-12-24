@@ -2,8 +2,8 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $user common\models\User */
-/* @var $key common\models\SecureKey */
+/* @var $user api\models\User */
+/* @var $key api\models\SecureKey */
 
 $link = $key->url;
 ?>

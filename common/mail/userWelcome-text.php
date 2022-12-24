@@ -1,6 +1,6 @@
 <?php
 /* @var $this yii\web\View */
-/* @var $user common\models\User */
+/* @var $user api\models\User */
 ?>
 Hello <?= $user->fName ?>,
 

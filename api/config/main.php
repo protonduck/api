@@ -1,7 +1,7 @@
 <?php
 
 use api\components\WebUser;
-use common\models\User;
+use api\models\User;
 use yii\web\GroupUrlRule;
 use yii\web\JsonParser;
 use yii\web\JsonResponseFormatter;

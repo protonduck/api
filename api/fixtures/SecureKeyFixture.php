@@ -2,7 +2,7 @@
 
 namespace api\fixtures;
 
-use common\models\SecureKey;
+use api\models\SecureKey;
 use yii\test\ActiveFixture;
 
 class SecureKeyFixture extends ActiveFixture

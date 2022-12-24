@@ -2,7 +2,7 @@
 
 namespace api\fixtures;
 
-use common\models\Link;
+use api\models\Link;
 use yii\test\ActiveFixture;
 
 class LinkFixture extends ActiveFixture

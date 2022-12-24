@@ -3,7 +3,7 @@
 namespace api\modules\v1\models;
 
 use api\helpers\TimeHelper;
-use common\models\Link;
+use api\models\Link;
 
 /**
  * Link model for API

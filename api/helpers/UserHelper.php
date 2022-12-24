@@ -3,7 +3,7 @@
 namespace api\helpers;
 
 use api\enums\UserRole;
-use common\models\User;
+use api\models\User;
 use Yii;
 
 /**

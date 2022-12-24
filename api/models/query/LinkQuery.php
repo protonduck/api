@@ -1,13 +1,13 @@
 <?php
 
-namespace common\models\query;
+namespace api\models\query;
 
 /**
- * This is the ActiveQuery class for [[\common\models\Board]].
+ * This is the ActiveQuery class for [[\api\models\Link]].
  *
- * @see \common\models\Board
+ * @see \api\models\Link
  */
-class BoardQuery extends \yii\db\ActiveQuery
+class LinkQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -26,7 +26,7 @@ class BoardQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\Board[]|array
+     * @return \api\models\Link[]|array
      */
     public function all($db = null)
     {
@@ -35,7 +35,7 @@ class BoardQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\Board|array|null
+     * @return \api\models\Link|array|null
      */
     public function one($db = null)
     {

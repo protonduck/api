@@ -113,7 +113,7 @@ class UserController extends ApiController
     /**
      * Profile info
      *
-     * @return \api\modules\v1\models\ApiUser|array|\common\models\User|null
+     * @return \api\modules\v1\models\ApiUser|array|\api\models\User|null
      * @throws \yii\web\NotFoundHttpException
      */
     public function actionView()

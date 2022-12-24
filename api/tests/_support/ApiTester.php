@@ -3,7 +3,7 @@
 namespace api\tests;
 
 use api\fixtures\UserFixture;
-use common\models\User;
+use api\models\User;
 
 /**
  * Here you can define custom actions
@@ -51,7 +51,7 @@ class ApiTester extends \Codeception\Actor
      * @param string|null $indexKey
      * @param string $name
      *
-     * @return \common\models\User
+     * @return \api\models\User
      */
     public function grabUser($indexKey = null, $name = 'users')
     {
@@ -64,7 +64,7 @@ class ApiTester extends \Codeception\Actor
      * @param string|null $indexKey
      * @param string $name
      *
-     * @return \common\models\Board
+     * @return \api\models\Board
      */
     public function grabBoard($indexKey = null, $name = 'boards')
     {
@@ -77,7 +77,7 @@ class ApiTester extends \Codeception\Actor
      * @param string|null $indexKey
      * @param string $name
      *
-     * @return \common\models\Category
+     * @return \api\models\Category
      */
     public function grabCategory($indexKey = null, $name = 'categories')
     {
@@ -90,7 +90,7 @@ class ApiTester extends \Codeception\Actor
      * @param string|null $indexKey
      * @param string $name
      *
-     * @return \common\models\Link
+     * @return \api\models\Link
      */
     public function grabLink($indexKey = null, $name = 'links')
     {
@@ -103,7 +103,7 @@ class ApiTester extends \Codeception\Actor
      * @param string|null $indexKey
      * @param string $name
      *
-     * @return \common\models\Domain
+     * @return \api\models\Domain
      */
     public function grabDomain($indexKey = null, $name = 'domains')
     {
@@ -116,7 +116,7 @@ class ApiTester extends \Codeception\Actor
      * @param string|null $indexKey
      * @param string $name
      *
-     * @return \common\models\SecureKey
+     * @return \api\models\SecureKey
      */
     public function grabSecureKey($indexKey = null, $name = 'secure_keys')
     {

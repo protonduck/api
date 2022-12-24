@@ -8,7 +8,7 @@ namespace api\modules\v1\controllers;
 use api\components\ModelApiController;
 use api\modules\v1\models\ApiLink;
 use api\helpers\UserHelper;
-use common\models\query\CategoryQuery;
+use api\models\query\CategoryQuery;
 
 /**
  * RESTFul controller for model

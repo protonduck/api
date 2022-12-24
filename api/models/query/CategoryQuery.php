@@ -1,13 +1,13 @@
 <?php
 
-namespace common\models\query;
+namespace api\models\query;
 
 /**
- * This is the ActiveQuery class for [[\common\models\Link]].
+ * This is the ActiveQuery class for [[\api\models\Category]].
  *
- * @see \common\models\Link
+ * @see \api\models\Category
  */
-class LinkQuery extends \yii\db\ActiveQuery
+class CategoryQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -26,7 +26,7 @@ class LinkQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\Link[]|array
+     * @return \api\models\Category[]|array
      */
     public function all($db = null)
     {
@@ -35,7 +35,7 @@ class LinkQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\Link|array|null
+     * @return \api\models\Category|array|null
      */
     public function one($db = null)
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace common\models;
+namespace api\models;
 
 use api\components\behaviors\TimestampBehavior;
 use api\enums\LinkTarget;
@@ -223,10 +223,10 @@ class Link extends \yii\db\ActiveRecord
 
     /**
      * {@inheritdoc}
-     * @return \common\models\query\LinkQuery the active query used by this AR class.
+     * @return \api\models\query\LinkQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new \common\models\query\LinkQuery(get_called_class());
+        return new \api\models\query\LinkQuery(get_called_class());
     }
 }

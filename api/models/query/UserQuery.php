@@ -1,13 +1,13 @@
 <?php
 
-namespace common\models\query;
+namespace api\models\query;
 
 use api\enums\UserStatus;
 
 /**
- * This is the ActiveQuery class for [[\common\models\User]].
+ * This is the ActiveQuery class for [[\api\models\User]].
  *
- * @see \common\models\User
+ * @see \api\models\User
  */
 class UserQuery extends \yii\db\ActiveQuery
 {
@@ -23,7 +23,7 @@ class UserQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\User[]|array
+     * @return \api\models\User[]|array
      */
     public function all($db = null)
     {
@@ -32,7 +32,7 @@ class UserQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \common\models\User|array|null
+     * @return \api\models\User|array|null
      */
     public function one($db = null)
     {

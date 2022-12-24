@@ -11,8 +11,8 @@ use Codeception\Util\HttpCode;
 use Codeception\Util\Shared\Asserts;
 use api\enums\Language;
 use api\fixtures\UserFixture;
-use common\models\SecureKey;
-use common\models\User;
+use api\models\SecureKey;
+use api\models\User;
 
 /**
  * User Controller test

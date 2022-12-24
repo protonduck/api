@@ -1,6 +1,6 @@
 <?php
 
-use common\models\SecureKey;
+use api\models\SecureKey;
 
 return [
     'confirm_email' => [

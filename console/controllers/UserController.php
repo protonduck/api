@@ -4,7 +4,7 @@ namespace console\controllers;
 
 use api\enums\UserRole;
 use api\enums\UserStatus;
-use common\models\User;
+use api\models\User;
 use console\traits\ConsoleOutput;
 use yii\console\Controller;
 use yii\validators\EmailValidator;

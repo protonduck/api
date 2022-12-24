@@ -1,6 +1,6 @@
 <?php
 
-namespace common\models;
+namespace api\models;
 
 use api\components\behaviors\TimestampBehavior;
 use api\enums\DomainSslStatus;
@@ -111,11 +111,11 @@ class Domain extends \yii\db\ActiveRecord
 
     /**
      * {@inheritdoc}
-     * @return \common\models\query\DomainQuery the active query used by this AR class.
+     * @return \api\models\query\DomainQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new \common\models\query\DomainQuery(get_called_class());
+        return new \api\models\query\DomainQuery(get_called_class());
     }
 
     /**

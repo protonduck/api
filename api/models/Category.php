@@ -1,6 +1,6 @@
 <?php
 
-namespace common\models;
+namespace api\models;
 
 use api\components\behaviors\TimestampBehavior;
 use api\helpers\FilterHelper;
@@ -189,10 +189,10 @@ class Category extends \yii\db\ActiveRecord
 
     /**
      * {@inheritdoc}
-     * @return \common\models\query\CategoryQuery the active query used by this AR class.
+     * @return \api\models\query\CategoryQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new \common\models\query\CategoryQuery(get_called_class());
+        return new \api\models\query\CategoryQuery(get_called_class());
     }
 }

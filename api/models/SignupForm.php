@@ -5,10 +5,10 @@ namespace api\models;
 use api\modules\v1\models\ApiUser;
 use api\enums\Language;
 use api\enums\UserStatus;
-use common\models\SecureKey;
+use api\models\SecureKey;
 use Yii;
 use yii\base\Model;
-use common\models\User;
+use api\models\User;
 
 /**
  * Signup form
