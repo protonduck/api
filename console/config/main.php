@@ -18,7 +18,7 @@ return [
     'controllerMap' => [
         'fixture' => [
             'class' => 'yii\console\controllers\FixtureController',
-            'namespace' => 'common\fixtures',
+            'namespace' => 'api\fixtures',
           ],
     ],
     'components' => [

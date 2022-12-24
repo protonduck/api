@@ -9,11 +9,11 @@ use api\tests\ApiTester;
 use Codeception\Util\HttpCode;
 use Codeception\Util\Shared\Asserts;
 use api\enums\LinkTarget;
-use common\fixtures\BoardFixture;
-use common\fixtures\CategoryFixture;
-use common\fixtures\DomainFixture;
-use common\fixtures\LinkFixture;
-use common\fixtures\UserFixture;
+use api\fixtures\BoardFixture;
+use api\fixtures\CategoryFixture;
+use api\fixtures\DomainFixture;
+use api\fixtures\LinkFixture;
+use api\fixtures\UserFixture;
 
 /**
  * Link Controller test

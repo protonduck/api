@@ -1,6 +1,6 @@
 <?php
 
-namespace common\fixtures;
+namespace api\fixtures;
 
 use common\models\Board;
 use yii\test\ActiveFixture;

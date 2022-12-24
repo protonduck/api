@@ -2,7 +2,7 @@
 
 namespace api\tests;
 
-use common\fixtures\UserFixture;
+use api\fixtures\UserFixture;
 use common\models\User;
 
 /**
